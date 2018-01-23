@@ -1,11 +1,11 @@
 {
-  "title": "Title Case Headline Goes Here",
-  "description": "Your dek goes here. It is probably one or two sentences that succinctly describe more explicitly what the story will be about.",
+  "title": "The Good, the Rad, and the Gnarley",
+  "description": "An exploration into the soundtrack of skateboarding.",
   "url": "https://pudding.cool/year/month/name/",
   "keywords": "tk",
   "img": "https://pudding.cool/year/month/name/",
   "author": {
-    "name": "Author Name",
+    "name": "Jared Wilber & Matt Daniels",
     "url": "https://twitter.com/puddingviz",
     "twitterHandle": "@puddingviz"
   }
