@@ -636,16 +636,4 @@ main {
   }
 }
 
-/*Rules I (Jared) manually added:*/
-.joy_body {
-    background: black;
-    font-size: 5px;
-    color: #f2f2f2;
-    /*padding: 10rem 1rem 0 1rem;*/
-    /*max-width: 75rem;*/
-    width: 1000px;
-    margin: 0 auto;
-}
-
-
 /*# sourceMappingURL=bundle.css.map */

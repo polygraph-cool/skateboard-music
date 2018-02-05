@@ -16,7 +16,7 @@ function init() {
 function floatingTooltip(tooltipId, width) {
   // Local variable to hold tooltip div for
   // manipulation in other functions.
-  var tt = d3v3.select('body')
+  var tt = d3v3.select('#vis')
     .append('div')
     .attr('class', 'tooltip')
     .attr('id', tooltipId)
