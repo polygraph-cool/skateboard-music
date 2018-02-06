@@ -5,7 +5,7 @@ function init() {
     
 
 
-var margin = { top: 100, right: 10, bottom: 100, left: 100 },
+var margin = { top: 100, right: 10, bottom: 100, left: 110 },
     width = 1000 - margin.left - margin.right,
     height = 1200 - margin.top - margin.bottom;
 
@@ -28,7 +28,8 @@ var x = function(d) { return d.time; };
 // xScale
 var xScale = d3.scaleTime().range([0, width]);
 var xValue = function(d) { return xScale(x(d)); };
-var xAxis = d3.axisBottom(xScale).tickFormat(formatTime).ticks(10);
+var xAxis = d3.axisBottom(xScale)
+            .tickFormat(formatTime).ticks(10);
 
 // y
 var y = function(d) { return d.value; };
@@ -123,6 +124,25 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
                     return 'translate(0,' + ty + ')';
                 });
 
+    // Remove years in x-axis for which no data actually exists
+    d3.selectAll(".tick text")
+        .each( function(d, i) {
+            if (i == 0 | i == 1 | i == 8 | i == 9) {
+                d3.select(this)
+                    .attr('visibility', 'hidden');
+            } 
+        });
+    d3.selectAll('.tick')
+        .each( function(d, i) {
+            if (i == 0 | i == 1 | i == 8 | i == 9) {
+                d3.select(this)
+                    .attr('visibility', 'hidden');
+            } 
+        });
+
+    // console.log('x-axis stuf');
+    // console.log(ticks);
+
     gActivity.append('path')
         .attr('class', 'area')
         .datum(function(d) { return d.values; })
@@ -141,6 +161,8 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
         .datum(function(d) { return d.values; })
         .attr('d', line)
         .style('opacity', 1);
+
+
 });
 
 }
