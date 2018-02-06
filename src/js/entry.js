@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce';
 import isMobile from './utils/is-mobile';
 import graphic from './graphic';
 import joyplot from './joyplot';
-import new_test from './new_test';
+import bubbles from './bubbles';
 
 const bodySel = d3.select('body');
 let previousWidth = 0;
@@ -28,7 +28,7 @@ function init() {
 	joyplot.init();
 
 	//new_test enter
-	new_test.init()
+	bubbles.init()
 }
 
 init();
