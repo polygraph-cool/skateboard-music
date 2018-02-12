@@ -581,17 +581,94 @@ header a.logo svg {
 .joy_body {
   background: #000;
   font-size: 5px;
-  font-color: #fff;
+  color: #fff;
+  width: 100%;
+  max-height: 1500px;
+  padding: 0rem 1rem 0 1rem;
 }
 
 p.joy_text {
-  font-color: #fff;
+  color: #fff;
 }
 
-main {
+.body_text {
   padding: 10rem 1rem 0 1rem;
   max-width: 55rem;
   margin: 0 auto;
+  font-size: 17px;
+}
+
+.button {
+  font-family: Gill Sans;
+  font-family: arial;
+  font-weight: bold;
+  background-color: #e7e7e7;
+  padding: 10px 15px;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+
+.button:hover {
+  background-color: #ff7f50;
+  color: #fff;
+}
+
+.title {
+  font-family: Gill Sans;
+  font-size: 35px;
+  font-weight: bold;
+  color: #000;
+}
+
+#vis {
+  padding-left: 8%;
+}
+
+#toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#genre,#use,.SearchBar {
+  min-width: 0;
+}
+
+#genre {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 150px;
+  flex: 0 150px;
+}
+
+#use {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 150px;
+  flex: 0 150px;
+  padding-left: 10px;
+}
+
+.SearchBar {
+  font-size: 19px;
+  font-family: Gill Sans;
+  font-family: arial;
+  padding-top: 7px;
+  font-weight: bold;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 100px;
+  flex: 0 100px;
+  padding-left: 250px;
+}
+
+#search {
+  text-align: left;
+  padding-left: 5px;
+  padding-bottom: 2px;
+}
+
+.tooltipimage {
+  width: 60px;
+  height: 60px;
 }
 
 .prose {
@@ -634,14 +711,6 @@ main {
     font-size: 64px;
     line-height: 1.2;
   }
-}
-
-/* Jared's manually added css */
-.joy_body {
-  color: white;
-  padding: 10rem 1rem 0 1rem;
-  width: 1200px;
-  margin: 0 auto;
 }
 
 /*# sourceMappingURL=bundle.css.map */
