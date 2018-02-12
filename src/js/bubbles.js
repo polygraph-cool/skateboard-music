@@ -7,12 +7,6 @@ function init() {
 
 
 
-/*
- * Creates tooltip with provided id that
- * floats on top of visualization.
- * Most styling is expected to come from CSS
- * so check out bubble_chart.css for more details.
- */
 function floatingTooltip(tooltipId, width) {
   // Local variable to hold tooltip div for
   // manipulation in other functions.
@@ -30,13 +24,6 @@ function floatingTooltip(tooltipId, width) {
   // Initially it is hidden.
   hideTooltip();
 
-  /*
-   * Display tooltip with provided content.
-   *
-   * content is expected to be HTML string.
-   *
-   * event is d3v3.event for positioning.
-   */
   function showTooltip(content, event) {
     tt.style('opacity', 1.0)
       .html(content);
@@ -111,12 +98,12 @@ function bubbleChart() {
   var selbubbles = [];
 
   var useCenters = {
-    'lowest': {x: 200 + 30, y:height /2},
-    'low': { x: 285 + 30, y: height / 2 },
-    'medium-lower': { x: 375 + 30, y: height / 2 },
-    'medium-low': { x: 530 + 30, y: height / 2 },
-    'medium': { x: 595 + 30, y: height / 2 },
-    'high': { x: 660 + 30, y: height / 2 }
+    'lowest': {x: width / 3.8  , y:height /2},
+    'low': { x: width / 3 , y: height / 2 },
+    'medium-lower': { x: width / 2.4 , y: height / 2 },
+    'medium-low': { x: width / 1.8 , y: height / 2 },
+    'medium': { x: width / 1.4 , y: height / 2 },
+    'high': { x: width / 1.4 , y: height / 2 }
   };
 
   var useTitleX = {
@@ -128,15 +115,15 @@ function bubbleChart() {
   };
 
   var genreCenters = {
-    'Classic Rock': { x: width/7 + 80 + 30, y: height / 2 - 50},
-    'Indie/Alternative': { x: width/7 + 80 + 30, y: 450 },
-    'Hip Hop': { x: width/7*2.8 - 60 + 30, y: height / 2 - 50},
-    'Electronic': { x: width/7*2.8 - 60 + 30, y: 450 },
-    'Punk': { x: width/7*4 - 30, y: height / 2 - 50},
-    'Metal': { x: width/7*4 - 90 + 30, y: 450 },
-    'Other': { x: width/7*5 - 75 + 30, y: height / 2 - 75},
-    'Jazz/Soul': { x: width/7*5 - 75 + 30, y: 450},
-    'Rock': { x: width/7*5 - 75 + 50, y: height / 2 - 75}
+    'Classic Rock': { x: width/7 + 80 + 30, y: height / 3.2},
+    'Indie/Alternative': { x: width/7 + 80 + 30, y: height / 1.7 },
+    'Hip Hop': { x: width/7*2.8 - 60 + 30, y: height / 3.2},
+    'Electronic': { x: width/7*2.8 - 60 + 30, y: height / 1.8},
+    'Punk': { x: width/7*4 - 30, y: height / 3.2},
+    'Metal': { x: width/7*4 - 90 + 30, y: height / 1.75},
+    'Other': { x: width/7*5 - 75 + 30, y: height / 3.2},
+    'Jazz/Soul': { x: width/7*5 - 75 + 30, y: height / 1.68},
+    'Rock': { x: width/7*5 - 75 + 30, y: height / 3.2}
   };
 
   var genreTitleX = {
@@ -176,6 +163,7 @@ function bubbleChart() {
 
   var label_array = [];
   var anchor_array = [];
+  var text = [];
 
   // Function to repel nodes
   function charge(d) {
@@ -193,12 +181,12 @@ function bubbleChart() {
   // Scale for node colors
   var bubbleColor = d3v3.scale.ordinal()
     .domain(['Classic Rock', 'Punk', 'Indie/Alternative', 'Metal', 'Hip Hop', 'Electronic', 'Jazz/Soul', 'Rock'])
-    .range(['#fbb4ae', '#fddaec', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc','#b3cde3', 'red', '#f2f2f2']);
+    .range(['#fbb4ae', '#fddaec', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc','#b3cde3', '#f2f2f2', '#f2f2f2']);
 
   // Scale for node sizes
   var radiusScale = d3v3.scale.pow()
-    .exponent(1.8)  // exponent makes the graph 'tighter'
-    .range([8, 62]);
+    .exponent(1.9)  
+    .range([9, 9]); //8 62
 
   
    // Functiont to convert csv data to array of node objects
@@ -244,6 +232,17 @@ function bubbleChart() {
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom);
 
+    svg.append('line')
+      .attr('class', 'linetest')
+      .attr("x1", width / 6)
+      .attr("y1", height / 6.3)
+      .attr("x2", width / 1.2)
+      .attr("y2", height / 6.3)
+      .attr("stroke", "#000")
+      .attr("stroke-width", 8)
+      .style('opacity', .5)
+      .attr('visibility', 'hidden');
+
     // Bind nodes data to what will become DOM elements to represent them.
     bubbles= svg.selectAll('bubble')
       .data(nodes, function (d) { return d.id; })
@@ -260,13 +259,13 @@ function bubbleChart() {
 
      console.log(nodes);
 
-    var text = svg.selectAll("text.bubble-label")    
+    text = svg.selectAll("text.bubble-label")    
      .data(nodes, function (d) { return d.id; })
         .enter()
         .append("text")
         .attr("class", "bubble-label")
         .text(function(d) {
-          if (d.value < 15) {
+          if (d.value < 17) {
             return "";
           } else {
             return d.name;
@@ -293,7 +292,7 @@ function bubbleChart() {
       .attr("class", "SearchBar")
       .attr("id", "search")
       .attr("type", "text")
-      .attr("placeholder", "Search...");
+      .attr("placeholder", "Find an artist...");
 
   d3v3.select("#search")
       .on("keyup", function(event) { 
@@ -359,11 +358,11 @@ function bubbleChart() {
         .attr('cy', function (d) {return d.y; });
       
 
-      // text.attr("transform", function(d){ 
+      text.attr("transform", function(d){ 
 
       //   label_array.push({x: d.x, y: d.y, name: d.name, width: 0.0, height: 0.0});
       //   anchor_array.push({x: d.x+.1, y: d.y+5, r: d.radius});
-      //   return "translate("+(d.x - 10)+","+d.y+")"; });
+        return "translate("+(d.x - 10)+","+d.y+")"; });
 
     });
 
@@ -386,11 +385,11 @@ function bubbleChart() {
         .attr('cy', function (d) {return d.y; });
       
 
-    // text.attr("transform", function(d){ 
+    text.attr("transform", function(d){ 
 
     //   label_array.push({x: d.x, y: d.y, name: d.name, width: 0.0, height: 0.0});
     //   anchor_array.push({x: d.x, y: d.y, r: d.radius});
-    //   return "translate("+(d.x - 10) +","+d.y+")"; });
+      return "translate("+(d.x - 10) +","+d.y+")"; });
 
     });
 
@@ -404,6 +403,7 @@ function bubbleChart() {
   };
 
 
+  // Stuff for popularity
   function moveToUse(alpha) {
     return function (d) {
       var target = useCenters[d.group];
@@ -412,22 +412,17 @@ function bubbleChart() {
     };
   };
 
-  /*
-   * Hides Year title displays.
-   */
+  
   function hideUse() {
     svg.selectAll('.title').remove();
   };
 
-  /*
-   * Shows Year title displays.
-   */
   function showUse() {
-    // Another way to do this would be to create
-    // the year texts once and then just hide them.
+
     var useData = d3v3.keys(useTitleX);
     var use = svg.selectAll('.group')
       .data(useData);
+    
 
     use.enter().append('text')
       .attr('class', 'title')
@@ -437,7 +432,7 @@ function bubbleChart() {
       .text(function (d) { return d; });
   }
 
-
+  // Stuff for genre
   function moveToGenre(alpha) {
     return function (d) {
       var target = genreCenters[d.genre];
@@ -451,6 +446,11 @@ function bubbleChart() {
    */
   function hideGenre() {
     svg.selectAll('.title').remove();
+    svg.selectAll('.bubble-label')
+        .attr('visibility', 'hidden');
+    // show popularity axis
+    d3.select('.linetest')
+        .attr('visibility', 'visible');
   }
 
   /*
@@ -463,12 +463,19 @@ function bubbleChart() {
     var genre = svg.selectAll('.genre')
       .data(genreData);
 
+
     genre.enter().append('text')
       .attr('class', 'title')
       .attr('x', function (d) { return genreTitleX[d]; })
       .attr('y', function (d) { return genreTitleY[d]; })
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
+
+    svg.selectAll('.bubble-label')
+        .attr('visibility', 'visible');
+    // hide popularity axis
+    d3.select('.linetest')
+        .attr('visibility', 'hidden');
   }
 
 
@@ -483,7 +490,7 @@ function bubbleChart() {
                     .style('opacity', .75)
                     .attr('r', function (d) { return d.radius + 5; });
 
-    var content = '<div class="ttimg"><img class="tooltipimage" src=' + d.art + 'width="60" height="60"></div>' +
+    var content = '<div class="ttimg"><img class="tooltipimage" src=' + d.art + '></div>' +
                   '<div class="tttext"><span class="name">Artist: </span><span class="value">' +
                   d.name +
                   '</span><br/>' +
@@ -577,7 +584,7 @@ function setupButtons() {
 
 
 // Load the data.
-d3v3.csv('assets/new_small3.csv', display);
+d3v3.csv('assets/bubble_1.csv', display);
 
 // setup the buttons.
 setupButtons();
