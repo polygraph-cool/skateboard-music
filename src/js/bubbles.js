@@ -98,12 +98,12 @@ function bubbleChart() {
   var selbubbles = [];
 
   var useCenters = {
-    'lowest': {x: width / 3.8  , y:height /2},
-    'low': { x: width / 3 , y: height / 2 },
-    'medium-lower': { x: width / 2.4 , y: height / 2 },
-    'medium-low': { x: width / 1.8 , y: height / 2 },
-    'medium': { x: width / 1.4 , y: height / 2 },
-    'high': { x: width / 1.4 , y: height / 2 }
+    'lowest': {x: width / 3.8  , y:height / 2.2},
+    'low': { x: width / 3 , y: height / 2.2 },
+    'medium-lower': { x: width / 2.4 , y: height / 2.2 },
+    'medium-low': { x: width / 1.8 , y: height / 2.2 },
+    'medium': { x: width / 1.4 , y: height / 2.2 },
+    'high': { x: width / 1.4 , y: height / 2.2 }
   };
 
   var useTitleX = {
@@ -116,7 +116,7 @@ function bubbleChart() {
 
   var genreCenters = {
     'Classic Rock': { x: width/7 + 80 + 30, y: height / 3.2},
-    'Indie/Alternative': { x: width/7 + 80 + 30, y: height / 1.7 },
+    'Indie/Alternative': { x: width/7 + 80 + 40, y: height / 1.7 },
     'Hip Hop': { x: width/7*2.8 - 60 + 30, y: height / 3.2},
     'Electronic': { x: width/7*2.8 - 60 + 30, y: height / 1.8},
     'Punk': { x: width/7*4 - 30, y: height / 3.2},
@@ -186,7 +186,7 @@ function bubbleChart() {
   // Scale for node sizes
   var radiusScale = d3v3.scale.pow()
     .exponent(1.9)  
-    .range([9, 9]); //8 62
+    .range([10.5, 10.5]); //8 62
 
   
    // Functiont to convert csv data to array of node objects
@@ -232,16 +232,41 @@ function bubbleChart() {
       .attr('width', width + margin.right + margin.left)
       .attr('height', height + margin.top + margin.bottom);
 
+    // bubble plot axis stuff
     svg.append('line')
-      .attr('class', 'linetest')
-      .attr("x1", width / 6)
-      .attr("y1", height / 6.3)
-      .attr("x2", width / 1.2)
-      .attr("y2", height / 6.3)
+      .attr('class', 'bubble-axis')
+      .attr("x1", width / 7)
+      .attr("y1", height / 11)
+      .attr("x2", width / 7)
+      .attr("y2", height / 11)
       .attr("stroke", "#000")
-      .attr("stroke-width", 8)
+      .attr("stroke-width", 4)
+      // .attr("marker-end", "url(#arrow)")
       .style('opacity', .5)
       .attr('visibility', 'hidden');
+
+
+    svg.append('text')
+      .attr('class', 'bubble-axis-text')
+      .attr('x', width / 6.5)
+      .attr('y', height / 11.85)
+      .text('Less Popular')
+      .style('font-weight', 'bold')
+      .style('font-size', 25)
+      .style('opacity', 0);
+      // .attr('visibility', 'hidden');
+
+
+    svg.append('text')
+      .attr('class', 'bubble-axis-text')
+      .attr('x', width / 1.45)
+      .attr('y', height / 11.85)
+      .text('More Popular')
+      .style('font-weight', 'bold')
+      .style('font-size', 25)
+      .style('opacity', 0);
+      // .attr('visibility', 'hidden');
+
 
     // Bind nodes data to what will become DOM elements to represent them.
     bubbles= svg.selectAll('bubble')
@@ -276,7 +301,7 @@ function bubbleChart() {
 
     // Transition to fill bubblenodes
     bubbles.transition()
-      .duration(4000)
+      .duration(2500)
       .attr('r', function (d) {return d.radius; });
 
     // Set initial layout to genre group.
@@ -448,9 +473,21 @@ function bubbleChart() {
     svg.selectAll('.title').remove();
     svg.selectAll('.bubble-label')
         .attr('visibility', 'hidden');
+
+    d3.selectAll('.bubble-axis-text')
+        // .attr('visibility', 'hidden')
+        .transition()
+        .duration(3600)
+        .style('opacity', .5);
     // show popularity axis
-    d3.select('.linetest')
-        .attr('visibility', 'visible');
+    d3.select('.bubble-axis')
+        .attr('visibility', 'visible')
+        .transition()
+        .duration(3000)
+        .attr("x2", width / 1.15)
+        .attr("y2", height / 11)
+        // .attr("marker-end", "url(#arrow)")
+        .style('opacity', .5);
   }
 
   /*
@@ -474,8 +511,14 @@ function bubbleChart() {
     svg.selectAll('.bubble-label')
         .attr('visibility', 'visible');
     // hide popularity axis
-    d3.select('.linetest')
-        .attr('visibility', 'hidden');
+    d3.select('.bubble-axis')
+        .attr("x2", width / 7)
+        .attr("y2", height / 11)
+        .attr('visibility', 'hidden')
+        ;
+
+    d3.selectAll('.bubble-axis-text')
+        .style('opacity', 0);
   }
 
 
