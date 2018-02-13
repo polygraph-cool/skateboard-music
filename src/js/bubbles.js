@@ -249,22 +249,22 @@ function bubbleChart() {
     svg.append('text')
       .attr('class', 'bubble-axis-text')
       .attr('x', width / 6.5)
-      .attr('y', height / 11.85)
-      .text('Less Popular')
+      .attr('y', height / 12)
+      .text('Artists Grouped By Popularity')
       .style('font-weight', 'bold')
-      .style('font-size', 25)
+      .style('font-size', 30)
       .style('opacity', 0);
       // .attr('visibility', 'hidden');
 
 
-    svg.append('text')
-      .attr('class', 'bubble-axis-text')
-      .attr('x', width / 1.45)
-      .attr('y', height / 11.85)
-      .text('More Popular')
-      .style('font-weight', 'bold')
-      .style('font-size', 25)
-      .style('opacity', 0);
+    // svg.append('text')
+    //   .attr('class', 'bubble-axis-text')
+    //   .attr('x', width / 1.45)
+    //   .attr('y', height / 11.85)
+    //   .text('More Popular')
+    //   .style('font-weight', 'bold')
+    //   .style('font-size', 25)
+    //   .style('opacity', 0);
       // .attr('visibility', 'hidden');
 
 
@@ -484,7 +484,7 @@ function bubbleChart() {
         .attr('visibility', 'visible')
         .transition()
         .duration(3000)
-        .attr("x2", width / 1.15)
+        .attr("x2", width / 2)
         .attr("y2", height / 11)
         // .attr("marker-end", "url(#arrow)")
         .style('opacity', .5);
