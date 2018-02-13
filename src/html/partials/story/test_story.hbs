@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Scrollama Demo: Fixed CSS</title>
+	<meta name="description" content="Scrollama Demo: Fixed CSS">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		/* default / demo page */
+		* {
+			box-sizing: border-box;
+		}
+		
+		/* demo */
+		#intro {
+			margin-bottom: 320px;
+		}
+		#outro {
+			height: 640px;
+		}
+		/* scrollama */
+		#scroll {
+			position: relative;
+			border-top: 1px dashed #000;
+			border-bottom: 1px dashed #000;
+		}
+		.scroll__graphic {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: auto;
+			background-color: #fff;
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+		}
+		.scroll__graphic.is-fixed {
+			position: fixed;
+		}
+		.scroll__graphic.is-bottom {
+			bottom: 0;
+			top: auto;
+		}
+		.chart {
+			position: absolute;
+			right: 1rem;
+			top: 50%;
+			-moz-transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+			background: black;
+			border: 1px solid #000;
+		}
+	/*	.chart p {
+			text-align: center;
+			padding: 1rem;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			-moz-transform: translate(-50%, -50%);
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			font-size: 8rem;
+			font-weight: 900;
+			color: #666;
+		}*/
+		.scroll__text {
+			position: relative;
+			padding: 0 1rem;
+			max-width: 30rem;
+			width: 33%;
+		}
+		.step {
+			margin: 2rem auto;
+			border: 1px solid #333;
+		}
+		.step.is-active {
+			background-color: coral;
+		}
+
+		.step.is-active p {
+			font-size: 25px;
+			font-weight: bold;
+		}
+
+		.step p {
+			text-align: center;
+			padding: 1rem;
+			font-size: 12px;
+		}
+
+
+.axis .domain {
+    display: none;
+}
+
+.axis--x text {
+    fill: #999;
+}
+
+.axis--x line {
+    stroke: #aaa;
+}
+
+.axis--activity .tick line {
+    display: none;
+}
+
+.axis--activity text {
+    font-size: 14px;
+    fill: #777;
+    fill: white;
+}
+
+.axis--activity .tick:nth-child(odd) text {
+    fill: #222;
+    fill: white;
+}
+
+.line {
+    fill: none;
+    stroke: #fff;
+}
+
+.area {
+    /*fill: #448cab;*/
+    fill: coral;
+    fill: black;
+    opacity: 0.99;
+}
+
+.activity:nth-child(odd) .area {
+    fill: #5ca3c1;
+    fill: black;
+
+}
+
+.joy_body {
+    background: black;
+    font-size: 5px;
+    color: white;
+    width: 100%;
+    max-height: 1500px;
+    padding: 0rem 1rem 0 1rem;
+}
+
+p.joy_text {
+    color: white;
+}
+
+	</style>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js'></script>
+
+</head>
+
+<body>
+	<section id='intro'>
+		<h1 class='intro__hed'>Scroll time</h1>
+		<p class='intro__dek'>
+			Motherfuckers.
+		</p>
+	</section>
+	<section id='scroll'>
+		<div class='scroll__graphic'>
+			<div class='chart'>
+				<!-- <p>0</p> -->
+				<div class="joyplot"></div>
+				<script>
+					
+				</script>
+				
+
+			</div>
+		</div>
+		<div class='scroll__text'>
+			<div class='step' data-step='1'>
+				<p>Skateboarding videos essentially became a thing in the late 80’s.  Given the mutual influences and cultural crossover between punk and skateboarding, the high use of punk rock in the earliest videos is hardly surprising. </p>
+			</div>
+			<div class='step' data-step='2'>
+				<p>Progressing into the 90’s, mainstream skateboarding  transformed: vert skating died, technical street skating took over, and skateboarding entered into the so-called ‘big pants, small wheels’ era.  Hip Hop booms in popularity, and fills the gap of influence left by the decline of Punk music.</p>
+			</div>
+			<div class='step' data-step='3'>
+				<p>The 2000’s: skateboarding once again sees a transformation. Techincal skating is replaced with stairs, gaps, and rails, and baggy pants are replaced tight pants.  Indie music and Classic Rock replace Hip Hop in popularity. This is also the era in which skateboarding became  </p>
+			</div>
+			<div class='step' data-step='4'>
+				<p> Unlike decades past, the current era of skateboarding sees no single defining aesthetic, and almost all styles have a niche. Appropriately, Indie music (which can fit any number of styles) is the most popular genre, with all genres seeing non-trivial employment.  </p>
+			</div>
+		</div>
+	</section>
+	<section id='outro'></section>
+	<div class='debug'></div>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/scrollama/1.3.0/scrollama.js'></script>
+	<script>
+		var container = d3.select('#scroll');
+		var graphic = container.select('.scroll__graphic');
+		var chart = graphic.select('.chart');
+		var text = container.select('.scroll__text');
+		var step = text.selectAll('.step');
+		var colors = ['coral', 'green', 'blue', 'red'];
+
+		var scroller = scrollama();
+
+		// generic window resize listener event
+		function handleResize() {
+			// 1. update height of step elements
+			var stepHeight = Math.floor(window.innerHeight * 0.75);
+			step.style('height', stepHeight + 'px');
+			// 2. update width/height of graphic element
+			var bodyWidth = d3.select('body').node().offsetWidth;
+			graphic
+				.style('width', bodyWidth + 'px')
+			.style('height', window.innerHeight + 'px');
+			var chartMargin = 32;
+			var textWidth = text.node().offsetWidth;
+			var chartWidth = graphic.node().offsetWidth - textWidth - chartMargin;
+			chart
+				.style('width', chartWidth + 'px')
+				.style('height', Math.floor(window.innerHeight / 2) + 'px');
+			// 3. tell scrollama to update new element dimensions
+			scroller.resize();
+		}
+
+		// scrollama event handlers
+		function handleStepEnter(response) {
+			// add color to current step only
+			step.classed('is-active', function (d, i) {
+				return i === response.index;
+			})
+			// update graphic based on step
+			// chart.select('p').text("Image: " + (response.index + 1))
+			chart.select('circle').attr('fill', function(d, i) { return colors[response.index];});
+		}
+		function handleContainerEnter(response) {
+			// response = { direction }
+			// sticky the graphic (old school)
+			graphic.classed('is-fixed', true);
+			graphic.classed('is-bottom', false);
+		}
+		function handleContainerExit(response) {
+			// response = { direction }
+			// un-sticky the graphic, and pin to top/bottom of container
+			graphic.classed('is-fixed', false);
+			graphic.classed('is-bottom', response.direction === 'down');
+		}
+
+		function init() {
+			// 1. force a resize on load to ensure proper dimensions are sent to scrollama
+			handleResize();
+			// 2. setup the scroller passing options
+			// this will also initialize trigger observations
+			// 3. bind scrollama event handlers (this can be chained like below)
+			scroller.setup({
+				container: '#scroll',
+				graphic: '.scroll__graphic',
+				text: '.scroll__text',
+				step: '.scroll__text .step',
+				debug: false,
+			})
+				.onStepEnter(handleStepEnter)
+				.onContainerEnter(handleContainerEnter)
+				.onContainerExit(handleContainerExit);
+			// setup resize event
+			window.addEventListener('resize', handleResize);
+		}
+		// kick things off
+		init();
+	</script>
+</body>
+
+</html>
