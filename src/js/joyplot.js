@@ -9,7 +9,7 @@ var margin = { top: 100, right: 10, bottom: 100, left: 110 },
     width = 1000 - margin.left - margin.right,
     height = 1200 - margin.top - margin.bottom;
 
-var svg = d3.select('.joyplot').append('svg')
+var svg = d3.selectAll('.joyplot').append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
