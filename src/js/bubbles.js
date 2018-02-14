@@ -8,12 +8,6 @@ console.log('found bub.js');
 
 
 
- /*
- * Creates tooltip with provided id that
- * floats on top of visualization.
- * Most styling is expected to come from CSS
- * so check out bubble_chart.css for more details.
- */
 function floatingTooltip(tooltipId, width) {
   // Local variable to hold tooltip div for
   // manipulation in other functions.
@@ -177,24 +171,10 @@ function bubbleChart() {
 
   var text = [];
 
-  // Charge function that is called for each node.
-  // Charge is proportional to the diameter of the
-  // circle (which is stored in the radius attribute
-  // of the circle's associated data.
-  // This is done to allow for accurate collision
-  // detection with nodes of different sizes.
-  // Charge is negative because we want nodes to repel.
-  // Dividing by 8 scales down the charge to be
-  // appropriate for the visualization dimensions.
   function charge(d) {
     return -Math.pow(d.radius, 2.0) / 8;
   }
 
-  // Here we create a force layout and
-  // configure it to use the charge function
-  // from above. This also sets some contants
-  // to specify how the force layout should behave.
-  // More configuration is done below.
   var force = d3v3.layout.force()
     .size([width, height])
     .charge(charge)
