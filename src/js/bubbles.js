@@ -1,16 +1,23 @@
-// D3 is included by globally by default
-
 function resize() {}
 
 function init() {
-	console.log('newtest.js found!');
+/* bubbleChart creation function. 
+ *
+ */
+console.log('found bub.js');
 
 
 
+ /*
+ * Creates tooltip with provided id that
+ * floats on top of visualization.
+ * Most styling is expected to come from CSS
+ * so check out bubble_chart.css for more details.
+ */
 function floatingTooltip(tooltipId, width) {
   // Local variable to hold tooltip div for
   // manipulation in other functions.
-  var tt = d3v3.select('#vis')
+  var tt = d3v3.select('body')
     .append('div')
     .attr('class', 'tooltip')
     .attr('id', tooltipId)
@@ -24,6 +31,13 @@ function floatingTooltip(tooltipId, width) {
   // Initially it is hidden.
   hideTooltip();
 
+  /*
+   * Display tooltip with provided content.
+   *
+   * content is expected to be HTML string.
+   *
+   * event is d3v3.event for positioning.
+   */
   function showTooltip(content, event) {
     tt.style('opacity', 1.0)
       .html(content);
@@ -40,7 +54,7 @@ function floatingTooltip(tooltipId, width) {
 
   /*
    * Figure out where to place the tooltip
-   * based on d3 mouse event.
+   * based on d3v3 mouse event.
    */
   function updatePosition(event) {
     var xOffset = 20;
@@ -80,38 +94,38 @@ function floatingTooltip(tooltipId, width) {
 
 
 
+/* bubbleChart creation function. 
+ *
+ */
 function bubbleChart() {
-
-  // var searchBar = d3v3.select('body').append("div").attr("class", "SearchBar");
+  // Constants for sizing
   var searchBar = d3v3.select('.SearchBar');
 
-  var margin = {top: 20, bottom: 20, left: 20, right: 20};
-  var width = 1400 - margin.left - margin.right;
+  var margin = {top: 20, bottom: 20, left: 10, right: 20};
+  var width = 1500 - margin.right;
   var height = 1000 - margin.top - margin.bottom;
 
   // tooltip for mouseover functionality
   var tooltip = floatingTooltip('bubble_tooltip', 240);
 
-  // DEFINE CENTERS FOR TOGGLE OPTIONS
+  // Locations to move bubbles towards, depending
+  // on which view mode is selected.
   var center = { x: width / 2, y: height / 2 };
 
   var selbubbles = [];
 
+
   var useCenters = {
-    'lowest': {x: width / 3.8  , y:height / 2.2},
-    'low': { x: width / 3 , y: height / 2.2 },
-    'medium-lower': { x: width / 2.4 , y: height / 2.2 },
-    'medium-low': { x: width / 1.8 , y: height / 2.2 },
-    'medium': { x: width / 1.4 , y: height / 2.2 },
-    'high': { x: width / 1.4 , y: height / 2.2 }
+    'low': { x: width / 4, y: height / 2 },
+    'medium': { x: width / 2.3, y: height / 2 },
+    'high': { x: width / 1.5, y: height / 2 }
   };
 
+  // X locations of the year titles.
   var useTitleX = {
-    '': 200 + 30,
-    '': 375 + 30,
-    '': 560 + 30,
-    '': 600 + 30,
-    '': 780 + 30
+    'Low': width / 6,
+    'Medium': width / 2.3,
+    'High': width / 1.35
   };
 
   var genreCenters = {
@@ -126,6 +140,7 @@ function bubbleChart() {
     'Rock': { x: width/7*5 - 75 + 30, y: height / 3.2}
   };
 
+  // X locations of the year titles.
   var genreTitleX = {
     'Classic Rock': width/7 - 30 + 30,
     'Indie/Alternative': width/7 - 30 + 30,
@@ -134,11 +149,11 @@ function bubbleChart() {
     'Punk': width/7*4 + 10,
     'Metal': width/7 * 4 + 10,
     'Other': width/7 * 5.1 + 50,
-    'Jazz/Soul': width/7 * 5.1 + 50,
-    // 'Rock': width/7 * 5.1 + 70,
+    'Jazz/Soul': width/7 * 5.1 + 50
 
   };
 
+  // Y locations of the year titles.
   var genreTitleY = {
     'Classic Rock': 55,
     'Indie/Alternative': 430,
@@ -148,7 +163,6 @@ function bubbleChart() {
     'Metal': 430,
     'Other': 55,
     'Jazz/Soul': 430,
-    // 'Rock': 55
 
   };
 
@@ -161,64 +175,101 @@ function bubbleChart() {
   var bubbles = null;
   var nodes = [];
 
-  var label_array = [];
-  var anchor_array = [];
   var text = [];
 
-  // Function to repel nodes
+  // Charge function that is called for each node.
+  // Charge is proportional to the diameter of the
+  // circle (which is stored in the radius attribute
+  // of the circle's associated data.
+  // This is done to allow for accurate collision
+  // detection with nodes of different sizes.
+  // Charge is negative because we want nodes to repel.
+  // Dividing by 8 scales down the charge to be
+  // appropriate for the visualization dimensions.
   function charge(d) {
-    return -Math.pow(d.radius, 2) / 8;
+    return -Math.pow(d.radius, 2.0) / 8;
   }
 
-  // Initialize and configure force layout
-  console.log(d3v3.version);
+  // Here we create a force layout and
+  // configure it to use the charge function
+  // from above. This also sets some contants
+  // to specify how the force layout should behave.
+  // More configuration is done below.
   var force = d3v3.layout.force()
     .size([width, height])
     .charge(charge)
     .gravity(-0.01)
     .friction(0.9);
 
-  // Scale for node colors
-  var bubbleColor = d3v3.scale.ordinal()
-    .domain(['Classic Rock', 'Punk', 'Indie/Alternative', 'Metal', 'Hip Hop', 'Electronic', 'Jazz/Soul', 'Rock'])
-    .range(['#fbb4ae', '#fddaec', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc','#b3cde3', '#f2f2f2', '#f2f2f2']);
+    var fillColor2 = d3v3.scale.ordinal()
+    .domain(['Classic Rock', 'Punk', 'Indie/Alternative', 'Metal', 'Hip Hop', 'Electronic', 'Jazz/Soul'])
+    .range(['#fbb4ae', '#fddaec', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc','#b3cde3', '#f2f2f2']);
 
-  // Scale for node sizes
+  // Nice looking colors - no reason to buck the trend
+  var fillColor = d3v3.scale.ordinal()
+    .domain(['low', 'medium', 'high'])
+    .range(['red', 'red', '#b2e2e2']);
+
+  // Sizes bubbles based on their area instead of raw radius
   var radiusScale = d3v3.scale.pow()
-    .exponent(1.9)  
-    .range([10.5, 10.5]); //8 62
+    .exponent(1.8)  // exponent makes the graph 'tighter'
+    .range([9, 70]);
 
-  
-   // Functiont to convert csv data to array of node objects
+  /*
+   * This data manipulation function takes the raw data from
+   * the CSV file and converts it into an array of node objects.
+   * Each node will store data and visualization values to visualize
+   * a bubble.
+   *
+   * rawData is expected to be an array of data objects, read in from
+   * one of d3v3's loading functions like d3v3.csv.
+   *
+   * This function returns the new node array, with a node in that
+   * array for each element in the rawData input.
+   */
   function createNodes(rawData) {
-
+    // Use map() to convert raw data into node data.
+    // Checkout http://learnjsdata.com/ for more on
+    // working with data.
     var myNodes = rawData.map(function (d) {
       return {
         id: d.id,
-        radius: radiusScale(+d.artist_total),
-        value: d.artist_total,
+        radius: radiusScale(+d.tote),
+        value: d.tote,
         name: d.artist,
+        org: d.organization,
         group: d.group,
         genre: d.genre,
-        art: d.album_art_url,
+        year: d.year,
         x: Math.random() * 900,
         y: Math.random() * 800
       };
     });
 
-    // sort nodes prevent occlusion of smaller nodes.
+    // sort them to prevent occlusion of smaller nodes.
     myNodes.sort(function (a, b) { return b.value - a.value; });
 
     return myNodes;
   }
 
-   // Function to prepare the rawData for visualization and add an svg element
-   // to the provided selector and starts the visualization creation process.
+  /*
+   * Main entry point to the bubble chart. This function is returned
+   * by the parent closure. It prepares the rawData for visualization
+   * and adds an svg element to the provided selector and starts the
+   * visualization creation process.
+   *
+   * selector is expected to be a DOM element or CSS selector that
+   * points to the parent element of the bubble chart. Inside this
+   * element, the code will add the SVG continer for the visualization.
+   *
+   * rawData is expected to be an array of data objects as provided by
+   * a d3v3 loading function like d3v3.csv.
+   */
   var chart = function chart(selector, rawData) {
     // Use the max total_amount in the data as the max in the scale's domain
     // note we have to ensure the total_amount is a number by converting it
     // with `+`.
-    var maxAmount = d3v3.max(rawData, function (d) { return +d.artist_total; });
+    var maxAmount = d3v3.max(rawData, function (d) { return +d.tote; });
     radiusScale.domain([0, maxAmount]);
 
     nodes = createNodes(rawData);
@@ -229,8 +280,8 @@ function bubbleChart() {
     // with desired size.
     svg = d3v3.select(selector)
       .append('svg')
-      .attr('width', width + margin.right + margin.left)
-      .attr('height', height + margin.top + margin.bottom);
+      .attr('width', width)
+      .attr('height', height);
 
     // bubble plot axis stuff
     svg.append('line')
@@ -254,62 +305,45 @@ function bubbleChart() {
       .style('font-weight', 'bold')
       .style('font-size', 30)
       .style('opacity', 0);
-      // .attr('visibility', 'hidden');
-
-
-    // svg.append('text')
-    //   .attr('class', 'bubble-axis-text')
-    //   .attr('x', width / 1.45)
-    //   .attr('y', height / 11.85)
-    //   .text('More Popular')
-    //   .style('font-weight', 'bold')
-    //   .style('font-size', 25)
-    //   .style('opacity', 0);
-      // .attr('visibility', 'hidden');
-
 
     // Bind nodes data to what will become DOM elements to represent them.
-    bubbles= svg.selectAll('bubble')
-      .data(nodes, function (d) { return d.id; })
-      .enter()
-      .append('circle')
-      .attr('class', 'bubble')
+    bubbles = svg.selectAll('.bubble')
+      .data(nodes, function (d) { return d.id; });
+
+    // Create new circle elements each with class `bubble`.
+    // There will be one circle.bubble for each object in the nodes array.
+    // Initially, their radius (r attribute) will be 0.
+    bubbles.enter().append('circle')
+      .classed('bubble', true)
       .attr('r', 0)
-      .attr('fill', function (d) { return bubbleColor(d.genre); })
-      .attr('stroke', function (d) { return d3v3.rgb(bubbleColor(d.genre)).darker(); })
+      .attr('fill', function (d) { return fillColor2(d.genre); })
+      .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); })
       .attr('stroke-width', 0.5)
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail)
       .call(force.drag);
 
-     console.log(nodes);
+    // text = svg.selectAll("text.bubble-label")    
+    //  .data(nodes, function (d) { return d.id; })
+    //     .enter()
+    //     .append("text")
+    //     .attr("class", "bubble-label")
+    //     .text(function(d) {
+    //       if (d.value < 17) {
+    //         return "";
+    //       } else {
+    //         return d.name;
+    //       }
+    //     });
 
-    text = svg.selectAll("text.bubble-label")    
-     .data(nodes, function (d) { return d.id; })
-        .enter()
-        .append("text")
-        .attr("class", "bubble-label")
-        .text(function(d) {
-          if (d.value < 17) {
-            return "";
-          } else {
-            return d.name;
-          }
-        });
-
-
-
-    // Transition to fill bubblenodes
+    // Fancy transition to make bubbles appear, ending with the
+    // correct radius
     bubbles.transition()
-      .duration(2500)
+      .duration(3000)
       .attr('r', function (d) {return d.radius; });
 
-    // Set initial layout to genre group.
-    splitBubblesGenre();
-
-// Search
-
-
+    // Set initial layout to single group.
+    groupBubbles();
   };
 
   d3v3.select(".SearchBar")
@@ -359,19 +393,81 @@ function bubbleChart() {
           d3v3.selectAll('.bubble')
             .style("opacity", 1)
             .attr('stroke-width', .5)
-            .attr('stroke', function (d) { return d3v3.rgb(bubbleColor(d.genre)).darker(); });
+            .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); });
         }
 
         selbubbles
         .exit()
             .style("opacity", 1)
             .attr('stroke-width', .5)
-            .attr('stroke', function (d) { return d3v3.rgb(bubbleColor(d.genre)).darker(); });
+            .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); });
           
       
 
       });
+  /*
+   * Sets visualization in "single group mode".
+   * The year labels are hidden and the force layout
+   * tick function is set to move all nodes to the
+   * center of the visualization.
+   */
+  function groupBubbles() {
+    hideYears();
+    hideUse();
+    showGenre();
 
+    force.on('tick', function (e) {
+      bubbles.each(moveToGenre(e.alpha))
+        .attr('cx', function (d) { return d.x; })
+        .attr('cy', function (d) { return d.y; });
+    });
+
+    force.start();
+  }
+
+  /*
+   * Helper function for "single group mode".
+   * Returns a function that takes the data for a
+   * single node and adjusts the position values
+   * of that node to move it toward the center of
+   * the visualization.
+   *
+   * Positioning is adjusted by the force layout's
+   * alpha parameter which gets smaller and smaller as
+   * the force layout runs. This makes the impact of
+   * this moving get reduced as each node gets closer to
+   * its destination, and so allows other forces like the
+   * node's charge force to also impact final location.
+   */
+  function moveToCenter(alpha) {
+    return function (d) {
+      d.x = d.x + (center.x - d.x) * damper * alpha;
+      d.y = d.y + (center.y - d.y) * damper * alpha;
+    };
+  }
+
+  /*
+   * Sets visualization in "split by year mode".
+   * The year labels are shown and the force layout
+   * tick function is set to move nodes to the
+   * yearCenter of their data's year.
+   */
+  function splitBubbles() {
+    showYears();
+
+    force.on('tick', function (e) {
+      bubbles.each(moveToYears(e.alpha))
+        .attr('cx', function (d) {return d.x; })
+        .attr('cy', function (d) {return d.y; });
+
+
+      // text.attr("transform", function(d){ 
+      // return "translate("+(d.x - 10) +","+d.y+")"; });
+    });
+
+
+    force.start();
+  }
 
   function splitBubblesUse() {
     hideGenre();
@@ -381,24 +477,15 @@ function bubbleChart() {
       bubbles.each(moveToUse(e.alpha))
         .attr('cx', function (d) {return d.x; })
         .attr('cy', function (d) {return d.y; });
-      
 
-      text.attr("transform", function(d){ 
-
-      //   label_array.push({x: d.x, y: d.y, name: d.name, width: 0.0, height: 0.0});
-      //   anchor_array.push({x: d.x+.1, y: d.y+5, r: d.radius});
-        return "translate("+(d.x - 10)+","+d.y+")"; });
+      // text.attr("transform", function(d){ 
+      // return "translate("+(d.x - 10) +","+d.y+")"; });
 
     });
 
+
     force.start();
-  //   d3v3.labeler()
-  //   .label(label_array)
-  //   .anchor(anchor_array)
-  //   .width(w)
-  //   .height(h)
-  //   .start(100);
-  };
+  }
 
   function splitBubblesGenre() {
     hideUse();
@@ -408,56 +495,94 @@ function bubbleChart() {
       bubbles.each(moveToGenre(e.alpha))
         .attr('cx', function (d) {return d.x; })
         .attr('cy', function (d) {return d.y; });
-      
-
-    text.attr("transform", function(d){ 
-
-    //   label_array.push({x: d.x, y: d.y, name: d.name, width: 0.0, height: 0.0});
-    //   anchor_array.push({x: d.x, y: d.y, r: d.radius});
-      return "translate("+(d.x - 10) +","+d.y+")"; });
-
     });
 
     force.start();
-    // d3v3.labeler()
-    // .label(label_array)
-    // .anchor(anchor_array)
-    // .width(w)
-    // .height(h)
-    // .start(1);
-  };
+  }
 
 
-  // Stuff for popularity
+  /*
+   * Helper function for "split by year mode".
+   * Returns a function that takes the data for a
+   * single node and adjusts the position values
+   * of that node to move it the year center for that
+   * node.
+   *
+   * Positioning is adjusted by the force layout's
+   * alpha parameter which gets smaller and smaller as
+   * the force layout runs. This makes the impact of
+   * this moving get reduced as each node gets closer to
+   * its destination, and so allows other forces like the
+   * node's charge force to also impact final location.
+   */
+  function moveToYears(alpha) {
+    return function (d) {
+      var target = yearCenters[d.year];
+      d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
+      d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
+    };
+  }
+
+  /*
+   * Hides Year title displays.
+   */
+  function hideYears() {
+    svg.selectAll('.year').remove();
+  }
+
+  /*
+   * Shows Year title displays.
+   */
+  function showYears() {
+    // Another way to do this would be to create
+    // the year texts once and then just hide them.
+    var yearsData = d3v3.keys(yearsTitleX);
+    var years = svg.selectAll('.year')
+      .data(yearsData);
+
+    years.enter().append('text')
+      .attr('class', 'year')
+      .attr('x', function (d) { return yearsTitleX[d]; })
+      .attr('y', 40)
+      .attr('text-anchor', 'middle')
+      .text(function (d) { return d; });
+  }
+
+
   function moveToUse(alpha) {
     return function (d) {
       var target = useCenters[d.group];
       d.x = d.x + (target.x - d.x) * damper * alpha * 1.1;
       d.y = d.y + (target.y - d.y) * damper * alpha * 1.1;
     };
-  };
+  }
 
-  
+  /*
+   * Hides Year title displays.
+   */
   function hideUse() {
-    svg.selectAll('.title').remove();
-  };
+    svg.selectAll('.year').remove();
+  }
 
+  /*
+   * Shows Year title displays.
+   */
   function showUse() {
-
+    // Another way to do this would be to create
+    // the year texts once and then just hide them.
     var useData = d3v3.keys(useTitleX);
     var use = svg.selectAll('.group')
       .data(useData);
-    
 
     use.enter().append('text')
-      .attr('class', 'title')
+      .attr('class', 'year')
       .attr('x', function (d) { return useTitleX[d]; })
-      .attr('y', 40)
+      .attr('y', height / 5.5)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
   }
 
-  // Stuff for genre
+
   function moveToGenre(alpha) {
     return function (d) {
       var target = genreCenters[d.genre];
@@ -533,16 +658,15 @@ function bubbleChart() {
                     .style('opacity', .75)
                     .attr('r', function (d) { return d.radius + 5; });
 
-    var content = '<div class="ttimg"><img class="tooltipimage" src=' + d.art + '></div>' +
-                  '<div class="tttext"><span class="name">Artist: </span><span class="value">' +
+    var content = '<span class="name">Artist: </span><span class="value">' +
                   d.name +
                   '</span><br/>' +
-                  '<span class="name">Amount Used: </span><span class="value">' +
+                  '<span class="name">Number of Times Used: </span><span class="value">' +
                   d.value +
                   '</span><br/>' +
                   '<span class="name">Genre: </span><span class="value">' +
                   d.genre +
-                  '</span><br/></div>';
+                  '</span><br/>';
     tooltip.showTooltip(content, d3v3.event);
   }
 
@@ -552,10 +676,10 @@ function bubbleChart() {
   function hideDetail(d) {
     // reset outline
     d3v3.select(this)
-      .attr('stroke', d3v3.rgb(bubbleColor(d.genre)).darker())
+      .attr('stroke', d3v3.rgb(fillColor2(d.genre)).darker())
       .attr('stroke-width', .5)
       .style('opacity', 1)
-      .attr('fill', function (d) { return bubbleColor(d.genre); })
+      .attr('fill', function (d) { return fillColor2(d.genre); })
       .attr('r', function (d) { return d.radius; });
 
     tooltip.hideTooltip();
@@ -569,11 +693,15 @@ function bubbleChart() {
    * displayName is expected to be a string and either 'year' or 'all'.
    */
   chart.toggleDisplay = function (displayName) {
-    if (displayName == 'use') {
+    if (displayName === 'year') {
+      splitBubbles();
+    } else if (displayName == 'use') {
       splitBubblesUse();
-    } else {
+    } else if (displayName == 'genre') {
       splitBubblesGenre();
-    };
+    } else {
+      groupBubbles();
+    }
   };
 
 
@@ -607,7 +735,6 @@ function setupButtons() {
   d3v3.select('#toolbar')
     .selectAll('.button')
     .on('click', function () {
-
       // Remove active class from all buttons
       d3v3.selectAll('.button').classed('active', false);
       // Find the button just clicked
@@ -627,11 +754,10 @@ function setupButtons() {
 
 
 // Load the data.
-d3v3.csv('assets/bubble_1.csv', display);
+d3v3.csv('assets/soundtrack_data.csv', display);
 
 // setup the buttons.
 setupButtons();
-
 
 }
 
