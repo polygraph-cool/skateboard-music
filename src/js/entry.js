@@ -29,6 +29,7 @@ function init() {
 
 	//new_test enter
 	bubbles.init()
+
 }
 
 init();
