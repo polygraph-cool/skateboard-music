@@ -37,10 +37,10 @@ var yScale = d3.scaleLinear();
 var yValue = function(d) { return yScale(y(d)) + 10; };
 
 //
-var activity = function(d) { return d.key; };
-var activityScale = d3.scaleBand().range([0, height - 600]);
-var activityValue = function(d) { return activityScale(activity(d)); };
-var activityAxis = d3.axisLeft(activityScale);
+var genre = function(d) { return d.key; };
+var genreScale = d3.scaleBand().range([0, height - 600]);
+var genreValue = function(d) { return genreScale(genre(d)); };
+var genreAxis = d3.axisLeft(genreScale);
 
 var area = d3.area()
     .x(xValue)
@@ -68,13 +68,13 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     if (error) throw error;
     // Sort x-axis by time
     dataFlat.sort(function(a, b) { return a.time - b.time; });
-    console.log(dataFlat);
+    // console.log(dataFlat);
 
 
     var data = d3.nest()
         .key(function(d) { return d.activity; })
         .entries(dataFlat);
-    console.log(data);
+    // console.log(data);
 
     // Place activities based in order of max peak time
     function peakTime(d) {
@@ -82,11 +82,10 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
         return d.values[i].time;
     };
 
-    // Sort activities by 
-    var activityDomain = ["Indie/Alternative", "Hip Hop", "Punk", "Classic Rock", "Other", "Jazz/Soul", "Electronic", "Metal", "Rock"];
+    // Sort activities by use
+    var genreDomain = ["Indie/Alternative", "Hip Hop", "Punk", "Classic Rock", "Other", "Jazz/Soul", "Electronic", "Metal", "Rock"];
 
-    data.sort(function (a, b) {return activityDomain.indexOf(a.key) - activityDomain.indexOf(b.key)})
-    console.log(data)
+    data.sort(function (a, b) {return genreDomain.indexOf(a.key) - genreDomain.indexOf(b.key)})
 
     // data.sort(function(a, b) { return peakTime(a) - peakTime(b); });
 
@@ -94,10 +93,10 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     // xScale.domain([parseTime(1989), parseTime(2017)]);
 
 
-    activityScale.domain(activityDomain); 
-    // activityScale.domain(data.map(function(d) { return d.key; }));
+    genreScale.domain(genreDomain); 
+    // genreScale.domain(data.map(function(d) { return d.key; }));
 
-    var areaChartHeight = (1 + overlap) * (height / activityScale.domain().length);
+    var areaChartHeight = (1 + overlap) * (height / genreScale.domain().length);
 
     yScale
         .domain(d3.extent(dataFlat, y))
@@ -112,15 +111,16 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     svg.append('g')
         .attr('class', 'axis axis--activity')
         .attr('transform', 'translate(0,' + 148 + ')')
-        .call(activityAxis);
+        .call(genreAxis);
 
+    // set y-axis labels
     var gActivity = svg.append('g')
             .attr('class', 'activities')
             .selectAll('.activity').data(data)
             .enter().append('g')
                 .attr('class', function(d) { return 'activity activity--' + d.key; })
                 .attr('transform', function(d) {
-                    var ty = activityValue(d) - activityScale.bandwidth() + 5;
+                    var ty = genreValue(d) - genreScale.bandwidth() + 5;
                     return 'translate(0,' + ty + ')';
                 });
 
@@ -146,6 +146,14 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     gActivity.append('path')
         .attr('class', 'area')
         .datum(function(d) { return d.values; })
+        .filter(function(d) {
+                var tt = d.filter(function(d) {
+                    // console.log(formatTime(d.time));
+                    return formatTime(d.time) < 1995;});
+                console.log(tt);
+            // console.log(d);
+            return tt
+        })
         .attr('d', area);
         // .on('mouseover', function(d) {
         //     d3.select(this)
@@ -158,7 +166,17 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     
     gActivity.append('path')
         .attr('class', 'line')
-        .datum(function(d) { return d.values; })
+        .datum(function(d) { 
+            // var testValues = d.values;
+            return d.values; })
+        .filter(function(d) {
+                var tt = d.filter(function(d) {
+                    // console.log(formatTime(d.time));
+                    return formatTime(d.time) < 1995;});
+                console.log(tt);
+            // console.log(d);
+            return tt
+        })
         .attr('d', line)
         .style('opacity', 1);
 
