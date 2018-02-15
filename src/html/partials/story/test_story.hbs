@@ -13,25 +13,19 @@
 			box-sizing: border-box;
 		}
 		
-		/* demo */
-		#intro {
-			margin-bottom: 320px;
-		}
-		#outro {
-			height: 640px;
-		}
 		/* scrollama */
 		#scroll {
 			position: relative;
 			border-top: 1px dashed #000;
 			border-bottom: 1px dashed #000;
+			background: black;
 		}
 		.scroll__graphic {
 			position: absolute;
 			top: 0;
 			left: 0;
 			bottom: auto;
-			background-color: #fff;
+			background-color: black;
 			-webkit-transform: translate3d(0, 0, 0);
 			-moz-transform: translate3d(0, 0, 0);
 			transform: translate3d(0, 0, 0);
@@ -51,8 +45,7 @@
 			-webkit-transform: translateY(-50%);
 			transform: translateY(-50%);
 			background: black;
-			border: 1px solid #000;
-		}
+	}
 	/*	.chart p {
 			text-align: center;
 			padding: 1rem;
@@ -68,27 +61,30 @@
 		}*/
 		.scroll__text {
 			position: relative;
-			padding: 0 1rem;
+			/*padding: 0 1rem;*/
 			max-width: 30rem;
 			width: 33%;
 		}
 		.step {
-			margin: 2rem auto;
-			border: 1px solid #333;
+			/*margin: 2rem auto;*/
+			/*border: 1px solid #333;*/
+			background-color: black;
 		}
 		.step.is-active {
-			background-color: coral;
+			background-color: black;
 		}
 
 		.step.is-active p {
-			font-size: 25px;
+			font-size: 15px;
 			font-weight: bold;
+			height: 100%;
 		}
 
 		.step p {
 			text-align: center;
-			padding: 1rem;
+			/*padding: 1rem;*/
 			font-size: 12px;
+			color: white;
 		}
 
 
@@ -156,12 +152,7 @@ p.joy_text {
 </head>
 
 <body>
-	<section id='intro'>
-		<h1 class='intro__hed'>Scroll time</h1>
-		<p class='intro__dek'>
-			Motherfuckers.
-		</p>
-	</section>
+
 	<section id='scroll'>
 		<div class='scroll__graphic'>
 			<div class='chart'>
@@ -187,6 +178,9 @@ p.joy_text {
 			<div class='step' data-step='4'>
 				<p> Unlike decades past, the current era of skateboarding sees no single defining aesthetic, and almost all styles have a niche. Appropriately, Indie music (which can fit any number of styles) is the most popular genre, with all genres seeing non-trivial employment.  </p>
 			</div>
+			<div class='step' data-step='4'>
+				<p> Here is some more text. Eat your heart out.</p>
+			</div>
 		</div>
 	</section>
 	<section id='outro'></section>
@@ -204,20 +198,21 @@ p.joy_text {
 
 		// generic window resize listener event
 		function handleResize() {
-			// 1. update height of step elements
-			var stepHeight = Math.floor(window.innerHeight * 0.75);
+			// Resize elements in step box
+			var stepHeight = Math.floor(window.innerHeight) * .75;
 			step.style('height', stepHeight + 'px');
+
 			// 2. update width/height of graphic element
-			var bodyWidth = d3.select('body').node().offsetWidth;
-			graphic
-				.style('width', bodyWidth + 'px')
-			.style('height', window.innerHeight + 'px');
-			var chartMargin = 32;
+			var bodyWidth = d3.select('body').node().offsetWidth + 60;
+			graphic.style('width', bodyWidth + 'px')
+				.style('height', window.innerHeight + 'px');
+
+			var chartMargin = 2;
 			var textWidth = text.node().offsetWidth;
 			var chartWidth = graphic.node().offsetWidth - textWidth - chartMargin;
 			chart
 				.style('width', chartWidth + 'px')
-				.style('height', Math.floor(window.innerHeight / 2) + 'px');
+				.style('height', Math.floor(window.innerHeight ) + 'px');
 			// 3. tell scrollama to update new element dimensions
 			scroller.resize();
 		}
@@ -230,7 +225,9 @@ p.joy_text {
 			})
 			// update graphic based on step
 			// chart.select('p').text("Image: " + (response.index + 1))
-			chart.select('circle').attr('fill', function(d, i) { return colors[response.index];});
+			// console.log(chart.selectAll('path.line'));
+
+			//d3.selectAll('path.line').each(function(d,i){console.log(d);});
 		}
 		function handleContainerEnter(response) {
 			// response = { direction }
