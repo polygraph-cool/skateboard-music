@@ -2,8 +2,6 @@ function resize() {}
 
 function init() {
 
-    
-
 
 var margin = { top: 100, right: 10, bottom: 100, left: 110 },
     width = 1000 - margin.left - margin.right,
@@ -16,10 +14,9 @@ var svg = d3.selectAll('.joyplot').append('svg')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
 // Percent two area charts can overlap
-var overlap = 0.8;
+var overlap = 0.75;
 
 // NEED TO FIGURE THIS OUT
-// var formatTime = d3.timeFormat('%I %p');
 var formatTime = d3.timeFormat('%Y');
 
 // Function to return d.time
@@ -48,11 +45,6 @@ var area = d3.area()
 
 var line = area.lineY1();
 
-// function parseTime(offset) {
-//     var date = new Date(2017, 0, 1); // chose an arbitrary day
-//     return d3.timeMinute.offset(date, offset);
-// }
-
 var parseTime = d3.timeParse('%Y');
 
 
@@ -68,13 +60,11 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     if (error) throw error;
     // Sort x-axis by time
     dataFlat.sort(function(a, b) { return a.time - b.time; });
-    // console.log(dataFlat);
 
 
     var data = d3.nest()
         .key(function(d) { return d.activity; })
         .entries(dataFlat);
-    // console.log(data);
 
     // Place activities based in order of max peak time
     function peakTime(d) {
@@ -90,8 +80,6 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     // data.sort(function(a, b) { return peakTime(a) - peakTime(b); });
 
     xScale.domain(d3.extent(dataFlat, x));
-    // xScale.domain([parseTime(1989), parseTime(2017)]);
-
 
     genreScale.domain(genreDomain); 
     // genreScale.domain(data.map(function(d) { return d.key; }));
@@ -114,7 +102,7 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
         .call(genreAxis);
 
     // set y-axis labels
-    var gActivity = svg.append('g')
+    var gGenre = svg.append('g')
             .attr('class', 'activities')
             .selectAll('.activity').data(data)
             .enter().append('g')
@@ -140,45 +128,31 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
             } 
         });
 
-    // console.log('x-axis stuf');
-    // console.log(ticks);
 
-    gActivity.append('path')
+
+    gGenre.append('path')
         .attr('class', 'area')
         .datum(function(d) { return d.values; })
         .filter(function(d) {
                 var tt = d.filter(function(d) {
-                    // console.log(formatTime(d.time));
                     return formatTime(d.time) < 1995;});
-                console.log(tt);
-            // console.log(d);
             return tt
         })
         .attr('d', area);
-        // .on('mouseover', function(d) {
-        //     d3.select(this)
-        //         .style('opacity', .8);
-        // })
-        // .on('mouseout', function(d) {
-        //     d3.select(this)
-        //         .style('opacity', 1)
-        // });
     
-    gActivity.append('path')
+    gGenre.append('path')
         .attr('class', 'line')
-        .datum(function(d) { 
-            // var testValues = d.values;
-            return d.values; })
-        .filter(function(d) {
-                var tt = d.filter(function(d) {
-                    // console.log(formatTime(d.time));
-                    return formatTime(d.time) < 1995;});
-                console.log(tt);
-            // console.log(d);
-            return tt
-        })
+        .datum(function(d) { return d.values; })
         .attr('d', line)
+        .attr('stroke', 'white')
         .style('opacity', 1);
+
+    gGenre.append('rect')
+        .attr('width', (width - margin.right))
+        .attr('height', (height - margin.top - margin.bottom ))
+        .attr('fill', 'black')
+        .attr('id', 'maskRect')
+        .attr('opacity', 1);
 
 
 });
