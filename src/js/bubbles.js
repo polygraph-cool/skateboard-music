@@ -300,7 +300,7 @@ function bubbleChart() {
       .append("circle")
       .classed('bubble', true)
       .attr('r', function(d){
-        return d.value;
+        return d.radius;
       })
       .attr('fill', function (d) { return fillColor2(d.genre); })
       .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); })
@@ -312,7 +312,9 @@ function bubbleChart() {
     bubbles
       .append("text")
       .text(function(d){
-        return d.name;
+        if(d.radius > 10){
+          return d.name;
+        }
       })
 
     // text = svg.selectAll("text.bubble-label")
