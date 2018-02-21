@@ -563,14 +563,13 @@ header a.logo svg {
 
 .line {
   fill: none;
-  stroke: #fff;
+ /*stroke: #fff;*/;
 }
 
 .area {
  /*fill: #448cab;*/
   fill: #ff7f50;
   fill: #000;
-  opacity: 0.99;
 }
 
 .activity:nth-child(odd) .area {

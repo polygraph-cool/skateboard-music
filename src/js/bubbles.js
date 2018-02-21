@@ -1,7 +1,7 @@
 function resize() {}
 
 function init() {
-/* bubbleChart creation function. 
+/* bubbleChart creation function.
  *
  */
 console.log('found bub.js');
@@ -88,7 +88,7 @@ function floatingTooltip(tooltipId, width) {
 
 
 
-/* bubbleChart creation function. 
+/* bubbleChart creation function.
  *
  */
 function bubbleChart() {
@@ -293,9 +293,15 @@ function bubbleChart() {
     // Create new circle elements each with class `bubble`.
     // There will be one circle.bubble for each object in the nodes array.
     // Initially, their radius (r attribute) will be 0.
-    bubbles.enter().append('circle')
+    bubbles.enter()
+      .append('g')
+
+    bubbles
+      .append("circle")
       .classed('bubble', true)
-      .attr('r', 0)
+      .attr('r', function(d){
+        return d.value;
+      })
       .attr('fill', function (d) { return fillColor2(d.genre); })
       .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); })
       .attr('stroke-width', 0.5)
@@ -303,7 +309,13 @@ function bubbleChart() {
       .on('mouseout', hideDetail)
       .call(force.drag);
 
-    // text = svg.selectAll("text.bubble-label")    
+    bubbles
+      .append("text")
+      .text(function(d){
+        return d.name;
+      })
+
+    // text = svg.selectAll("text.bubble-label")
     //  .data(nodes, function (d) { return d.id; })
     //     .enter()
     //     .append("text")
@@ -334,7 +346,7 @@ function bubbleChart() {
       .attr("placeholder", "Find an artist...");
 
   d3v3.select("#search")
-      .on("keyup", function(event) { 
+      .on("keyup", function(event) {
 
         var searched_data = nodes,
             text = this.value.trim();
@@ -348,7 +360,7 @@ function bubbleChart() {
           });
 
           // filter blank entries from searchResults
-          searchResults = searchResults.filter(function(r){ 
+          searchResults = searchResults.filter(function(r){
             return r != undefined;
           });
           // filter dataset with searchResults
@@ -358,7 +370,7 @@ function bubbleChart() {
             });
           });
 
-          // flatten array 
+          // flatten array
           searched_data = [].concat.apply([], searched_data); // This finds the data we want
             // data bind with new data
           selbubbles = bubbles.data(searched_data, function(d){ return d.name});
@@ -381,8 +393,8 @@ function bubbleChart() {
             .style("opacity", 1)
             .attr('stroke-width', .5)
             .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); });
-          
-      
+
+
 
       });
   /*
@@ -398,8 +410,9 @@ function bubbleChart() {
 
     force.on('tick', function (e) {
       bubbles.each(moveToGenre(e.alpha))
-        .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; });
+        .attr('transform', function (d) {
+          return "translate("+d.x+","+d.y+")";
+        })
     });
 
     force.start();
@@ -441,7 +454,7 @@ function bubbleChart() {
         .attr('cy', function (d) {return d.y; });
 
 
-      // text.attr("transform", function(d){ 
+      // text.attr("transform", function(d){
       // return "translate("+(d.x - 10) +","+d.y+")"; });
     });
 
@@ -458,7 +471,7 @@ function bubbleChart() {
         .attr('cx', function (d) {return d.x; })
         .attr('cy', function (d) {return d.y; });
 
-      // text.attr("transform", function(d){ 
+      // text.attr("transform", function(d){
       // return "translate("+(d.x - 10) +","+d.y+")"; });
 
     });
