@@ -420,20 +420,7 @@ function bubbleChart() {
     force.start();
   }
 
-  /*
-   * Helper function for "single group mode".
-   * Returns a function that takes the data for a
-   * single node and adjusts the position values
-   * of that node to move it toward the center of
-   * the visualization.
-   *
-   * Positioning is adjusted by the force layout's
-   * alpha parameter which gets smaller and smaller as
-   * the force layout runs. This makes the impact of
-   * this moving get reduced as each node gets closer to
-   * its destination, and so allows other forces like the
-   * node's charge force to also impact final location.
-   */
+
   function moveToCenter(alpha) {
     return function (d) {
       d.x = d.x + (center.x - d.x) * damper * alpha;
@@ -441,12 +428,7 @@ function bubbleChart() {
     };
   }
 
-  /*
-   * Sets visualization in "split by year mode".
-   * The year labels are shown and the force layout
-   * tick function is set to move nodes to the
-   * yearCenter of their data's year.
-   */
+
   function splitBubbles() {
     showYears();
 
@@ -454,10 +436,6 @@ function bubbleChart() {
       bubbles.each(moveToYears(e.alpha))
         .attr('cx', function (d) {return d.x; })
         .attr('cy', function (d) {return d.y; });
-
-
-      // text.attr("transform", function(d){
-      // return "translate("+(d.x - 10) +","+d.y+")"; });
     });
 
 
@@ -470,12 +448,9 @@ function bubbleChart() {
 
     force.on('tick', function (e) {
       bubbles.each(moveToUse(e.alpha))
-        .attr('cx', function (d) {return d.x; })
-        .attr('cy', function (d) {return d.y; });
-
-      // text.attr("transform", function(d){
-      // return "translate("+(d.x - 10) +","+d.y+")"; });
-
+        .attr('transform', function (d) {
+          return "translate("+d.x+","+d.y+")";
+        })
     });
 
 
@@ -488,8 +463,9 @@ function bubbleChart() {
 
     force.on('tick', function (e) {
       bubbles.each(moveToGenre(e.alpha))
-        .attr('cx', function (d) {return d.x; })
-        .attr('cy', function (d) {return d.y; });
+        .attr('transform', function (d) {
+          return "translate("+d.x+","+d.y+")";
+        })
     });
 
     force.start();
