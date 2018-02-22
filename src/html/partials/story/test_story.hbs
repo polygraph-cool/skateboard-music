@@ -112,19 +112,6 @@
 				and, moreover, that the evoloving changes in music taste parallel the changes in skateboarding culture at large.
 
 			</p>
-		<div class='scroll__text'>
-			<div class='step' data-step='1'>
-				<p>Skate videos became a mainstay of skateboarding culture in the late 80’s. 
-					For skateboarding, the 80's was a pretty wild time; vert skating, with its big airs and wild personalities, was all the rage, and skating was, for the first time, entering popular culture.
-
-					Punk rock, a remnant of skateboarding's counter-culture origins, was extremely very popular, and many of the genre's most-popular artists, such as , , and , skated during this time period.
-
-
-				Punk music dominated, which, given ..., isn't very surprising. The 80's for skateboarding was a wild time:  Mainstream skateboarding borrowed heavily from punk rock, with both influencing each other.
-
-				This time period in skateboarding was mostly full of vert skateboarding, with many artists  
-				</p>
-			</div>
 
 		<div class='scroll__text'>
 			<div class='step' data-step='1'>
@@ -168,7 +155,7 @@
 
 				The most popular artists during this year are ___, ___, and ___.  </p>
 			</div>
-			<div class='step' data-step='4'>
+			<div class='step' data-step='5'>
 				<p> Here is some more text. Eat your heart out.</p>
 			</div>
 		</div>
@@ -183,7 +170,9 @@
 		var text = container.select('.scroll__text');
 		var step = text.selectAll('.step');
 		var colors = ['coral', 'green', 'blue', 'red'];
-		var maskRange = [0, 170, 300, 400, 800];
+		var width = d3.select('div.joyplot').node().offsetWidth;
+		console.log(width);
+		var maskRange = [0, width/4, width/2, width/ 1.5, width];
 
 		var scroller = scrollama();
 
