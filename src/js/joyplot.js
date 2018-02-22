@@ -91,10 +91,6 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
         .range([areaChartHeight, 0]);
     
     area.y0(yScale(0));
-    svg.append('g')
-        .attr('class', 'axis axis--x')
-        .attr('transform', 'translate(0,' + (height / 2 + 50) + ')') // hard-coded => bad
-        .call(xAxis);
 
     svg.append('g')
         .attr('class', 'axis axis--activity')
@@ -111,22 +107,6 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
                     var ty = genreValue(d) - genreScale.bandwidth() + 5;
                     return 'translate(0,' + ty + ')';
                 });
-
-    // Remove years in x-axis for which no data actually exists
-    d3.selectAll(".tick text")
-        .each( function(d, i) {
-            if (i == 0 | i == 1 | i == 8 | i == 9) {
-                d3.select(this)
-                    .attr('visibility', 'hidden');
-            } 
-        });
-    d3.selectAll('.tick')
-        .each( function(d, i) {
-            if (i == 0 | i == 1 | i == 8 | i == 9) {
-                d3.select(this)
-                    .attr('visibility', 'hidden');
-            } 
-        });
 
 
 
@@ -149,10 +129,40 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
 
     gGenre.append('rect')
         .attr('width', (width - margin.right))
-        .attr('height', (height - margin.top - margin.bottom ))
+        .attr('height', d3.select('div.joyplot').node().offsetHeight)
         .attr('fill', 'black')
         .attr('id', 'maskRect')
         .attr('opacity', 1);
+
+    svg.append('g')
+        .attr('class', 'axis axis--x')
+        .attr('transform', 'translate(0,' + (height / 2 + 50) + ')') // hard-coded => bad
+        .call(xAxis);
+
+    // Remove years in x-axis for which no data actually exists
+    d3.selectAll(".tick text")
+        .each( function(d, i) {
+            if (i == 0 | i == 1 | i == 8 | i == 9) {
+                d3.select(this)
+                    .attr('visibility', 'hidden');
+            } 
+        });
+    d3.selectAll('.tick')
+        .each( function(d, i) {
+            if (i == 0 | i == 1 | i == 8 | i == 9) {
+                d3.select(this)
+                    .attr('visibility', 'hidden');
+            } 
+        });
+
+    d3.select('svg')
+        .append('text')
+        .attr('class', 'joytitle')
+        .attr('x', width / 2)
+        .attr('y', 10)
+        .attr('fill', 'white')
+        .style('font-size', '40px')
+        .text('title');
 
 
 });
