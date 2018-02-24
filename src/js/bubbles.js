@@ -252,6 +252,8 @@ function bubbleChart() {
     var maxAmount = d3v3.max(rawData, function (d) { return +d.tote; });
     radiusScale.domain([0, maxAmount]);
 
+    rawData.sort(function(a, b) { return b.value - a.value; });
+
     nodes = createNodes(rawData);
     // Set the force's nodes to our newly created nodes array.
     force.nodes(nodes);
@@ -299,12 +301,14 @@ function bubbleChart() {
     bubbles
       .append("circle")
       .classed('bubble', true)
+      .attr('class', 'bubble-circle')
       .attr('r', function(d){
         return d.radius;
       })
       .attr('fill', function (d) { return fillColor2(d.genre); })
       .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); })
       .attr('stroke-width', 0.5)
+      .attr('opacity', .75)
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail)
       .call(force.drag);
@@ -312,10 +316,12 @@ function bubbleChart() {
     bubbles
       .append("text")
       .text(function(d){
-        if(d.radius > 10){
+        if(d.radius > 17 & d3.randomUniform(1, 10)() > 5){
+          return d.name;
+        } else if(d.radius > 5 & d3.randomUniform(1, 10)() > 9.5) {
           return d.name;
         }
-      })
+      });
 
     // text = svg.selectAll("text.bubble-label")
     //  .data(nodes, function (d) { return d.id; })
@@ -375,19 +381,20 @@ function bubbleChart() {
           // flatten array
           searched_data = [].concat.apply([], searched_data); // This finds the data we want
             // data bind with new data
-          selbubbles = bubbles.data(searched_data, function(d){ return d.name});
-
+          selbubbles = bubbles.selectAll('.bubble-circle').data(searched_data, function(d){ return d.name});
+          console.log(selbubbles);
           // Style select nodes
           selbubbles
             .style('opacity', .75)
-            .attr('stroke-width', 3)
+            .attr('stroke-width', 3.5)
             .attr('stroke', 'black');
 
         } else {
-          d3v3.selectAll('.bubble')
+          d3v3.selectAll('.bubble-circle')
             .style("opacity", 1)
             .attr('stroke-width', .5)
             .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); });
+
         }
 
         selbubbles
