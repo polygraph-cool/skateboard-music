@@ -128,7 +128,7 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
         .style('opacity', 1);
 
     gGenre.append('rect')
-        .attr('width', (width - margin.right))
+        .attr('width', d3.select('div.joyplot').node().offsetWidth)
         .attr('height', d3.select('div.joyplot').node().offsetHeight)
         .attr('fill', 'black')
         .attr('id', 'maskRect')
@@ -142,14 +142,14 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
     // Remove years in x-axis for which no data actually exists
     d3.selectAll(".tick text")
         .each( function(d, i) {
-            if (i == 0 | i == 1 | i == 8 | i == 9) {
+            if (i == 9 | i == 10 | i == 18) {
                 d3.select(this)
                     .attr('visibility', 'hidden');
             } 
         });
     d3.selectAll('.tick')
         .each( function(d, i) {
-            if (i == 0 | i == 1 | i == 8 | i == 9) {
+            if (i == 9 | i == 10 | i == 18) {
                 d3.select(this)
                     .attr('visibility', 'hidden');
             } 
