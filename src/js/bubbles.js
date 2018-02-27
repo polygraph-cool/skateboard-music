@@ -399,7 +399,7 @@ function bubbleChart() {
 
         selbubbles
         .exit()
-            .style("opacity", 1)
+            .style("opacity", .75)
             .attr('stroke-width', .5)
             .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); });
 
@@ -656,7 +656,7 @@ function bubbleChart() {
     d3v3.select(this)
       .attr('stroke', d3v3.rgb(fillColor2(d.genre)).darker())
       .attr('stroke-width', .5)
-      .style('opacity', 1)
+      .style('opacity', .75)
       .attr('fill', function (d) { return fillColor2(d.genre); })
       .attr('r', function (d) { return d.radius; });
 
