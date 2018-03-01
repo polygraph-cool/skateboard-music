@@ -70,3 +70,60 @@
 	    margin-top .75rem
 	    margin-bottom 1rem
 	    max-width 90rem
+
+
+.table {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1 1 auto;
+  font-size: .9rem;
+  margin: 0 -5px;
+  line-height: .5;
+  width: 50%;
+  font-family: Gill Sans;
+  font-weight: 10%;
+}
+
+.th {
+  display: none;
+  font-weight: bold;
+  /*background-color: #f2f2f2;*/
+  border-bottom: .05px solid #d0d0d0;
+  color: #74a9cf;
+}
+
+.th > .td {
+  white-space: normal;
+  justify-content: center;
+}
+
+.tr {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  border-bottom: .05px solid #d0d0d0;
+}
+/*
+.tr:nth-of-type(even) {
+  background-color: #e8eff9;
+}
+
+.tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}*/
+
+.td {
+  display: flex;
+  flex-flow: row nowrap;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.3em;
+  word-break: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0px;
+  white-space: nowrap;
+  margin: 0 5px;
+}
+
+
