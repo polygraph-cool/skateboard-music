@@ -4,6 +4,7 @@ import isMobile from './utils/is-mobile';
 import graphic from './graphic';
 import joyplot from './joyplot';
 import bubbles from './bubbles';
+import waffle from './waffle';
 
 const bodySel = d3.select('body');
 let previousWidth = 0;
@@ -29,6 +30,9 @@ function init() {
 
 	//new_test enter
 	bubbles.init()
+
+	//waffle chart
+	waffle.init()
 
 }
 
