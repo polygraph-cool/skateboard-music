@@ -106,7 +106,6 @@
 			<div class='chart'>
 				<!-- <p>0</p> -->
 				<div class="joyplot"></div>
-
 			</div>
 		</div>
 
@@ -192,12 +191,13 @@
 			graphic.style('width', bodyWidth + 'px')
 				.style('height', window.innerHeight + 'px');
 
-			var chartMargin = 2;
+			var chartMargin = 50;
 			var textWidth = text.node().offsetWidth;
 			var chartWidth = graphic.node().offsetWidth - textWidth - chartMargin;
 			chart
 				.style('width', chartWidth + 'px')
-				.style('height', Math.floor(window.innerHeight ) + 'px');
+				// idk why but dividing height by 1.05
+				.style('height', Math.floor(window.innerHeight / 1.15 ) + 'px');
 			// 3. tell scrollama to update new element dimensions
 			scroller.resize();
 		}
@@ -205,10 +205,9 @@
 		// scrollama event handlers
 		function handleStepEnter(response) {
 			// add color to current step only
-			step.classed('is-active', function (d, i) {
-				return i === response.index;
-			})
-			// d3.selectAll('.line').attr('stroke', function(d, i) { return colors[response.index];});
+			// step.classed('is-active', function (d, i) {
+			// 	return i === response.index;
+			// })
 			d3.selectAll('rect#maskRect')
 				.attr('x', function(d) {
 					return maskRange[response.index];
