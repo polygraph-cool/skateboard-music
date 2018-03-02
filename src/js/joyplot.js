@@ -3,8 +3,8 @@ function resize() {}
 function init() {
 
 
-var margin = { top: 100, right: 10, bottom: 100, left: 110 },
-    width = 1000 - margin.left - margin.right,
+var margin = { top: 100, right: 10, bottom: 100, left: 140 },
+    width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right,
     height = 1200 - margin.top - margin.bottom;
 
 var svg = d3.selectAll('.joyplot').append('svg')
@@ -129,7 +129,7 @@ d3.tsv('assets/cities.tsv', row, function(error, dataFlat) {
 
     gGenre.append('rect')
         .attr('width', d3.select('div.joyplot').node().offsetWidth)
-        .attr('height', d3.select('div.joyplot').node().offsetHeight)
+        .attr('height', d3.select('div.chart').node().offsetHeight / 2.7)
         .attr('fill', 'black')
         .attr('id', 'maskRect')
         .attr('opacity', 1);
