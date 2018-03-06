@@ -651,15 +651,16 @@ function bubbleChart() {
                     .style('opacity', .75)
                     .attr('r', function (d) { return d.radius + 5; });
 
-    var content = '<span class="name">Artist: </span><span class="value">' +
+    var content = '<div class="ttimg"><img class="tooltipimage" src=' + d.art + 'width="60" height="60"></div>' +
+                  '<div class="tttext"><span class="name">Artist: </span><span class="value">' +
                   d.name +
                   '</span><br/>' +
-                  '<span class="name">Number of Times Used: </span><span class="value">' +
+                  '<span class="name">Amount Used: </span><span class="value">' +
                   d.value +
                   '</span><br/>' +
                   '<span class="name">Genre: </span><span class="value">' +
                   d.genre +
-                  '</span><br/>';
+                  '</span><br/></div>';
     tooltip.showTooltip(content, d3v3.event);
   }
 
@@ -747,7 +748,7 @@ function setupButtons() {
 
 
 // Load the data.
-d3v3.csv('assets/soundtrack_data.csv', display);
+d3v3.csv('assets/test_small.csv', display);
 
 // setup the buttons.
 setupButtons();
