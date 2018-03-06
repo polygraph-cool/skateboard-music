@@ -105,7 +105,7 @@ function bubbleChart() {
   var tooltip = floatingTooltip('bubble_tooltip', 240);
 
   // Locations to move bubbles towards, depending
-  // on which view mode is selected.
+  // on whiafch view mode is selected.
   var center = { x: width / 2, y: height / 2 };
 
   var selbubbles = [];
@@ -358,6 +358,16 @@ function bubbleChart() {
       .attr("id", "search")
       .attr("type", "text")
       .attr("placeholder", "Find an artist...");
+
+  d3v3.select('.bubble_main_title')
+  .append('g')
+      .append("text")
+      .attr("x", window.innerWidth /2)             
+      .attr("y", 0 - (window.innerHeight/11))
+      .style('color', 'black') 
+      .style('font-size', '50px')
+      .style('text-align', 'center')
+      .text("The Most Popular Artists");
 
   d3v3.select("#search")
       .on("keyup", function(event) {
