@@ -4,7 +4,6 @@ function init() {
 /* bubbleChart creation function.
  *
  */
-console.log('found bub.js');
 
 
 
@@ -95,9 +94,12 @@ function bubbleChart() {
   // Constants for sizing
   var searchBar = d3v3.select('.SearchBar');
 
-  var margin = {top: 20, bottom: 20, left: 10, right: 20};
-  var width = 1500 - margin.right;
-  var height = 1000 - margin.top - margin.bottom;
+  var margin = {top: 20, bottom: 20, left: 50, right: 20};
+  // var width = 1500 - margin.right;
+  // var height = 1000 - margin.top - margin.bottom;
+  // var boundingRect = d3.select('#vis').node().getBoundingClientRect();
+  var width = window.innerWidth - margin.left - margin.right;
+  var height = window.innerHeight + 10;
 
   // tooltip for mouseover functionality
   var tooltip = floatingTooltip('bubble_tooltip', 240);
@@ -108,10 +110,14 @@ function bubbleChart() {
 
   var selbubbles = [];
 
+  var popScale = d3.scaleLinear()
+                  .domain(['low', 'medium', 'high'])
+                  .range([width/4, width/1.5]);
+
 
   var useCenters = {
     'low': { x: width / 4, y: height / 2 },
-    'medium': { x: width / 2.3, y: height / 2 },
+    'medium': { x: width / 2.75, y: height / 2 },
     'high': { x: width / 1.5, y: height / 2 }
   };
 
@@ -123,15 +129,15 @@ function bubbleChart() {
   };
 
   var genreCenters = {
-    'Classic Rock': { x: width/7 + 80 + 30, y: height / 3.2},
-    'Indie/Alternative': { x: width/7 + 80 + 40, y: height / 1.7 },
-    'Hip Hop': { x: width/7*2.8 - 60 + 30, y: height / 3.2},
-    'Electronic': { x: width/7*2.8 - 60 + 30, y: height / 1.8},
-    'Punk': { x: width/7*4 - 30, y: height / 3.2},
-    'Metal': { x: width/7*4 - 90 + 30, y: height / 1.75},
-    'Other': { x: width/7*5 - 75 + 30, y: height / 3.2},
-    'Jazz/Soul': { x: width/7*5 - 75 + 30, y: height / 1.68},
-    'Rock': { x: width/7*5 - 75 + 30, y: height / 3.2}
+    'Classic Rock': { x: width/4.7, y: height / 2.6},
+    'Indie/Alternative': { x: width/4.65, y: height / 1.8 },
+    'Hip Hop': { x: width/2.75, y: height / 2.6},
+    'Electronic': { x: width/2.7, y: height / 1.8},
+    'Punk': { x: width/1.9, y: height / 2.6},
+    'Metal': { x: width/1.9, y: height / 1.8},
+    'Other': { x: width/1.55, y: height / 2.75},
+    'Jazz/Soul': { x: width/1.55, y: height / 1.8},
+    'Rock': { x: width/1.55, y: height / 2.6}
   };
 
   // X locations of the year titles.
@@ -149,14 +155,14 @@ function bubbleChart() {
 
   // Y locations of the year titles.
   var genreTitleY = {
-    'Classic Rock': 55,
-    'Indie/Alternative': 430,
-    'Hip Hop': 55,
-    'Electronic': 430,
-    'Punk': 55,
-    'Metal': 430,
-    'Other': 55,
-    'Jazz/Soul': 430,
+    'Classic Rock': height / 12,
+    'Indie/Alternative': height / 2,
+    'Hip Hop': height / 12,
+    'Electronic': height / 2,
+    'Punk': height / 12,
+    'Metal': height / 2,
+    'Other': height / 12,
+    'Jazz/Soul': height / 2,
 
   };
 
@@ -382,7 +388,6 @@ function bubbleChart() {
           searched_data = [].concat.apply([], searched_data); // This finds the data we want
             // data bind with new data
           selbubbles = bubbles.selectAll('.bubble-circle').data(searched_data, function(d){ return d.name});
-          console.log(selbubbles);
           // Style select nodes
           selbubbles
             .style('opacity', .75)
