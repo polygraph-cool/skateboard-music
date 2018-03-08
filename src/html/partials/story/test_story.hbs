@@ -1,128 +1,30 @@
-<!DOCTYPE html>
-<html>
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Scrollama Demo: Fixed CSS</title>
-	<meta name="description" content="Scrollama Demo: Fixed CSS">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<style>
-		/* default / demo page */
-		* {
-			box-sizing: border-box;
-		}
-		
-		/* scrollama */
-		#scroll {
-			position: relative;
-			border-top: 1px dashed #000;
-			border-bottom: 1px dashed #000;
-			background: black;
-		}
-		.scroll__graphic {
-			position: absolute;
-			top: 0;
-			left: 0;
-			bottom: auto;
-			background-color: black;
-			-webkit-transform: translate3d(0, 0, 0);
-			-moz-transform: translate3d(0, 0, 0);
-			transform: translate3d(0, 0, 0);
-		}
-		.scroll__graphic.is-fixed {
-			position: fixed;
-		}
-		.scroll__graphic.is-bottom {
-			bottom: 0;
-			top: auto;
-		}
-		.chart {
-			position: absolute;
-			right: 1rem;
-			top: 50%;
-			-moz-transform: translateY(-50%);
-			-webkit-transform: translateY(-50%);
-			transform: translateY(-50%);
-			background: black;
-		}
-		.scroll__text {
-			position: relative;
-			/*padding: 0 1rem;*/
-			max-width: 30rem;
-			width: 33%;
-		}
-		.step {
-			/*margin: 2rem auto;*/
-			/*border: 1px solid #333;*/
-			background-color: black;
-		}
-		.step.is-active {
-			background-color: black;
-		}
 
-		.step.is-active p {
-			font-size: 15px;
-			font-weight: bold;
-			height: 100%;
-		}
-
-		.step p {
-			text-align: center;
-			/*padding: 1rem;*/
-			font-size: 12px;
-			color: white;
-		}
-
-		.step h4 {
-			font-size: 20px;
-			color: white;
-			text-align: center;
-		}
-
-}
-
-	</style>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js'></script>
-
-</head>
-
-<body>
-		<div style="background:black;color:white;">
-		<div class="body_text" >
-		<h3 class='intro__dek tk-canela' style="margin:0 auto;">Genre Evolution Over Time</h3>
-		  <p>As with any sufficiently developed sub-culture, skateboarding has gone through, and continues to go through, temporal shifts in styles and trends.
-		</p>
-
-		  <p>
-		  Particular music genres are often associated with particular styles in skateboarding. For example, hip hop is often used with technical street skating, while heavier, faster music is generally used with transition (think ramps and ppols). 
-		  It's not surprising, then, that the year-to-year changes in the genre of skate video's often reflects the year-to-year changes in the styles of skateboarding, serving as a vessel for communicating what was hot in that genre.
-		  </p>
-		</div>
-		  
+<div class="joy-intro" style="">
+	<div class="body_text" >
+		<h3 class='intro__dek tk-atlas' style="">Genre Evolution Over Time</h3>
+	  <p>As with any sufficiently developed sub-culture, skateboarding has gone through, and continues to go through, temporal shifts in styles and trends.</p>
+	  <p>Particular music genres are often associated with particular styles in skateboarding. For example, hip hop is often used with technical street skating, while heavier, faster music is generally used with transition (think ramps and ppols).</p>
+	  <p>It's not surprising, then, that the year-to-year changes in the genre of skate video's often reflects the year-to-year changes in the styles of skateboarding, serving as a vessel for communicating what was hot in that genre.</p>
+	</div>
 
 	<section id='scroll'>
 		<div class='scroll__graphic'>
 			<div class='chart'>
-				<!-- <p>0</p> -->
 				<div class="joyplot"></div>
 			</div>
 		</div>
-
-
 		<div class='scroll__text'>
-
 			<div class='step' data-step='1'>
 				<h4> The Beginnings </h4>
 				<p>Skate videos became an established feature of skateboarding culture in the later-half of the 1980s.
-				For skateboarding, the 1980s were a pretty wild time; many DIY, skater-run companies were forming, vert skating, with its eclectic and show-man personalities, was in full popularity, and skateboarding was, for the first time, seeing commercial success. 
+				For skateboarding, the 1980s were a pretty wild time; many DIY, skater-run companies were forming, vert skating, with its eclectic and show-man personalities, was in full popularity, and skateboarding was, for the first time, seeing commercial success.
 
 				Early skate videos, borrowing from their counter-culture origins, were overwhelmingly dominated by punk rock music. Many of the artists featured in the first videos were bands formed by the skaters themselves, but early punk icons, such as Black Flag, The Faction, and Descendents, saw prominence as well.
 
-				The iconic noise rock duo Sonic Youth, an artist heavily used throughout skateboarding, was first featured in a skate video in 1989, years before their mainstream success in the 1990s/2000s.  
+				The iconic noise rock duo Sonic Youth, an artist heavily used throughout skateboarding, was first featured in a skate video in 1989, years before their mainstream success in the 1990s/2000s.
 				</p>
 			</div>
-
 			<div class='step' data-step='2'>
 				<h4> The 90's </h4>
 				<p> In the 90’s, Skateboarding entered something of a hermit stage - it was no longer 'cool', and many aspects of the culture changed. Vert skating died, technical street skating took over, skateboarding entered the infamous era of ‘big pants, small wheels’[image link], and, of course, the music changed.
@@ -130,34 +32,21 @@
 				Hip Hop entered skating's discography for the first time and quickly filled the gap left by the large decline in punk rock music. Hip Hop boomed in the 1990s, and became something of the new counter-culture anthem.
 				Artists such as ___, ___, and ___, were used for the first time, and set the tone of future soundtracks for years to come.
 
-				This decade was also the most popular for jazz/R&B artists, 
+				This decade was also the most popular for jazz/R&B artists,
 
 				 </p>
 			</div>
 			<div class='step' data-step='3'>
 				<h4> The early 2000's </h4>
 				<p>In the early 2000’s,  the popularity of techincal skating was replaced with a 'bigger-is-better' approach; with more 'stairs, gaps, and rails, and baggy pants are replaced tight pants. .
-
-				Indie music and Classic Rock replaced Hip Hop as the most popular artists, and skateboarding adopts a sort of 'rock-and-roll' attitude. (For an aesthtic perspective, consider that this is the time when baggy pants were replaced with tight pants). 
-
-				the dominant trend in skateboarding shifted from technical street skating to 'gnarly' stairs and rails.
-
-
-				 Thanks to the likes of shows such as Jackass, skateboarding entered the mainstream again, and with each passing year, became more anad more popular. Popular skateboarding adopted a 'bigger-is'better' approach; skating big stairs and rails was en vouge, a
-
-				 This music shift is also reflected in the attire - the baggy pants of the 1990s became replaced with the 'hesh' aesthetic: long hair and tight jeans.
-
-
-			</p>
+				<p>Indie music and Classic Rock replaced Hip Hop as the most popular artists, and skateboarding adopts a sort of 'rock-and-roll' attitude. (For an aesthtic perspective, consider that this is the time when baggy pants were replaced with tight pants). The dominant trend in skateboarding shifted from technical street skating to 'gnarly' stairs and rails.
+				<p>Thanks to the likes of shows such as Jackass, skateboarding entered the mainstream again, and with each passing year, became more anad more popular. Popular skateboarding adopted a 'bigger-is'better' approach; skating big stairs and rails was en vouge, a This music shift is also reflected in the attire - the baggy pants of the 1990s became replaced with the 'hesh' aesthetic: long hair and tight jeans.</p>
 			</div>
 			<div class='step' data-step='4'>
 				<h4> The Contemporary</h4>
-				<p> Unlike decades past, the current era of skateboarding sees no *single* defining aesthetic. In fact, almost all styles/approaches have an audience, and trends are even [coming back].
-
-				Appropriately Indie music, which itself is a broad categorization of music, is the most popular genre. That said, all genres see non-trivial employment in skate videos.
-
-
-				The most popular artists during this year are ___, ___, and ___.  </p>
+				<p>Unlike decades past, the current era of skateboarding sees no *single* defining aesthetic. In fact, almost all styles/approaches have an audience, and trends are even [coming back].</p>
+				<p>Appropriately Indie music, which itself is a broad categorization of music, is the most popular genre. That said, all genres see non-trivial employment in skate videos.</p>
+				<p>The most popular artists during this year are ___, ___, and ___.  </p>
 			</div>
 			<div class='step' data-step='5'>
 				<p> Most of you probably noted that this chart was inspired by Joy Division's classic Unknown Pleasure album cover. Joy Division is used consistently overtime, with peak popularity in _____.</p>
@@ -166,98 +55,4 @@
 	</section>
 	<section id='outro'></section>
 	<div class='debug'></div>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/scrollama/1.3.0/scrollama.js'></script>
-	<script>
-		var container = d3.select('#scroll');
-		var graphic = container.select('.scroll__graphic');
-		var chart = graphic.select('.chart');
-		var text = container.select('.scroll__text');
-		var step = text.selectAll('.step');
-		var colors = ['coral', 'green', 'blue', 'red'];
-		var width = d3.select('div.joyplot').node().offsetWidth;
-		console.log(width);
-		var maskRange = [0, 0, width/2.6, width/1.8, width/ 1, width];
-
-		var scroller = scrollama();
-
-		// generic window resize listener event
-		function handleResize() {
-			// Resize elements in step box
-			var stepHeight = Math.floor(window.innerHeight) * .75;
-			step.style('height', stepHeight + 'px');
-
-			// 2. update width/height of graphic element
-			var bodyWidth = d3.select('body').node().offsetWidth ;
-			graphic.style('width', bodyWidth + 'px')
-				.style('height', window.innerHeight + 'px');
-
-			var chartMargin = 50;
-			var textWidth = text.node().offsetWidth;
-			var chartWidth = graphic.node().offsetWidth - textWidth - chartMargin;
-			chart
-				.style('width', chartWidth + 'px')
-				// idk why but dividing height by 1.05
-				.style('height', Math.floor(window.innerHeight / 1.15 ) + 'px');
-			// 3. tell scrollama to update new element dimensions
-			scroller.resize();
-		}
-
-		// scrollama event handlers
-		function handleStepEnter(response) {
-			// add color to current step only
-			// step.classed('is-active', function (d, i) {
-			// 	return i === response.index;
-			// })
-			d3.selectAll('rect#maskRect')
-				.attr('x', function(d) {
-					return maskRange[response.index];
-				})
-				.transition()
-				.duration(2500)
-				.attr('x', function(d) {
-					return maskRange[response.index + 1];
-				});
-			// var mrWidth = d3.selectAll('#maskRect').attr('width');
-			// console.log(mrWidth);
-			// d3.select('.maskRect').attr('width', mrWidth / 2);
-		}
-		function handleContainerEnter(response) {
-			// response = { direction }
-			// sticky the graphic (old school)
-			graphic.classed('is-fixed', true);
-			graphic.classed('is-bottom', false);
-		}
-		function handleContainerExit(response) {
-			// response = { direction }
-			// un-sticky the graphic, and pin to top/bottom of container
-			graphic.classed('is-fixed', false);
-			graphic.classed('is-bottom', response.direction === 'down');
-		}
-
-		function init() {
-			// 1. force a resize on load to ensure proper dimensions are sent to scrollama
-			handleResize();
-			// 2. setup the scroller passing options
-			// this will also initialize trigger observations
-			// 3. bind scrollama event handlers (this can be chained like below)
-			scroller.setup({
-				container: '#scroll',
-				graphic: '.scroll__graphic',
-				text: '.scroll__text',
-				step: '.scroll__text .step',
-				offset: .5,
-				debug: false,
-			})
-				.onStepEnter(handleStepEnter)
-				.onContainerEnter(handleContainerEnter)
-				.onContainerExit(handleContainerExit);
-			// setup resize event
-			window.addEventListener('resize', handleResize);
-		}
-		// kick things off
-		init();
-	</script>
 </div>
-</body>
-
-</html>

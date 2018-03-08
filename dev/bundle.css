@@ -405,7 +405,7 @@ svg {
 }
 
 #vis {
-  width: 1200px;
+  width: 1000px;
   height: 640px;
   clear: both;
   margin-bottom: 10px;
@@ -500,6 +500,31 @@ header a.logo svg {
   width: 100%;
 }
 
+.body_text {
+  margin: 0 auto;
+  max-width: 40rem;
+}
+
+.body_text .intro__dek {
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.body_text p,.body_text blockquote {
+  padding-top: 0px;
+  line-height: 1.5;
+  margin: 1.5rem 0rem;
+  font-size: 1rem;
+  font-family: 'Atlas Grotesk Web';
+}
+
+.body_text blockquote {
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: #ececec;
+  padding: 1rem 2rem;
+}
+
 .intro {
   margin: 0 auto;
   padding: 4rem 1rem 1.5rem 1rem;
@@ -509,7 +534,7 @@ header a.logo svg {
   max-width: 60rem;
   margin: 0 auto;
   padding-top: 5rem;
-  font-weight: bold;
+  font-weight: 300;
   text-align: center;
   font-size: 40px;
   line-height: 1.2;
@@ -534,12 +559,129 @@ header a.logo svg {
   line-height: 1.7;
 }
 
-.axis .domain {
-  display: none;
+.step {
+ /*margin: 2rem auto;*/ /*border: 1px solid #333;*/
+  background-color: #000;
 }
 
-.axis--x text {
-  fill: #999;
+.step.is-active {
+  background-color: #000;
+}
+
+.step.is-active p {
+  font-size: 15px;
+  font-weight: bold;
+  height: 100%;
+}
+
+.step p {
+  text-align: center;
+ /*padding: 1rem;*/
+  font-size: 12px;
+  color: #fff;
+}
+
+.step h4 {
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.joy-intro {
+  padding-top: 3rem;
+  background: #000;
+  color: #fff;
+  margin-bottom: 5rem;
+}
+
+.joy-intro .intro__dek {
+  margin-bottom: 2rem;
+}
+
+.joy-intro .body_text {
+  margin-bottom: 8rem;
+}
+
+.joy-intro #scroll {
+  position: relative;
+  margin: 0 auto;
+  border: none;
+  width: 100%;
+  padding-bottom: 2rem;
+}
+
+.joy-intro #scroll .scroll__graphic {
+  width: 100%;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  -webkit-transform: translate3d(0, 0, 0, 0);
+  transform: translate3d(0, 0, 0, 0);
+}
+
+.joy-intro #scroll .scroll__graphic .chart {
+  position: absolute;
+  width: 60%;
+  background: #000;
+  margin: 0 auto;
+  margin-left: 40%;
+}
+
+.joy-intro #scroll .scroll__graphic .chart svg {
+  overflow: visible;
+}
+
+.joy-intro #scroll .scroll__graphic .chart svg .axis--x .tick line {
+  stroke: #fff;
+}
+
+.joy-intro #scroll .scroll__graphic .chart svg .axis--x .tick text {
+  font-size: 0.7rem;
+  font-family: 'Atlas Grotesk Web';
+  fill: #fff;
+  font-weight: 500;
+}
+
+.joy-intro #scroll .scroll__graphic .chart svg .axis--activity .tick text {
+  font-size: 0.8rem;
+  font-family: 'Atlas Grotesk Web';
+  fill: #fff;
+}
+
+.joy-intro #scroll .scroll__text {
+  position: relative;
+  width: 30%;
+  margin-left: 10%;
+}
+
+.joy-intro #scroll .scroll__text .step {
+  margin-bottom: 2rem;
+}
+
+.joy-intro #scroll .scroll__text .step h4 {
+  font-family: 'Atlas Grotesk Web';
+  text-align: left;
+}
+
+.joy-intro #scroll .scroll__text .step p {
+  text-align: left;
+  font-size: 0.9rem;
+  font-family: 'Atlas Grotesk Web';
+  line-height: 1.8;
+}
+
+.joy-intro #scroll .is-fixed {
+  position: fixed;
+}
+
+.joy-intro #scroll .is-bottom {
+  bottom: 0;
+  top: auto;
+}
+
+.axis .domain {
+  display: none;
 }
 
 .axis--x line {
@@ -548,12 +690,6 @@ header a.logo svg {
 
 .axis--activity .tick line {
   display: none;
-}
-
-.axis--activity text {
-  font-size: 14px;
-  fill: #777;
-  fill: #fff;
 }
 
 .axis--activity .tick:nth-child(odd) text {
@@ -583,18 +719,11 @@ header a.logo svg {
   color: #fff;
   width: 100%;
   max-height: 1500px;
-  padding: 0rem 1rem 0 1rem;
+  padding: 0rem 1rem 0 0;
 }
 
 p.joy_text {
   color: #fff;
-}
-
-.body_text {
-  padding: 10rem 1rem 0 1rem;
-  max-width: 55rem;
-  margin: 0 auto;
-  font-size: 17px;
 }
 
 .button {
@@ -679,6 +808,127 @@ p.joy_text {
 
 .prose__hed {
   font-size: 60px;
+}
+
+.table {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: column nowrap;
+  flex-flow: column nowrap;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  font-size: 0.9rem;
+  margin: 0 -5px;
+  line-height: 0.5;
+  width: 50%;
+  font-family: Gill Sans;
+  font-weight: 10%;
+}
+
+.th {
+  display: none;
+  font-weight: bold;
+ /*background-color: #f2f2f2;*/
+  border-bottom: 0.05px solid #d0d0d0;
+  color: #74a9cf;
+}
+
+.th > .td {
+  white-space: normal;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.tr {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  border-bottom: 0.05px solid #d0d0d0;
+}
+
+.td {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row nowrap;
+  flex-flow: row nowrap;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  padding: 0.3em;
+  word-break: break-word;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  min-width: 0px;
+  white-space: nowrap;
+  margin: 0 5px;
+}
+
+.waffle_col {
+  float: left;
+  width: 24%;
+  height: 50%;
+ /*border: 1px solid blue;*/
+  overflow: hidden;
+  margin: 20px 5px;
+}
+
+.waffle_row {
+  width: 100%;
+  height: 50%;
+ /*margin: 50px 10px;*/ /*border: 5px solid red;*/;
+}
+
+.waffle_title {
+  font-size: 20px;
+  position: relative;
+  left: 45%;
+  -webkit-transform: translateX(-45%);
+  -ms-transform: translateX(-45%);
+  transform: translateX(-45%);
+  text-align: left;
+  font-family: Gill Sans;
+}
+
+.waffle_main_title {
+  font-family: Gill Sans;
+}
+
+.legend {
+  padding-bottom: 7px;
+}
+
+.legend_item {
+  display: inline-block;
+  padding-right: 10px;
+  margin-bottom: 2px;
+}
+
+.legend_item_icon,.legend_item_text {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 25px;
+}
+
+.legend_item_icon {
+  margin-right: 15px;
+  height: 10px;
+  width: 10px;
 }
 
 @media only screen and (min-width: 40em) {
