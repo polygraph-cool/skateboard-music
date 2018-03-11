@@ -748,7 +748,7 @@ function setupButtons() {
 
 
 // Load the data.
-d3v3.csv('assets/test_small.csv', display);
+d3v3.csv('assets/soundtrack_data.csv', display);
 
 // setup the buttons.
 setupButtons();
