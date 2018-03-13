@@ -651,7 +651,7 @@ function bubbleChart() {
                     .style('opacity', .75)
                     .attr('r', function (d) { return d.radius + 5; });
 
-    var content = '<div class="ttimg"><img class="tooltipimage" src=' + d.art + 'width="60" height="60"></div>' +
+    var content = 
                   '<div class="tttext"><span class="name">Artist: </span><span class="value">' +
                   d.name +
                   '</span><br/>' +
