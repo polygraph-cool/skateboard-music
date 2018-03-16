@@ -23,16 +23,16 @@ function init() {
 	// setup resize event
 	window.addEventListener('resize', debounce(resize, 150));
 	// kick off graphic code
-	graphic.init();
-
-	//joyplot enter
+	// graphic.init();
+	//
+	// //joyplot enter
 	joyplot.init();
-
-	//new_test enter
-	bubbles.init()
-
-	//waffle chart
-	waffle.init()
+	//
+	// //new_test enter
+	// bubbles.init()
+	//
+	// //waffle chart
+	// waffle.init()
 
 }
 

@@ -3,7 +3,7 @@
 function resize() {}
 
 function init() {
-	console.log('Make somethingjk!');
+	// console.log('Make somethingjk!');
 }
 
 export default { init, resize };

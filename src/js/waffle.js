@@ -1,10 +1,6 @@
 function resize() {}
 
 function init() {
-/* bubbleChart creation function.
- *
- */
-
 
 var WaffleChart = function() {
 
@@ -155,7 +151,7 @@ var WaffleChart = function() {
       .attr("class", "waffle")
       .attr("width", width)
       .attr("height", height);
-      
+
 
     var g = svg.append("g")
       .attr("transform", "translate(0,0)");
@@ -210,7 +206,7 @@ var WaffleChart = function() {
     //             .style("opacity", 0); 
     //     });;
 
-    
+
 
     if (_obj.rounded) {
       item
@@ -221,9 +217,9 @@ var WaffleChart = function() {
     title.append('g')
       .append("text")
       .attr('class', 'waffle_title')
-      .attr("x", (width / 2))             
+      .attr("x", (width / 2))
       .attr("y", 0 - (height/11))
-      .style('color', 'black') 
+      .style('color', 'black')
       .text($_title);
 
   }
@@ -301,8 +297,7 @@ var WaffleChart = function() {
 };
 
 
-
-d3v3.csv("assets/waffle_411VideoMagazine.csv", function(err, data) {
+d3v3.csv("assets/waffle_AdidasSkateboarding.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
@@ -848,24 +843,8 @@ d3v3.csv("assets/waffle_OsirisShoes.csv", function(err, data) {
       }
     });
 
-d3v3.csv("assets/waffle_PigWheels.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart() 
-          .selector(".waffle_row_9")
-          .title('Pig')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
 
-d3v3.csv("assets/waffle_PlanBSkateboards.csv", function(err, data) {
+d3v3.csv("assets/waffle_GirlSkateboards.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
@@ -1124,10 +1103,10 @@ d3v3.csv("assets/waffle_ZooYork.csv", function(err, data) {
 d3v3.select('.waffle_main_title')
   .append('g')
       .append("text")
-      .attr("x", window.innerWidth /2)             
+      .attr("x", window.innerWidth /2)
       .attr("y", 0 - (window.innerHeight/11))
-      .style('color', 'black') 
-      // .style('font-size', '50px')
+      .style('color', 'black')
+      .style('font-size', '50px')
       .style('text-align', 'center')
       .text("Genre Distributions by Company");
 
