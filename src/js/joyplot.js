@@ -50,7 +50,6 @@ function testStoryCode(){
         return maskRange[response.index + 1];
       });
     // var mrWidth = d3.selectAll('#maskRect').attr('width');
-    // console.log(mrWidth);
     // d3.select('.maskRect').attr('width', mrWidth / 2);
   }
   function handleContainerEnter(response) {
@@ -90,9 +89,8 @@ function testStoryCode(){
 }
 
 function init() {
-  var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-  console.log(d3.select('div.chart').node().offsetWidth);
+  var windowHeight = Math.max(document.documentElement.clientHeight / 1.8, window.innerHeight / 1.8 || 0);
 
   var margin = { top: 0, right: 10, bottom: 50, left: 150 },
       width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right,
@@ -169,10 +167,8 @@ function init() {
     genreScale.domain(genreDomain);
     // genreScale.domain(data.map(function(d) { return d.key; }));
 
-    var overlap = 0.9;
+    var overlap = 2;
     var areaChartHeight = (1 + overlap) * (height / genreScale.domain().length);
-
-    console.log(areaChartHeight);
 
     yScale
         .domain(d3.extent(dataFlat, y))
@@ -193,7 +189,8 @@ function init() {
       .append('g')
       .attr('class', function(d) { return 'activity activity--' + d.key; })
       .attr('transform', function(d) {
-          var ty = genreValue(d) - genreScale.bandwidth();
+          // var ty = genreValue(d) - genreScale.bandwidth();
+          var ty = genreValue(d) - Math.round(areaChartHeight);
           return 'translate(0,' + ty + ')';
       });
 
@@ -201,8 +198,8 @@ function init() {
     gGenre
         .append('g')
         .attr('transform', function(d) {
-            console.log('below this');
-          var ty = 2 * genreScale.bandwidth();
+          // var ty = 2 * genreScale.bandwidth();
+          var ty = Math.round(areaChartHeight) + genreScale.domain().length * 1.5;
           return 'translate(0,' + ty + ')';
       })
         .append('text').html(function(d) { return d.key; }).attr('fill', 'white')
@@ -236,7 +233,7 @@ function init() {
 
     svg.append('g')
         .attr('class', 'axis axis--x')
-        .attr('transform', 'translate(0,' + (height) + ')') // hard-coded => bad
+        .attr('transform', 'translate(0,' + (height) + ')') 
         .call(xAxis)
         .selectAll("text")
         .attr("y",13)
