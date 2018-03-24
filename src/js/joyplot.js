@@ -92,6 +92,8 @@ function testStoryCode(){
 function init() {
   var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
+  console.log(d3.select('div.chart').node().offsetWidth);
+
   var margin = { top: 0, right: 10, bottom: 50, left: 150 },
       width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right,
       height = windowHeight - margin.top - margin.bottom;
@@ -156,7 +158,7 @@ function init() {
     };
 
     // Sort activities by use
-    var genreDomain = ["Indie/Alternative", "Hip Hop", "Punk", "Classic Rock", "Other", "Jazz/Soul", "Electronic", "Metal", "Rock"];
+    var genreDomain = ["Indie/Alternative", "Hip Hop", "Punk", "Classic Rock", "Jazz/Soul", "Other", "Electronic", "Metal", "Rock"];
 
     data.sort(function (a, b) {return genreDomain.indexOf(a.key) - genreDomain.indexOf(b.key)})
 
@@ -167,7 +169,7 @@ function init() {
     genreScale.domain(genreDomain);
     // genreScale.domain(data.map(function(d) { return d.key; }));
 
-    var overlap = 0.85;
+    var overlap = 0.9;
     var areaChartHeight = (1 + overlap) * (height / genreScale.domain().length);
 
     console.log(areaChartHeight);
@@ -194,7 +196,19 @@ function init() {
           var ty = genreValue(d) - genreScale.bandwidth();
           return 'translate(0,' + ty + ')';
       });
-    //
+
+
+    gGenre
+        .append('g')
+        .attr('transform', function(d) {
+            console.log('below this');
+          var ty = 2 * genreScale.bandwidth();
+          return 'translate(0,' + ty + ')';
+      })
+        .append('text').html(function(d) { return d.key; }).attr('fill', 'white')
+        .attr("text-anchor","end");
+
+
     gGenre.append('path')
         .attr('class', 'area')
         .datum(function(d) { return d.values; })
@@ -211,6 +225,7 @@ function init() {
         .attr('d', line)
         .attr('stroke', 'white')
         .style('opacity', 1);
+
     //
     gGenre.append('rect')
         .attr('width', d3.select('div.joyplot').node().offsetWidth)
