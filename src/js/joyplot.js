@@ -8,7 +8,11 @@ function testStoryCode(){
   var step = text.selectAll('.step');
   var colors = ['coral', 'green', 'blue', 'red'];
   var width = d3.select('div.joyplot').node().offsetWidth;
-  var maskRange = [0, 0, width/2.6, width/1.8, width/ 1, width];
+  // var maskRange = [width/10, width, width/5, width/3, width/ 2, width, width];
+  var maskScale = d3.scaleLinear()
+    .domain([1, 4])
+    .range([0, width]);
+
 
   var scroller = scrollama();
 
@@ -36,18 +40,17 @@ function testStoryCode(){
 
   // scrollama event handlers
   function handleStepEnter(response) {
-    // add color to current step only
-    // step.classed('is-active', function (d, i) {
-    // 	return i === response.index;
-    // })
+
+    console.log('ENTERED STEP');
     d3.selectAll('rect#maskRect')
       .attr('x', function(d) {
-        return maskRange[response.index];
+        return maskScale(response.index);
       })
       .transition()
-      .duration(2500)
+      .duration(2000)
+      .delay(200)
       .attr('x', function(d) {
-        return maskRange[response.index + 1];
+        return maskScale(response.index + 1);
       });
     // var mrWidth = d3.selectAll('#maskRect').attr('width');
     // d3.select('.maskRect').attr('width', mrWidth / 2);
@@ -55,6 +58,7 @@ function testStoryCode(){
   function handleContainerEnter(response) {
     // response = { direction }
     // sticky the graphic (old school)
+    console.log('just entered');
     graphic.classed('is-fixed', true);
     graphic.classed('is-bottom', false);
   }
@@ -76,7 +80,8 @@ function testStoryCode(){
         graphic: '.scroll__graphic',
         text: '.scroll__text',
         step: '.scroll__text .step',
-        offset: 1
+        debug: false,  // uncomment to have interactive debug
+        offset: .5,
       })
       .onStepEnter(handleStepEnter)
       .onContainerEnter(handleContainerEnter)
@@ -121,6 +126,7 @@ function init() {
   var genre = function(d) { return d.key; };
   var genreScale = d3.scaleBand().range([0, height]);
   var genreValue = function(d) { return genreScale(genre(d)); };
+
   var genreAxis = d3.axisLeft(genreScale);
 
   var area = d3.area()
@@ -167,7 +173,7 @@ function init() {
     genreScale.domain(genreDomain);
     // genreScale.domain(data.map(function(d) { return d.key; }));
 
-    var overlap = 2;
+    var overlap = 3;
     var areaChartHeight = (1 + overlap) * (height / genreScale.domain().length);
 
     yScale
@@ -226,7 +232,7 @@ function init() {
     //
     gGenre.append('rect')
         .attr('width', d3.select('div.joyplot').node().offsetWidth)
-        .attr('height', d3.select('div.chart').node().offsetHeight / 2.7)
+        .attr('height', d3.select('div.chart').node().offsetHeight) // was divided by 2.7 => bad
         .attr('fill', 'black')
         .attr('id', 'maskRect')
         .attr('opacity', 1);
