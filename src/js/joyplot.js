@@ -39,7 +39,10 @@ function testStoryCode(){
   }
 
   // scrollama event handlers
-  function handleStepEnter(response) {
+  function handleStepEnter({ element, direction, index }) {
+
+    var response = { element, direction, index }
+		//var dataYear = response.element.dataset.year;
 
     console.log('ENTERED STEP');
     d3.selectAll('rect#maskRect')
@@ -239,7 +242,7 @@ function init() {
 
     svg.append('g')
         .attr('class', 'axis axis--x')
-        .attr('transform', 'translate(0,' + (height) + ')') 
+        .attr('transform', 'translate(0,' + (height) + ')')
         .call(xAxis)
         .selectAll("text")
         .attr("y",13)
