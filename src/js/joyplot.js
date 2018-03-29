@@ -6,12 +6,14 @@ function testStoryCode(){
   var chart = graphic.select('.chart');
   var text = container.select('.scroll__text');
   var step = text.selectAll('.step');
-  var colors = ['coral', 'green', 'blue', 'red'];
-  var width = d3.select('div.joyplot').node().offsetWidth;
-  // var maskRange = [width/10, width, width/5, width/3, width/ 2, width, width];
-  var maskScale = d3.scaleLinear()
-    .domain([1, 4])
-    .range([0, width]);
+
+  var margin = { top: 0, right: 10, bottom: 50, left: 150 },
+      width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right;
+      console.log(width);
+  // xScale
+  var xScale = d3.scaleTime()
+  .domain([new Date(1977, 0, 1), new Date(2029, 0, 1)])
+      .range([0, width]);
 
 
   var scroller = scrollama();
@@ -42,26 +44,20 @@ function testStoryCode(){
   function handleStepEnter({ element, direction, index }) {
 
     var response = { element, direction, index }
-		//var dataYear = response.element.dataset.year;
+		var dataYear = response.element.dataset.year;
+    var conv_date = new Date(dataYear);
 
-    console.log('ENTERED STEP');
     d3.selectAll('rect#maskRect')
-      .attr('x', function(d) {
-        return maskScale(response.index);
-      })
       .transition()
-      .duration(2000)
-      .delay(200)
+      .duration(5000)
       .attr('x', function(d) {
-        return maskScale(response.index + 1);
+        return xScale(conv_date);
       });
-    // var mrWidth = d3.selectAll('#maskRect').attr('width');
-    // d3.select('.maskRect').attr('width', mrWidth / 2);
+
   }
   function handleContainerEnter(response) {
     // response = { direction }
     // sticky the graphic (old school)
-    console.log('just entered');
     graphic.classed('is-fixed', true);
     graphic.classed('is-bottom', false);
   }
@@ -115,6 +111,7 @@ function init() {
 
   // Function to return d.time
   var x = function(d) { return d.time; };
+  
 
   // xScale
   var xScale = d3.scaleTime().range([0, width]);
@@ -173,6 +170,14 @@ function init() {
 
     xScale.domain(d3.extent(dataFlat, x));
 
+    console.log(d3.extent(dataFlat, x));
+    // var ttt = xScale.invert(400);
+    // var tttt = xScale(ttt);
+    // console.log(tttt);
+    // console.log(ttt);
+    // console.log(ttt == "Mon Jan 19 2009 00:13:18 GMT-0700 (US Mountain Standard Time)");
+    // console.log(x("Mon Jan 19 2009 00:13:18 GMT-0700 (US Mountain Standard Time)"));
+    // console.log(xValue(x("Mon Jan 19 2009 00:13:18 GMT-0700 (US Mountain Standard Time)")));
     genreScale.domain(genreDomain);
     // genreScale.domain(data.map(function(d) { return d.key; }));
 
