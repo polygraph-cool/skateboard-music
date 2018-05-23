@@ -105,64 +105,68 @@ function bubbleChart() {
   var tooltip = floatingTooltip('bubble_tooltip', 240);
 
   // Locations to move bubbles towards, depending
-  // on whiafch view mode is selected.
+  // on which view mode is selected.
   var center = { x: width / 2, y: height / 2 };
 
   var selbubbles = [];
 
-  var popScale = d3.scaleLinear()
-                  .domain(['low', 'medium', 'high'])
-                  .range([width/4, width/1.5]);
+  var popScale = d3.scaleBand()
+    .domain(['low', 'medium', 'high'])
+    .range([width / 10, (width - margin.right * 2)]);
 
+  var genereXScale = d3.scaleBand()
+    .domain(['1', '2','3','4'])
+    // .range([width, width, (width / 2.75), (width / 2.7), (width / 1.9), (width / 1.9), (width / 1.55), (width / 1.55), (width / 1.55)]);
+    .range([width / 4, (width - margin.right )])
 
   var useCenters = {
-    'low': { x: width / 4, y: height / 2 },
-    'medium': { x: width / 2.75, y: height / 2 },
-    'high': { x: width / 1.5, y: height / 2 }
+    'low': { x: popScale('low') * 3, y: height / 2 }, //width / 4
+    'medium': { x: popScale('medium') + margin.right * 2, y: height / 2 }, //width / 2.75
+    'high': { x: popScale('high') - margin.right*3, y: height / 2 } //width / 1.5
   };
 
   // X locations of the year titles.
   var useTitleX = {
-    'Low': width / 6,
-    'Medium': width / 2.3,
-    'High': width / 1.35
+    'Low': (popScale('low') + 2 * margin.right), //width / 6,
+    'Medium': (popScale('medium') + 2 * margin.right),//width / 2.3,
+    'High': (popScale('high') + 3 * margin.right)//width / 1.35
   };
 
   var genreCenters = {
-    'Classic Rock': { x: width/4.7, y: height / 2.6},
-    'Indie/Alternative': { x: width/4.65, y: height / 1.8 },
-    'Hip Hop': { x: width/2.75, y: height / 2.6},
-    'Electronic': { x: width/2.7, y: height / 1.8},
-    'Punk': { x: width/1.9, y: height / 2.6},
-    'Metal': { x: width/1.9, y: height / 1.8},
-    'Other': { x: width/1.55, y: height / 2.75},
-    'Jazz/Soul': { x: width/1.55, y: height / 1.8},
-    'Rock': { x: width/1.55, y: height / 2.6}
+    'Classic Rock': { x: genereXScale('1') + margin.left * .8, y: height / 3.5},
+    'Indie/Alternative': { x: genereXScale('1') + margin.left * .8, y: height / 2 },
+    'Hip Hop': { x: genereXScale('2'), y: height / 3.5},
+    'Electronic': { x: genereXScale('2'), y: height / 2},
+    'Punk': { x: genereXScale('3'), y: height / 3.5},
+    'Metal': { x: genereXScale('3'), y: height / 2},
+    'Other': { x: genereXScale('4') - margin.right*4, y: height / 3.5},
+    'Jazz/Soul': { x: genereXScale('4') - margin.right*4, y: height / 2},
+    'Rock': { x: genereXScale('4') - margin.right*4, y: height / 2}
   };
 
   // X locations of the year titles.
   var genreTitleX = {
-    'Classic Rock': width/7 - 30 + 30,
-    'Indie/Alternative': width/7 - 30 + 30,
-    'Hip Hop': width/7*2.5 + 30,
-    'Electronic': width/7 * 2.5 + 30,
-    'Punk': width/7*4 + 10,
-    'Metal': width/7 * 4 + 10,
-    'Other': width/7 * 5.1 + 50,
-    'Jazz/Soul': width/7 * 5.1 + 50
+    'Classic Rock': genereXScale('1') - margin.left * 2,
+    'Indie/Alternative': genereXScale('1') - margin.left * 2,
+    'Hip Hop': genereXScale('2'),
+    'Electronic': genereXScale('2'),
+    'Punk': genereXScale('3') + margin.right*4,
+    'Metal': genereXScale('3') + margin.right*4,
+    'Other': genereXScale('4') + margin.right * 4,
+    'Jazz/Soul': genereXScale('4') + margin.right * 4
 
   };
 
   // Y locations of the year titles.
   var genreTitleY = {
-    'Classic Rock': height / 12,
-    'Indie/Alternative': height / 2,
-    'Hip Hop': height / 12,
-    'Electronic': height / 2,
-    'Punk': height / 12,
-    'Metal': height / 2,
-    'Other': height / 12,
-    'Jazz/Soul': height / 2,
+    'Classic Rock': height - (height - margin.top*2),
+    'Indie/Alternative': height / 2.4,
+    'Hip Hop': height - (height - margin.top*2),
+    'Electronic': height / 2.4,
+    'Punk': height - (height - margin.top*2),
+    'Metal': height / 2.4,
+    'Other': height - (height - margin.top*2),
+    'Jazz/Soul': height / 2.4,
 
   };
 
@@ -178,13 +182,13 @@ function bubbleChart() {
   var text = [];
 
   function charge(d) {
-    return -Math.pow(d.radius, 2.0) / 8;
+    return -Math.pow(d.radius, 2.0) / 7.7;
   }
 
   var force = d3v3.layout.force()
     .size([width, height])
     .charge(charge)
-    .gravity(-0.01)
+    .gravity(-0.011)
     .friction(0.9);
 
     var fillColor2 = d3v3.scale.ordinal()
@@ -198,8 +202,8 @@ function bubbleChart() {
 
   // Sizes bubbles based on their area instead of raw radius
   var radiusScale = d3v3.scale.pow()
-    .exponent(1.8)  // exponent makes the graph 'tighter'
-    .range([9, 70]);
+    .exponent(2.1)  // exponent makes the graph 'tighter'
+    .range([8, 70]);
 
   /*
    * This data manipulation function takes the raw data from
@@ -227,8 +231,8 @@ function bubbleChart() {
         group: d.group,
         genre: d.genre,
         year: d.year,
-        x: Math.random() * 900,
-        y: Math.random() * 800
+        x: +genreCenters[d.genre].x,//900,
+        y: Math.random() * +genreCenters[d.genre].y
       };
     });
 
@@ -268,31 +272,9 @@ function bubbleChart() {
     // with desired size.
     svg = d3v3.select(selector)
       .append('svg')
-      .attr('width', width)
-      .attr('height', height);
+      .attr('width', width + margin.right)
+      .attr('height', height + margin.top + margin.bottom);
 
-    // bubble plot axis stuff
-    svg.append('line')
-      .attr('class', 'bubble-axis')
-      .attr("x1", width / 7)
-      .attr("y1", height / 11)
-      .attr("x2", width / 7)
-      .attr("y2", height / 11)
-      .attr("stroke", "#000")
-      .attr("stroke-width", 4)
-      // .attr("marker-end", "url(#arrow)")
-      .style('opacity', .5)
-      .attr('visibility', 'hidden');
-
-
-    svg.append('text')
-      .attr('class', 'bubble-axis-text')
-      .attr('x', width / 6.5)
-      .attr('y', height / 12)
-      .text('Artists Grouped By Popularity')
-      .style('font-weight', 'bold')
-      .style('font-size', 30)
-      .style('opacity', 0);
 
     // Bind nodes data to what will become DOM elements to represent them.
     bubbles = svg.selectAll('.bubble')
@@ -302,7 +284,10 @@ function bubbleChart() {
     // There will be one circle.bubble for each object in the nodes array.
     // Initially, their radius (r attribute) will be 0.
     bubbles.enter()
-      .append('g')
+      .append('g') // new below
+
+
+
 
     bubbles
       .append("circle")
@@ -315,6 +300,8 @@ function bubbleChart() {
       .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); })
       .attr('stroke-width', 0.5)
       .attr('opacity', .75)
+      // .attr('cx', function(d) { return genreCenters[d.genre].x})
+      // .attr('cy', function(d) { return genreCenters[d.genre].y})
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail)
       .call(force.drag);
@@ -344,9 +331,9 @@ function bubbleChart() {
 
     // Fancy transition to make bubbles appear, ending with the
     // correct radius
-    bubbles.transition()
-      .duration(3000)
-      .attr('r', function (d) {return d.radius; });
+    // bubbles.transition()
+    //   .duration(3000)
+    //   .attr('r', function (d) {return d.radius; });
 
     // Set initial layout to single group.
     groupBubbles();
@@ -433,13 +420,25 @@ function bubbleChart() {
     showGenre();
 
     force.on('tick', function (e) {
-      bubbles.each(moveToGenre(e.alpha))
-        .attr('transform', function (d) {
+      console.log(e.alpha);
+      if (e.alpha >= .03) {
+        bubbles.each(moveToGenre(1.05*e.alpha))
+          .attr('transform', function (d) {
           return "translate("+d.x+","+d.y+")";
-        })
+        }) 
+          } else {
+            // call stop so tick values stop getting updated - otherwise they transitions will occur from different d.x,d.y values
+            force.stop();
+          }
+      
+      
     });
 
     force.start();
+
+    force.on('end', function() {
+      console.log('erear');
+    });
   }
 
 
@@ -469,6 +468,7 @@ function bubbleChart() {
     showUse();
 
     force.on('tick', function (e) {
+      console.log('here');
       bubbles.each(moveToUse(e.alpha))
         .attr('transform', function (d) {
           return "translate("+d.x+","+d.y+")";
@@ -570,7 +570,7 @@ function bubbleChart() {
     use.enter().append('text')
       .attr('class', 'year')
       .attr('x', function (d) { return useTitleX[d]; })
-      .attr('y', height / 5.5)
+      .attr('y', height / 11)
       .attr('text-anchor', 'middle')
       .text(function (d) { return d; });
   }
@@ -592,20 +592,21 @@ function bubbleChart() {
     svg.selectAll('.bubble-label')
         .attr('visibility', 'hidden');
 
-    d3.selectAll('.bubble-axis-text')
-        // .attr('visibility', 'hidden')
-        .transition()
-        .duration(3600)
-        .style('opacity', .5);
+    // d3.selectAll('.bubble-axis-text')
+    //     // .attr('visibility', 'hidden')
+    //     .transition()
+    //     .duration(3600)
+    //     .style('opacity', .5);
     // show popularity axis
-    d3.select('.bubble-axis')
-        .attr('visibility', 'visible')
-        .transition()
-        .duration(3000)
-        .attr("x2", width / 2)
-        .attr("y2", height / 11)
-        // .attr("marker-end", "url(#arrow)")
-        .style('opacity', .5);
+    // d3.select('.bubble-axis')
+    //     .attr('visibility', 'visible')
+    //     .transition()
+    //     .duration(3000)
+    //     .attr("x2", width / 2)
+    //     .attr("y2", height / 11)
+    //     // .attr("marker-end", "url(#arrow)")
+    //     .style('opacity', .5);
+
   }
 
   /*
@@ -646,8 +647,10 @@ function bubbleChart() {
    */
   function showDetail(d) {
     // change outline to indicate hover state.
+    let strokwid = d3v3.select(this).attr('stroke-width');
+    console.log(strokwid);
     d3v3.select(this).attr('stroke', 'black')
-                    .attr('stroke-width', 2.4)
+                    .attr('stroke-width', strokwid == 3.5 ? 3.5 : 2.4)
                     .style('opacity', .75)
                     .attr('r', function (d) { return d.radius + 5; });
 
@@ -669,9 +672,17 @@ function bubbleChart() {
    */
   function hideDetail(d) {
     // reset outline
+    let strokwid = d3v3.select(this).attr('stroke-width');
     d3v3.select(this)
-      .attr('stroke', d3v3.rgb(fillColor2(d.genre)).darker())
-      .attr('stroke-width', .5)
+      // .attr('stroke', d3v3.rgb(fillColor2(d.genre)).darker())
+      .attr('stroke-width', strokwid == 3.5 ? 3.5 : .5)
+      .attr('stroke', function (d) { 
+        if (strokwid == 3.5) {
+          return 'black'; 
+        } else {
+          return d3v3.rgb(fillColor2(d.genre)).darker();
+        }
+      })
       .style('opacity', .75)
       .attr('fill', function (d) { return fillColor2(d.genre); })
       .attr('r', function (d) { return d.radius; });
