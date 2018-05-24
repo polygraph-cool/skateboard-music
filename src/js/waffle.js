@@ -94,7 +94,8 @@ var WaffleChart = function() {
     };
 
     var color = d3v3.scale.ordinal()
-      .domain([0, _obj.data.length - 1])
+      // .domain([0, _obj.data.length - 1]) >> changed this
+      .domain([0, 1, 2, 3, 4, 5, 6, 7])
       .range(['#ccebc5', '#f2f2f2', '#fbb4ae','#fed9a6','#fddaec','#decbe4', '#f9f9bb','#b3cde3']);
 
     //if (_obj.label) {
@@ -902,6 +903,23 @@ d3v3.csv("assets/waffle_SK8MAFIA.csv", function(err, data) {
         var waffle = new WaffleChart() 
           .selector(".waffle_row_10")
           .title('SK8MAFIA')
+          .data(data)
+          .useWidth(false).useLegend(false)
+          .size(5)
+          .gap(0)
+          .rows(20)
+          .columns(50)
+          .rounded(false)();
+      }
+    });
+
+d3v3.csv("assets/waffle_PigWheels.csv", function(err, data) {
+      if (err) {
+        console.error(err);
+      } else {
+        var waffle = new WaffleChart() 
+          .selector(".waffle_row_9")
+          .title('Pig Wheels')
           .data(data)
           .useWidth(false).useLegend(false)
           .size(5)
