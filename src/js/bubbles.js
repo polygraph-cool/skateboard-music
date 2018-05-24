@@ -99,7 +99,12 @@ function bubbleChart() {
   // var height = 1000 - margin.top - margin.bottom;
   // var boundingRect = d3.select('#vis').node().getBoundingClientRect();
   var width = window.innerWidth - margin.left - margin.right;
-  var height = window.innerHeight + 10;
+  var height = window.innerHeight ;
+  var width = 1100;
+  var height = 1050;
+
+  console.log('width', width)
+  console.log('height', height)
 
   // tooltip for mouseover functionality
   var tooltip = floatingTooltip('bubble_tooltip', 240);
@@ -110,9 +115,9 @@ function bubbleChart() {
 
   var selbubbles = [];
 
-  var popScale = d3.scaleBand()
+  var popScale = d3.scaleOrdinal()
     .domain(['low', 'medium', 'high'])
-    .range([width / 10, (width - margin.right * 2)]);
+    .range([width / 3.5, width / 2, width / 1.4]);
 
   var genereXScale = d3.scaleBand()
     .domain(['1', '2','3','4'])
@@ -120,16 +125,16 @@ function bubbleChart() {
     .range([width / 4, (width - margin.right )])
 
   var useCenters = {
-    'low': { x: popScale('low') * 3, y: height / 2 }, //width / 4
-    'medium': { x: popScale('medium') + margin.right * 2, y: height / 2 }, //width / 2.75
-    'high': { x: popScale('high') - margin.right*3, y: height / 2 } //width / 1.5
+    'low': { x: popScale('low'), y: height / 2.5 }, //width / 4
+    'medium': { x: popScale('medium'), y: height / 2.5 }, //width / 2.75
+    'high': { x: popScale('high'), y: height / 2.5 } //width / 1.5
   };
 
   // X locations of the year titles.
   var useTitleX = {
-    'Low': (popScale('low') + 2 * margin.right), //width / 6,
-    'Medium': (popScale('medium') + 2 * margin.right),//width / 2.3,
-    'High': (popScale('high') + 3 * margin.right)//width / 1.35
+    'Low':  popScale('low') - margin.right*2, //width / 6,
+    'Medium': popScale('medium'),//width / 2.3,
+    'High': popScale('high')+margin.right*2 //width / 1.35
   };
 
   var genreCenters = {
@@ -272,8 +277,8 @@ function bubbleChart() {
     // with desired size.
     svg = d3v3.select(selector)
       .append('svg')
-      .attr('width', width + margin.right)
-      .attr('height', height + margin.top + margin.bottom);
+      .attr('width', width)
+      .attr('height', height + margin.top);
 
 
     // Bind nodes data to what will become DOM elements to represent them.
@@ -420,7 +425,6 @@ function bubbleChart() {
     showGenre();
 
     force.on('tick', function (e) {
-      console.log(e.alpha);
       if (e.alpha >= .03) {
         bubbles.each(moveToGenre(1.05*e.alpha))
           .attr('transform', function (d) {
@@ -436,9 +440,7 @@ function bubbleChart() {
 
     force.start();
 
-    force.on('end', function() {
-      console.log('erear');
-    });
+   
   }
 
 
@@ -468,7 +470,6 @@ function bubbleChart() {
     showUse();
 
     force.on('tick', function (e) {
-      console.log('here');
       bubbles.each(moveToUse(e.alpha))
         .attr('transform', function (d) {
           return "translate("+d.x+","+d.y+")";
@@ -648,7 +649,6 @@ function bubbleChart() {
   function showDetail(d) {
     // change outline to indicate hover state.
     let strokwid = d3v3.select(this).attr('stroke-width');
-    console.log(strokwid);
     d3v3.select(this).attr('stroke', 'black')
                     .attr('stroke-width', strokwid == 3.5 ? 3.5 : 2.4)
                     .style('opacity', .75)
