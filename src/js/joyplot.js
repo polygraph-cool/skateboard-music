@@ -20,24 +20,6 @@ function testStoryCode(){
 
   // generic window resize listener event
   function handleResize() {
-    // // Resize elements in step box
-    // var stepHeight = Math.floor(window.innerHeight) * .75;
-    // step.style('height', stepHeight + 'px');
-    //
-    // // 2. update width/height of graphic element
-    // var bodyWidth = d3.select('body').node().offsetWidth ;
-    // graphic.style('width', bodyWidth + 'px')
-    //   .style('height', window.innerHeight + 'px');
-    //
-    // var chartMargin = 50;
-    // var textWidth = text.node().offsetWidth;
-    // var chartWidth = graphic.node().offsetWidth - textWidth - chartMargin;
-    // chart
-    //   .style('width', chartWidth + 'px')
-    //   // idk why but dividing height by 1.05
-    //   .style('height', Math.floor(window.innerHeight / 1.15 ) + 'px');
-    // // 3. tell scrollama to update new element dimensions
-    // scroller.resize();
   }
 
   // scrollama event handlers
