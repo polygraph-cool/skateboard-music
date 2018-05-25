@@ -49,7 +49,7 @@ function testStoryCode(){
 
     d3.selectAll('rect#maskRect')
       .transition()
-      .duration(5000)
+      .duration(2500)
       .attr('x', function(d) {
         return xScale(conv_date);
       });
