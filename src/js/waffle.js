@@ -187,24 +187,24 @@ var WaffleChart = function() {
       .attr("stroke-width", 2);
 
     // tooltip
-    var tooltip = d3.select($_selector).append("div") 
-    .attr("class", "tooltip")       
+    var tooltip = d3.select($_selector).append("div")
+    .attr("class", "tooltip")
     .style("opacity", 0);
 
     // d3v3.selectAll('.unit')
     //   .on('mouseover', function(d) {
     //     console.log(Math.round((d.units / formattedData.length) * 100) + "%");
-    //     tooltip.transition()   
-    //             .duration(200)    
+    //     tooltip.transition()
+    //             .duration(200)
     //             .style("opacity", .9);
     //             console.log(_obj.data[d.groupIndex]);
     //     tooltip.html(_obj.data[d.groupIndex][$_keys[0]] + ": " + Math.round((d.units / formattedData.length) * 100) + "%")
-    //       .style("left", (d3v3.event.pageX) + "px")   
+    //       .style("left", (d3v3.event.pageX) + "px")
     //       .style("top", (d3v3.event.pageY - 10) + "px");
     //   })
-    //   .on("mouseout", function(d) {   
-    //         tooltip.transition()   
-    //             .style("opacity", 0); 
+    //   .on("mouseout", function(d) {
+    //         tooltip.transition()
+    //             .style("opacity", 0);
     //     });;
 
 
@@ -224,8 +224,6 @@ var WaffleChart = function() {
       .text($_title);
 
   }
-
-
 
   generatedWaffleChart.selector = function(value){
     if (!arguments.length) { return $_selector; }
@@ -251,7 +249,7 @@ var WaffleChart = function() {
     return generatedWaffleChart;
   }
 
-    generatedWaffleChart.useLegend = function(value){
+  generatedWaffleChart.useLegend = function(value){
     if (!arguments.length) { return $_useLegend; }
     $_useLegend = value;
     return generatedWaffleChart;
@@ -314,7 +312,6 @@ d3v3.csv("assets/waffle_AdidasSkateboarding.csv", function(err, data) {
           .rounded(false)();
       }
     });
-
 
 d3v3.csv("assets/waffle_CallMe917.csv", function(err, data) {
       if (err) {
@@ -707,7 +704,6 @@ d3v3.csv("assets/waffle_Enjoi.csv", function(err, data) {
       }
     });
 
-
 d3v3.csv("assets/waffle_FlipSkateboards.csv", function(err, data) {
       if (err) {
         console.error(err);
@@ -831,7 +827,7 @@ d3v3.csv("assets/waffle_OsirisShoes.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_44")
           .title('Osiris Shoes')
           .data(data)
@@ -844,12 +840,11 @@ d3v3.csv("assets/waffle_OsirisShoes.csv", function(err, data) {
       }
     });
 
-
 d3v3.csv("assets/waffle_GirlSkateboards.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_21")
           .title('Plan B')
           .data(data)
@@ -866,7 +861,7 @@ d3v3.csv("assets/waffle_PolarSkateCo.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_33")
           .title('Polar')
           .data(data)
@@ -883,7 +878,7 @@ d3v3.csv("assets/waffle_PyramidCountry.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_45")
           .title('Pyramid Country')
           .data(data)
@@ -900,7 +895,7 @@ d3v3.csv("assets/waffle_SK8MAFIA.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_10")
           .title('SK8MAFIA')
           .data(data)
@@ -917,7 +912,7 @@ d3v3.csv("assets/waffle_PigWheels.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_9")
           .title('Pig Wheels')
           .data(data)
@@ -934,7 +929,7 @@ d3v3.csv("assets/waffle_SlaveSkateboards.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_22")
           .title('$LAVE')
           .data(data)
@@ -951,7 +946,7 @@ d3v3.csv("assets/waffle_StereoSkateboards.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_34")
           .title('Stereo')
           .data(data)
@@ -968,7 +963,7 @@ d3v3.csv("assets/waffle_Supreme.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_46")
           .title('Supreme')
           .data(data)
@@ -985,7 +980,7 @@ d3v3.csv("assets/waffle_ThrasherMagazine.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_11")
           .title('Thrasher')
           .data(data)
@@ -1002,7 +997,7 @@ d3v3.csv("assets/waffle_ToyMachine.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_23")
           .title('Toy Machine')
           .data(data)
@@ -1019,7 +1014,7 @@ d3v3.csv("assets/waffle_TransworldSkateboarding.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_35")
           .title('Transworld')
           .data(data)
@@ -1036,7 +1031,7 @@ d3v3.csv("assets/waffle_Vans.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_47")
           .title('Vans')
           .data(data)
@@ -1053,7 +1048,7 @@ d3v3.csv("assets/waffle_Volcom.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_12")
           .title('Volcom')
           .data(data)
@@ -1070,7 +1065,7 @@ d3v3.csv("assets/waffle_VOXFootwear.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_24")
           .title('Vox Footwear')
           .data(data)
@@ -1087,7 +1082,7 @@ d3v3.csv("assets/waffle_ZeroSkateboards.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+        var waffle = new WaffleChart()
           .selector(".waffle_row_36")
           .title('Zero')
           .data(data)
@@ -1104,7 +1099,8 @@ d3v3.csv("assets/waffle_ZooYork.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart() 
+
+        var waffle = new WaffleChart()
           .selector(".waffle_row_48")
           .title('Zoo York')
           .data(data)
@@ -1116,19 +1112,6 @@ d3v3.csv("assets/waffle_ZooYork.csv", function(err, data) {
           .rounded(false)();
       }
     });
-
-
-d3v3.select('.waffle_main_title')
-  .append('g')
-      .append("text")
-      .attr("x", window.innerWidth /2)
-      .attr("y", 0 - (window.innerHeight/11))
-      .style('color', 'black')
-      .style('font-size', '50px')
-      .style('text-align', 'center')
-      .text("Genre Distributions by Company");
-
-
 
 }
 

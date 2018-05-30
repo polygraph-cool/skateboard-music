@@ -103,9 +103,6 @@ function bubbleChart() {
   var width = 1100;
   var height = 1050;
 
-  console.log('width', width)
-  console.log('height', height)
-
   // tooltip for mouseover functionality
   var tooltip = floatingTooltip('bubble_tooltip', 240);
 
@@ -198,6 +195,8 @@ function bubbleChart() {
 
     var fillColor2 = d3v3.scale.ordinal()
     .domain(['Classic Rock', 'Punk', 'Indie/Alternative', 'Metal', 'Hip Hop', 'Electronic', 'Jazz/Soul'])
+    //.range(d3.schemePastel1.slice(0,7))
+    //.range([d3.interpolatePlasma(0),d3.interpolatePlasma(1/7),d3.interpolatePlasma(2/7),d3.interpolatePlasma(3/7),d3.interpolatePlasma(4/7),d3.interpolatePlasma(5/7),d3.interpolatePlasma(6/7),d3.interpolatePlasma(1)])
     .range(['#fbb4ae', '#fddaec', '#ccebc5', '#decbe4', '#fed9a6', '#ffffcc','#b3cde3', '#f2f2f2']);
 
   // Nice looking colors - no reason to buck the trend
@@ -278,8 +277,7 @@ function bubbleChart() {
     svg = d3v3.select(selector)
       .append('svg')
       .attr('width', width)
-      .attr('height', height + margin.top);
-
+      .attr('height', 800);
 
     // Bind nodes data to what will become DOM elements to represent them.
     bubbles = svg.selectAll('.bubble')
@@ -289,50 +287,40 @@ function bubbleChart() {
     // There will be one circle.bubble for each object in the nodes array.
     // Initially, their radius (r attribute) will be 0.
     bubbles.enter()
-      .append('g') // new below
-
-
-
+      .append('g')
+      .sort(function(a,b){
+        return a.radius - b.radius;
+      })
+      ; // new below
 
     bubbles
       .append("circle")
       .classed('bubble', true)
       .attr('class', 'bubble-circle')
       .attr('r', function(d){
-        return d.radius;
+        return d.radius-2;
       })
       .attr('fill', function (d) { return fillColor2(d.genre); })
       .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); })
-      .attr('stroke-width', 0.5)
-      .attr('opacity', .75)
-      // .attr('cx', function(d) { return genreCenters[d.genre].x})
-      // .attr('cy', function(d) { return genreCenters[d.genre].y})
+      .attr('stroke-width', function(d){
+        if(d.radius > 17){
+          return 1.5;
+        }
+        return .75
+      })
       .on('mouseover', showDetail)
       .on('mouseout', hideDetail)
-      .call(force.drag);
+      // .call(force.drag);
 
     bubbles
+      .filter(function(d){
+        return d.radius > 17;
+      })
       .append("text")
       .text(function(d){
-        if(d.radius > 17 & d3.randomUniform(1, 10)() > 5){
-          return d.name;
-        } else if(d.radius > 5 & d3.randomUniform(1, 10)() > 9.5) {
-          return d.name;
-        }
-      });
-
-    // text = svg.selectAll("text.bubble-label")
-    //  .data(nodes, function (d) { return d.id; })
-    //     .enter()
-    //     .append("text")
-    //     .attr("class", "bubble-label")
-    //     .text(function(d) {
-    //       if (d.value < 17) {
-    //         return "";
-    //       } else {
-    //         return d.name;
-    //       }
-    //     });
+        return d.name;
+      })
+      ;
 
     // Fancy transition to make bubbles appear, ending with the
     // correct radius
@@ -350,16 +338,6 @@ function bubbleChart() {
       .attr("id", "search")
       .attr("type", "text")
       .attr("placeholder", "Find an artist...");
-
-  d3v3.select('.bubble_main_title')
-  .append('g')
-      .append("text")
-      .attr("x", window.innerWidth /2)             
-      .attr("y", 0 - (window.innerHeight/11))
-      .style('color', 'black') 
-      .style('font-size', '50px')
-      .style('text-align', 'center')
-      .text("The Most Popular Artists");
 
   d3v3.select("#search")
       .on("keyup", function(event) {
@@ -393,22 +371,22 @@ function bubbleChart() {
           // Style select nodes
           selbubbles
             .style('opacity', .75)
-            .attr('stroke-width', 3.5)
-            .attr('stroke', 'black');
+            .style('stroke-width', 3.5)
+            .style('stroke', 'black');
 
         } else {
           d3v3.selectAll('.bubble-circle')
-            .style("opacity", 1)
-            .attr('stroke-width', .5)
-            .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); });
+            .style("opacity", null)
+            .style('stroke-width', null)
+            .style('stroke', null);
 
         }
 
         selbubbles
         .exit()
-            .style("opacity", .75)
-            .attr('stroke-width', .5)
-            .attr('stroke', function (d) { return d3v3.rgb(fillColor2(d.genre)).darker(); });
+            .style("opacity", null)
+            .style('stroke-width', null)
+            .style('stroke', null);
 
 
 
@@ -429,18 +407,18 @@ function bubbleChart() {
         bubbles.each(moveToGenre(1.05*e.alpha))
           .attr('transform', function (d) {
           return "translate("+d.x+","+d.y+")";
-        }) 
+        })
           } else {
             // call stop so tick values stop getting updated - otherwise they transitions will occur from different d.x,d.y values
             force.stop();
           }
-      
-      
+
+
     });
 
     force.start();
 
-   
+
   }
 
 
@@ -539,7 +517,8 @@ function bubbleChart() {
       .attr('x', function (d) { return yearsTitleX[d]; })
       .attr('y', 40)
       .attr('text-anchor', 'middle')
-      .text(function (d) { return d; });
+      .text(function (d) { return d; })
+      ;
   }
 
 
@@ -590,23 +569,10 @@ function bubbleChart() {
    */
   function hideGenre() {
     svg.selectAll('.title').remove();
-    svg.selectAll('.bubble-label')
-        .attr('visibility', 'hidden');
+    svg.selectAll('.title-bar').remove();
+    svg.selectAll('.bubble-label').attr('visibility', 'hidden');
 
-    // d3.selectAll('.bubble-axis-text')
-    //     // .attr('visibility', 'hidden')
-    //     .transition()
-    //     .duration(3600)
-    //     .style('opacity', .5);
-    // show popularity axis
-    // d3.select('.bubble-axis')
-    //     .attr('visibility', 'visible')
-    //     .transition()
-    //     .duration(3000)
-    //     .attr("x2", width / 2)
-    //     .attr("y2", height / 11)
-    //     // .attr("marker-end", "url(#arrow)")
-    //     .style('opacity', .5);
+
 
   }
 
@@ -626,7 +592,22 @@ function bubbleChart() {
       .attr('x', function (d) { return genreTitleX[d]; })
       .attr('y', function (d) { return genreTitleY[d]; })
       .attr('text-anchor', 'middle')
-      .text(function (d) { return d; });
+      .text(function (d) { return d; })
+      .style("fill",function(d){
+        return d3v3.rgb(fillColor2(d)).darker(1.5);
+      })
+      ;
+
+    genre.enter().append('rect')
+      .attr('class', 'title-bar')
+      .attr('x', function (d) { return Math.round(genreTitleX[d]-25); })
+      .attr('y', function (d) { return Math.round(genreTitleY[d]+10); })
+      .attr("width",50)
+      .attr("height",2)
+      .style("fill",function(d){
+        return d3v3.rgb(fillColor2(d)).darker();
+      })
+      ;
 
     svg.selectAll('.bubble-label')
         .attr('visibility', 'visible');
@@ -648,13 +629,13 @@ function bubbleChart() {
    */
   function showDetail(d) {
     // change outline to indicate hover state.
-    let strokwid = d3v3.select(this).attr('stroke-width');
-    d3v3.select(this).attr('stroke', 'black')
-                    .attr('stroke-width', strokwid == 3.5 ? 3.5 : 2.4)
-                    .style('opacity', .75)
-                    .attr('r', function (d) { return d.radius + 5; });
+    // let strokwid = d3v3.select(this).attr('stroke-width');
+    // d3v3.select(this).attr('stroke', 'black')
+    //                 .attr('stroke-width', strokwid == 3.5 ? 3.5 : 2.4)
+    //                 .style('opacity', .75)
+    //                 .attr('r', function (d) { return d.radius + 5; });
 
-    var content = 
+    var content =
                   '<div class="tttext"><span class="name">Artist: </span><span class="value">' +
                   d.name +
                   '</span><br/>' +
@@ -672,20 +653,20 @@ function bubbleChart() {
    */
   function hideDetail(d) {
     // reset outline
-    let strokwid = d3v3.select(this).attr('stroke-width');
-    d3v3.select(this)
-      // .attr('stroke', d3v3.rgb(fillColor2(d.genre)).darker())
-      .attr('stroke-width', strokwid == 3.5 ? 3.5 : .5)
-      .attr('stroke', function (d) { 
-        if (strokwid == 3.5) {
-          return 'black'; 
-        } else {
-          return d3v3.rgb(fillColor2(d.genre)).darker();
-        }
-      })
-      .style('opacity', .75)
-      .attr('fill', function (d) { return fillColor2(d.genre); })
-      .attr('r', function (d) { return d.radius; });
+    // let strokwid = d3v3.select(this).attr('stroke-width');
+    // d3v3.select(this)
+    //   // .attr('stroke', d3v3.rgb(fillColor2(d.genre)).darker())
+    //   .attr('stroke-width', strokwid == 3.5 ? 3.5 : .5)
+    //   .attr('stroke', function (d) {
+    //     if (strokwid == 3.5) {
+    //       return 'black';
+    //     } else {
+    //       return d3v3.rgb(fillColor2(d.genre)).darker();
+    //     }
+    //   })
+    //   .style('opacity', .75)
+    //   .attr('fill', function (d) { return fillColor2(d.genre); })
+    //   .attr('r', function (d) { return d.radius; });
 
     tooltip.hideTooltip();
   }
