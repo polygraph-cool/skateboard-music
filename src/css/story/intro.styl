@@ -1,6 +1,21 @@
+#content
+	width 100%
+	overflow hidden
+
+.opening-text
+	background-color black
+	padding-top 5rem
+	padding-bottom 3rem
+	.body_text
+		p
+			color white
+		blockquote
+			background #3c3c3c
+			color #e0e0e0
+
 .body_text
 	margin 0 auto
-	max-width 40rem
+	max-width $column-width
 	.intro__dek
 		font-size 1.5rem
 		text-align left
@@ -21,13 +36,58 @@
 .intro
 	margin 0 auto
 	padding 4rem 1rem 1.5rem 1rem
-
+	position relative
+	min-height 100vh
+	display flex
+	flex-direction column
+	justify-content center
+	.intro_video
+		position absolute
+		top 0px
+		left 0px
+		width 100%
+		height 100%
+		overflow hidden
+		background #282828
+		z-index 0
+		.video-overlay
+			background-image linear-gradient(to bottom,rgba(255,255,255,0),#000)
+			position absolute
+			bottom 0px
+			height 20vh
+			width 100%
+			display none
+		.dot
+			position relative
+			width 100%
+			height 100%
+			top 0px
+			left 0px
+			background url(assets/dot.png)
+			//background url(assets/bg-pattern-dark.png)
+			opacity .3
+		video
+			//transform translateX(-50%) translateY(-50%)
+			opacity .5
+			width auto
+			height auto
+			min-height 110%
+			min-width 130%
+			//top 50%
+			//left 25%
+			display block
+			position absolute
+			filter grayscale(.2)
+			top -10%
+			left -30%
 	&__hed
 		max-width 60rem
 		margin 0 auto
 		padding-top 5rem
 		font-weight 300
 		text-align center
+		position relative
+		color white
 		set-type-size('xx-large', true)
 		+mq('bp-2')
 			set-type-size('xxx-large', true)
@@ -41,6 +101,11 @@
 		padding-bottom 1.5rem
 		text-align center
 		set-type-size('small', true)
+		position relative
+		color white
+		a
+			color white
+			border-bottom 1px solid white
 
 	&__dek
 		max-width $column-width
@@ -48,3 +113,5 @@
 		padding-top 1.5rem
 		text-align center
 		set-type-size('medium', true)
+		position relative
+		color white

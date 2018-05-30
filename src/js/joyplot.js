@@ -1,3 +1,5 @@
+var tracker;
+var xScale;
 function resize() {}
 
 function testStoryCode(){
@@ -11,10 +13,9 @@ function testStoryCode(){
       width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right;
       console.log(width);
   // xScale
-  var xScale = d3.scaleTime()
-  .domain([new Date(1977, 0, 1), new Date(2029, 0, 1)])
-      .range([0, width]);
-
+  // var xScale = d3.scaleTime()
+  // .domain([new Date(1977, 0, 1), new Date(2029, 0, 1)])
+  //     .range([0, width]);
 
   var scroller = scrollama();
 
@@ -28,13 +29,28 @@ function testStoryCode(){
     var response = { element, direction, index }
 		var dataYear = response.element.dataset.year;
     var conv_date = new Date(dataYear);
+    var stepIndex = response.index
+    if(stepIndex > 0){
+      tracker.style("visibility","visible").style("opacity",1);
+    }
+    else{
+      tracker.style("visibility",null).style("opacity",0);
+    }
 
-    d3.selectAll('rect#maskRect')
+    tracker
       .transition()
-      .duration(2500)
-      .attr('x', function(d) {
-        return xScale(conv_date);
-      });
+      .duration(0)
+      .transition()
+      .duration(250)
+      .attr("x1",xScale(conv_date)).attr("x2",xScale(conv_date))
+      ;
+
+    // d3.selectAll('rect#maskRect')
+    //   .transition()
+    //   .duration(2500)
+    //   .attr('x', function(d) {
+    //     return xScale(conv_date);
+    //   });
 
   }
   function handleContainerEnter(response) {
@@ -76,10 +92,14 @@ function testStoryCode(){
 
 function init() {
 
-  var windowHeight = Math.max(document.documentElement.clientHeight / 1.8, window.innerHeight / 1.8 || 0);
+  var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+  windowHeight = Math.min(400,windowHeight);
+
+  var windowWidth = Math.min(d3.select('div.chart').node().offsetWidth,500);
 
   var margin = { top: 0, right: 10, bottom: 50, left: 150 },
-      width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right,
+      width = windowWidth - margin.left - margin.right,
       height = windowHeight - margin.top - margin.bottom;
 
   var svg = d3.selectAll('.joyplot').append('svg')
@@ -93,17 +113,14 @@ function init() {
 
   // Function to return d.time
   var x = function(d) { return d.time; };
-  
-
-  // xScale
-  var xScale = d3.scaleTime().range([0, width]);
+  xScale = d3.scaleTime().range([0, width]);
   var xValue = function(d) { return xScale(x(d)); };
   var xAxis = d3.axisBottom(xScale)
               .tickFormat(formatTime).ticks(10);
 
   var y = function(d) { return d.value; };
   var yScale = d3.scaleLinear();
-  var yValue = function(d) { return yScale(y(d)) + 10; };
+  var yValue = function(d) { return yScale(y(d)) + 0; };
 
   var genre = function(d) { return d.key; };
   var genreScale = d3.scaleBand().range([0, height]);
@@ -133,6 +150,13 @@ function init() {
     // Sort x-axis by time
     dataFlat.sort(function(a, b) { return a.time - b.time; });
 
+    var yearFormat = d3.timeFormat("%Y");
+
+
+    dataFlat = dataFlat.filter(function(d){
+      return +yearFormat(d.time) > 1988 && +yearFormat(d.time) < 2018;
+    })
+
     var data = d3.nest()
         .key(function(d) { return d.activity; })
         .entries(dataFlat);
@@ -148,22 +172,11 @@ function init() {
 
     data.sort(function (a, b) {return genreDomain.indexOf(a.key) - genreDomain.indexOf(b.key)})
 
-    // data.sort(function(a, b) { return peakTime(a) - peakTime(b); });
-
     xScale.domain(d3.extent(dataFlat, x));
 
-    console.log(d3.extent(dataFlat, x));
-    // var ttt = xScale.invert(400);
-    // var tttt = xScale(ttt);
-    // console.log(tttt);
-    // console.log(ttt);
-    // console.log(ttt == "Mon Jan 19 2009 00:13:18 GMT-0700 (US Mountain Standard Time)");
-    // console.log(x("Mon Jan 19 2009 00:13:18 GMT-0700 (US Mountain Standard Time)"));
-    // console.log(xValue(x("Mon Jan 19 2009 00:13:18 GMT-0700 (US Mountain Standard Time)")));
     genreScale.domain(genreDomain);
-    // genreScale.domain(data.map(function(d) { return d.key; }));
 
-    var overlap = 3;
+    var overlap = 2;
     var areaChartHeight = (1 + overlap) * (height / genreScale.domain().length);
 
     yScale
@@ -171,11 +184,6 @@ function init() {
         .range([areaChartHeight, 0]);
 
     area.y0(yScale(0));
-
-    // svg.append('g')
-    //     .attr('class', 'axis axis--activity')
-    //     .attr('transform', 'translate(0,' + 0 + ')')
-    //     .call(genreAxis);
 
     // // set y-axis labels
     var gGenre = svg.append('g')
@@ -190,17 +198,43 @@ function init() {
           return 'translate(0,' + ty + ')';
       });
 
+    var textColor = 0;
+    var areaColor = 0;
 
     gGenre
         .append('g')
         .attr('transform', function(d) {
-          // var ty = 2 * genreScale.bandwidth();
-          var ty = Math.round(areaChartHeight) + genreScale.domain().length * 1.5;
-          return 'translate(0,' + ty + ')';
-      })
-        .append('text').html(function(d) { return d.key; }).attr('fill', 'white')
+          var ty = Math.round(areaChartHeight) + genreScale.domain().length * 1.5 - 10;
+          return 'translate(-25,' + ty + ')';
+        })
+        .append('text')
+        .html(function(d) { return d.key; })
+        .attr('fill', function(d){
+          var color = d3.color(d3.interpolateCool(textColor)).brighter(0)
+          textColor = textColor + 1/9
+          return color;
+        })
         .attr("text-anchor","end");
 
+    gGenre
+        .append('g')
+        .attr('transform', function(d) {
+          var endValue = d.values[d.values.length - 1];
+
+          var ty = Math.round(areaChartHeight) + genreScale.domain().length * 1.5 - 10;
+          return 'translate('+(width+4)+',' + (yScale(y(endValue)))  + ')';
+        })
+        .append('text')
+        .html(function(d) {
+          var values = d.values
+          return Math.round(d.values[d.values.length - 1].value*100)+"%";
+        })
+        .attr('fill', function(d){
+          return "white";
+        })
+        .attr("class","percent-annotation")
+        .attr("text-anchor","start")
+        ;
 
     gGenre.append('path')
         .attr('class', 'area')
@@ -210,7 +244,15 @@ function init() {
                     return formatTime(d.time) < 1995;});
             return tt
         })
-        .attr('d', area);
+        .attr('d', area)
+        .style("fill",function(d){
+          var color = d3.color(d3.interpolateCool(areaColor)).darker(2)
+          areaColor = areaColor + 1/9;
+          return color;
+
+          return "red";
+        })
+        ;
 
     gGenre.append('path')
         .attr('class', 'line')
@@ -219,17 +261,39 @@ function init() {
         .attr('stroke', 'white')
         .style('opacity', 1);
 
-    //
-    gGenre.append('rect')
-        .attr('width', d3.select('div.joyplot').node().offsetWidth)
-        .attr('height', d3.select('div.chart').node().offsetHeight) // was divided by 2.7 => bad
-        .attr('fill', 'black')
-        .attr('id', 'maskRect')
-        .attr('opacity', 1);
+    gGenre.append('line')
+        .attr('class', 'line-bottom')
+        .datum(function(d) { return d.values; })
+        .attr("x1",-10)
+        .attr("x2",width+10)
+        .attr("y1",0)
+        .attr("y2",0)
+        .attr('transform', function(d) {
+          var ty = Math.round(areaChartHeight) + genreScale.domain().length * 1.5 - 10;
+          return 'translate(-10,' + ty + ')';
+        })
+        .attr('stroke', 'white')
+        .style('opacity', 1);
+
+    tracker = svg.append('line')
+      .attr("x1",function(d){
+        return xScale(new Date(1989, 0, 1))
+      })
+      .attr("x2",function(d){
+        return xScale(new Date(1989, 0, 1))
+      })
+      .attr("y1",-100)
+      .attr("y2",height+20)
+      .attr('class',"maskRect")
+
+    //     .attr('width', d3.select('div.joyplot').node().offsetWidth)
+    //     .attr('height', d3.select('div.chart').node().offsetHeight) // was divided by 2.7 => bad
+    //     .attr('id', 'maskRect')
+    //     .attr('opacity', 1);
 
     svg.append('g')
         .attr('class', 'axis axis--x')
-        .attr('transform', 'translate(0,' + (height) + ')')
+        .attr('transform', 'translate(0,' + (height-20) + ')')
         .call(xAxis)
         .selectAll("text")
         .attr("y",13)
@@ -238,7 +302,7 @@ function init() {
     // Remove years in x-axis for which no data actually exists
     d3.selectAll(".tick text")
         .each( function(d, i) {
-            if (i == 9 | i == 10 | i == 18) {
+            if (i % 2 != 0) {
                 d3.select(this)
                     .attr('visibility', 'hidden');
             }
@@ -246,20 +310,20 @@ function init() {
 
     d3.selectAll('.tick')
         .each( function(d, i) {
-            if (i == 9 | i == 10 | i == 18) {
-                d3.select(this)
-                    .attr('visibility', 'hidden');
-            }
+          if (i % 2 != 0) {
+              d3.select(this)
+                  .attr('visibility', 'hidden');
+          }
         });
 
-    d3.select('svg')
-        .append('text')
-        .attr('class', 'joytitle')
-        .attr('x', width / 2)
-        .attr('y', 10)
-        .attr('fill', 'white')
-        .style('font-size', '40px')
-        .text('title');
+    // svg
+    //     .append('text')
+    //     .attr('class', 'joytitle')
+    //     .attr('x', width / 2)
+    //     .attr('y', 10)
+    //     .attr('fill', 'white')
+    //     .style('font-size', '40px')
+    //     .text('title');
 
   });
 
