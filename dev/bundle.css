@@ -1032,29 +1032,55 @@ p.joy_text {
   margin: 0 5px;
 }
 
-.waffle_col {
-  float: left;
-  width: 24%;
-  height: 50%;
- /*border: 1px solid blue;*/
-  overflow: hidden;
-  margin: 20px 5px;
+.waffle_new {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
-.waffle_row {
+.waffle_new .waffle_row {
+  margin-right: 10px;
+  margin-bottom: 15px;
+}
+
+.waffle_new .waffle-company {
+  margin-right: 10px;
+}
+
+.waffle_new .waffle-company .waffle-company-name {
+  font-size: 12px;
+  font-family: 'Atlas Grotesk Web';
   width: 100%;
-  height: 50%;
- /*margin: 50px 10px;*/ /*border: 5px solid red;*/;
+  position: absolute;
+  margin: 0px;
+  top: 0px;
+  left: 0px;
+}
+
+.waffle_new .waffle-company .waffle-company-box {
+  width: 3px;
+  height: 3px;
+  background: #000;
+  position: absolute;
 }
 
 .waffle_title {
-  font-size: 20px;
+  font-size: 11px;
   position: relative;
-  left: 45%;
-  -webkit-transform: translateX(-45%);
-  -ms-transform: translateX(-45%);
-  transform: translateX(-45%);
-  text-align: left;
+  text-align: center;
+  font-family: 'Atlas Grotesk Web';
+  margin: 0px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-bottom: 1px dashed #aaa;
+  margin-bottom: 0.5rem;
 }
 
 .waffle_main_title {
