@@ -296,822 +296,829 @@ var WaffleChart = function() {
 };
 
 
-d3v3.csv("assets/waffle_AdidasSkateboarding.csv", function(err, data) {
+d3v3.csv("assets/waffle.csv", function(err, data) {
       if (err) {
         console.error(err);
       } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_1")
-          .title('411')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
+        var companyNest = d3.nest().key(function(d){
+          return d.company;
+        })
+        .entries(data)
+
+        console.log(companyNest);
+
+      //   var waffle = new WaffleChart()
+      //     .selector(".waffle_row_1")
+      //     .title('411')
+      //     .data(data)
+      //     .useWidth(false).useLegend(false)
+      //     .size(5)
+      //     .gap(0)
+      //     .rows(20)
+      //     .columns(50)
+      //     .rounded(false)();
       }
     });
 
-d3v3.csv("assets/waffle_CallMe917.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_13")
-          .title('917')
-          .data(data)
-          .useWidth(false).useLegend(true)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
+// d3v3.csv("assets/waffle_CallMe917.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_13")
+//           .title('917')
+//           .data(data)
+//           .useWidth(false).useLegend(true)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
 
-d3v3.csv("assets/waffle_AdidasSkateboarding.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_25")
-          .title('Adidas')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_AlienWorkshop.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_37")
-          .title('Alien Workshop')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Almost.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_2")
-          .title('Almost')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_AntiHeroSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_14")
-          .title('Anti Hero')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_BaconSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_26")
-          .title('Bacon')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_BakerSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_38")
-          .title('Baker')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_BirdhouseSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_3")
-          .title('Birdhouse')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_BlackLabelSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_15")
-          .title('Black Label')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_BlindSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_27")
-          .title('Blind')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_BloodWizardSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_39")
-          .title('Blood Wizard')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_BlueprintSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_4")
-          .title('Blueprint')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ChocolateSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_16")
-          .title('Chocolate')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ClichéSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_28")
-          .title('Cliché')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ConsolidatedSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_40")
-          .title('Consolidated')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_CreatureSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_5")
-          .title('Creature')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_DCShoes.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_17")
-          .title('DC Shoes')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_DeathwishSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_29")
-          .title('Deathwish')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_DGKSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_41")
-          .title('D.G.K.')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_DVSShoes.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_6")
-          .title('DVS Shoes')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ElementSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_18")
-          .title('Element')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Emerica.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_30")
-          .title('Emerica')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Enjoi.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_42")
-          .title('Enjoi')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_FlipSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_7")
-          .title('Flip')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Foundationskateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_19")
-          .title('Foundation')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_GirlSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_31")
-          .title('Girl')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_HabitatSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_43")
-          .title('Habitat')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_KrookedSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_8")
-          .title('Krooked')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_LakaiLimitedFootwear.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_20")
-          .title('Lakai')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Lurkville.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_33")
-          .title('Lurkville')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_OsirisShoes.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_44")
-          .title('Osiris Shoes')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_GirlSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_21")
-          .title('Plan B')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_PolarSkateCo.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_33")
-          .title('Polar')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_PyramidCountry.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_45")
-          .title('Pyramid Country')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_SK8MAFIA.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_10")
-          .title('SK8MAFIA')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_PigWheels.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_9")
-          .title('Pig Wheels')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_SlaveSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_22")
-          .title('$LAVE')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_StereoSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_34")
-          .title('Stereo')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Supreme.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_46")
-          .title('Supreme')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ThrasherMagazine.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_11")
-          .title('Thrasher')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ToyMachine.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_23")
-          .title('Toy Machine')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_TransworldSkateboarding.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_35")
-          .title('Transworld')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Vans.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_47")
-          .title('Vans')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_Volcom.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_12")
-          .title('Volcom')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_VOXFootwear.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_24")
-          .title('Vox Footwear')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ZeroSkateboards.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_36")
-          .title('Zero')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
-
-d3v3.csv("assets/waffle_ZooYork.csv", function(err, data) {
-      if (err) {
-        console.error(err);
-      } else {
-
-        var waffle = new WaffleChart()
-          .selector(".waffle_row_48")
-          .title('Zoo York')
-          .data(data)
-          .useWidth(false).useLegend(false)
-          .size(5)
-          .gap(0)
-          .rows(20)
-          .columns(50)
-          .rounded(false)();
-      }
-    });
+// d3v3.csv("assets/waffle_AdidasSkateboarding.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_25")
+//           .title('Adidas')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_AlienWorkshop.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_37")
+//           .title('Alien Workshop')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Almost.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_2")
+//           .title('Almost')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_AntiHeroSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_14")
+//           .title('Anti Hero')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_BaconSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_26")
+//           .title('Bacon')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_BakerSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_38")
+//           .title('Baker')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_BirdhouseSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_3")
+//           .title('Birdhouse')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_BlackLabelSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_15")
+//           .title('Black Label')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_BlindSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_27")
+//           .title('Blind')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_BloodWizardSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_39")
+//           .title('Blood Wizard')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_BlueprintSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_4")
+//           .title('Blueprint')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ChocolateSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_16")
+//           .title('Chocolate')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ClichéSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_28")
+//           .title('Cliché')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ConsolidatedSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_40")
+//           .title('Consolidated')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_CreatureSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_5")
+//           .title('Creature')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_DCShoes.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_17")
+//           .title('DC Shoes')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_DeathwishSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_29")
+//           .title('Deathwish')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_DGKSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_41")
+//           .title('D.G.K.')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_DVSShoes.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_6")
+//           .title('DVS Shoes')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ElementSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_18")
+//           .title('Element')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Emerica.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_30")
+//           .title('Emerica')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Enjoi.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_42")
+//           .title('Enjoi')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_FlipSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_7")
+//           .title('Flip')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Foundationskateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_19")
+//           .title('Foundation')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_GirlSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_31")
+//           .title('Girl')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_HabitatSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_43")
+//           .title('Habitat')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_KrookedSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_8")
+//           .title('Krooked')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_LakaiLimitedFootwear.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_20")
+//           .title('Lakai')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Lurkville.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_33")
+//           .title('Lurkville')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_OsirisShoes.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_44")
+//           .title('Osiris Shoes')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_GirlSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_21")
+//           .title('Plan B')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_PolarSkateCo.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_33")
+//           .title('Polar')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_PyramidCountry.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_45")
+//           .title('Pyramid Country')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_SK8MAFIA.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_10")
+//           .title('SK8MAFIA')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_PigWheels.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_9")
+//           .title('Pig Wheels')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_SlaveSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_22")
+//           .title('$LAVE')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_StereoSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_34")
+//           .title('Stereo')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Supreme.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_46")
+//           .title('Supreme')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ThrasherMagazine.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_11")
+//           .title('Thrasher')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ToyMachine.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_23")
+//           .title('Toy Machine')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_TransworldSkateboarding.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_35")
+//           .title('Transworld')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Vans.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_47")
+//           .title('Vans')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_Volcom.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_12")
+//           .title('Volcom')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_VOXFootwear.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_24")
+//           .title('Vox Footwear')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ZeroSkateboards.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_36")
+//           .title('Zero')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
+//
+// d3v3.csv("assets/waffle_ZooYork.csv", function(err, data) {
+//       if (err) {
+//         console.error(err);
+//       } else {
+//
+//         var waffle = new WaffleChart()
+//           .selector(".waffle_row_48")
+//           .title('Zoo York')
+//           .data(data)
+//           .useWidth(false).useLegend(false)
+//           .size(5)
+//           .gap(0)
+//           .rows(20)
+//           .columns(50)
+//           .rounded(false)();
+//       }
+//     });
 
 }
 

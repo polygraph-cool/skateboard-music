@@ -30,7 +30,7 @@ function init() {
 	bubbles.init()
 	//
 	// //waffle chart
-	// waffle.init()
+	waffle.init()
 
 }
 
