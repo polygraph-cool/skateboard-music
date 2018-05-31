@@ -1,5 +1,10 @@
 var tracker;
 var xScale;
+
+var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+
 function resize() {}
 
 function testStoryCode(){
@@ -12,10 +17,6 @@ function testStoryCode(){
   var margin = { top: 0, right: 10, bottom: 50, left: 150 },
       width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right;
       console.log(width);
-  // xScale
-  // var xScale = d3.scaleTime()
-  // .domain([new Date(1977, 0, 1), new Date(2029, 0, 1)])
-  //     .range([0, width]);
 
   var scroller = scrollama();
 
