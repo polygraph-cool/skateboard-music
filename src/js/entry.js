@@ -18,6 +18,21 @@ function resize() {
 }
 
 function init() {
+	var soundWrapper = d3.select(".sound-wrapper");
+
+	soundWrapper.on("click",function(d){
+		var videoNode = d3.select(".intro_video").select("video").node();
+		if(videoNode.muted){
+			videoNode.muted = false;
+			soundWrapper.select(".sound-on").style("display","none");
+			soundWrapper.select(".sound-off").style("display","block");
+		}
+		else{
+			videoNode.muted = true;
+			soundWrapper.select(".sound-on").style("display",null);
+			soundWrapper.select(".sound-off").style("display",null);
+		}
+	})
 	// add mobile class to body tag
 	bodySel.classed('is-mobile', isMobile.any());
 	// setup resize event

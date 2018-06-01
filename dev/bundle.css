@@ -529,6 +529,36 @@ header a.logo svg {
   z-index: 0;
 }
 
+.intro .intro_video .sound-wrapper {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  cursor: pointer;
+}
+
+.intro .intro_video .sound-wrapper .sound-off {
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: #fff;
+  display: none;
+}
+
+.intro .intro_video .sound-wrapper .sound-off svg {
+  width: 30px;
+  height: 30px;
+}
+
+.intro .intro_video .sound-wrapper .sound-on {
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.intro .intro_video .sound-wrapper .sound-on svg {
+  width: 30px;
+  height: 30px;
+}
+
 .intro .intro_video .video-overlay {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(#000));
   background-image: -webkit-linear-gradient(top, rgba(255,255,255,0), #000);
