@@ -536,6 +536,23 @@ header a.logo svg {
   cursor: pointer;
 }
 
+.intro .intro_video .sound-wrapper .track-name {
+  position: absolute;
+  width: 200px;
+  color: #fff;
+  font-family: 'Atlas Grotesk Web';
+  font-weight: 600;
+  font-size: 12px;
+  -webkit-transform: translate(-100%, -50%);
+  -ms-transform: translate(-100%, -50%);
+  transform: translate(-100%, -50%);
+  text-align: right;
+  line-height: 1.5;
+  top: 50%;
+  left: -10px;
+  margin: 0px;
+}
+
 .intro .intro_video .sound-wrapper .sound-off {
   padding: 0.5rem;
   border-radius: 50%;
