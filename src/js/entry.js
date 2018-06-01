@@ -42,10 +42,10 @@ function init() {
 	joyplot.init();
 	//
 	// //new_test enter
-	// bubbles.init()
+	bubbles.init()
 	//
 	// //waffle chart
-	// waffle.init()
+	waffle.init()
 
 }
 
