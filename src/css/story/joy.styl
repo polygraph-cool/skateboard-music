@@ -1,42 +1,23 @@
 
+.step
+  h4
+    font-size 20px
+    color white
 
-
-
-.step {
-  /*margin: 2rem auto;*/
-  /*border: 1px solid #333;*/
-  background-color: black;
-}
-.step.is-active {
-  background-color: black;
-}
-
-.step.is-active p {
-  font-size: 15px;
-  font-weight: bold;
-  height: 100%;
-}
-
-.step p {
-  text-align: center;
-  /*padding: 1rem;*/
-  font-size: 12px;
-  color: white;
-}
-
-.step h4 {
-  font-size: 20px;
-  color: white;
-  text-align: center;
-}
 
 
 
 .joy-intro
-  padding-top 3rem
   background black
   color white
   margin-bottom 5rem
+  .step
+    .step-highlight
+      background rgba(255, 165, 0, 0.38)
+      padding 0 .2rem
+      font-weight 500
+      font-size 14px
+      border-radius 2px
   .intro__dek
     margin-bottom 2rem
   .body_text
@@ -45,6 +26,7 @@
 
 #scroll
     position relative
+    overflow hidden
     margin 0 auto
     border none
     width 100%
@@ -55,51 +37,106 @@
       top 0
       left 0
       position absolute
-      -webkit-transform translate3d(0, 0, 0)
-      -moz-transform translate3d(0, 0, 0)
-      transform translate3d(0,0,0,0)
+      overflow hidden
+      transform translate3d(0,0,0)
       bottom auto
+      @media (max-width: 950px)
+        &:before
+          margin-left auto
+        .chart
+          margin 0px
+          width 100%
+
+      &:before
+        content 'Skateboard Music by Genre'
+        position absolute
+        left 0px
+        right 0px
+        top 20px
+        margin 0 auto
+        margin-left 40%
+        text-align center
+        font-family 'Atlas Grotesk Web'
+        font-weight 600
+        font-size 16px
+        text-transform uppercase
       .chart
         position absolute
         width 60%
-        background: black;
-        top: 50%;
-        -moz-transform translateY(-50%)
-        -webkit-transform translateY(-50%)
+        background black
+        top 50%
         transform translateY(-50%)
         margin 0 auto
         margin-left 40%
         svg
           overflow visible
+          display block
+          position relative
+          .maskRect
+            fill black
+            stroke orange
+            stroke-width 6px
+            stroke-opacity .3
+            shape-rendering crispEdges
+            visibility hidden
+            opacity 1
+            transition opacity .2s
           .axis--x
             .tick
               line
                 stroke white
               text
-                font-size .7rem
+                font-size .8rem
                 font-family 'Atlas Grotesk Web'
                 fill white
-                font-weight 500
+                font-weight 600
+                fill rgba(255,255,255,.7)
+          .activities
+            font-family 'Atlas Grotesk Web'
+            .activity
+              .percent-annotation
+                font-size 11px
+                fill #ccc
+              .line
+                stroke-width 1.5px
+              .line-bottom
+                stroke rgba(204, 204, 204, 0.5098039215686274)
+                shape-rendering crispEdges
+                stroke-dasharray 2,2
 
+              text
+                font-size 12px
+                font-weight 600
+                text-transform uppercase
           .axis--activity
             .tick
               text
                 font-size .8rem
                 font-family 'Atlas Grotesk Web'
-                fill white
-
+                fill rgba(0,0,0,.8)
     .scroll__text
       position relative
-      width 30%
+      width 25%
       margin-left 10%
+      @media (max-width: 950px)
+        width 100%
+        margin 0 auto
+        .step
+          width 90%
+          margin 0 auto
+          margin-bottom 100vh
+          background rgba(0,0,0,.8)
+          border-bottom 1px solid white
       .step
         margin-bottom 30rem
         h4
           font-family 'Atlas Grotesk Web'
           text-align left
+          font-weight 600
+          font-size 1.2rem
         p
           text-align left
-          font-size .9rem
+          font-size 1rem
           font-family 'Atlas Grotesk Web'
           line-height 1.8
     .is-fixed
@@ -137,13 +174,12 @@
 .area {
     /*fill: #448cab;*/
     fill: coral;
-    fill: black;
+    fill: #151f35;
 }
 
 .activity:nth-child(odd) .area {
     fill: #5ca3c1;
-    fill: black;
-
+    fill: #331d2b;
 }
 
 .joy_body {

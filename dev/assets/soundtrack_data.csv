@@ -69,7 +69,7 @@ Guru,12,medium,rock,2009,Hip Hop,67
 Judas Priest,12,medium,rock,2009,Metal,68
 Marvin Gaye,12,medium,rock,2009,Jazz/Soul,69
 Ozzy Osbourne,12,medium,rock,2009,Metal,70
-Ray Barbee,12,medium,rock,2009,Other,71
+Ray Barbee,12,medium,rock,2009,Jazz/Soul,71
 Stevie Wonder,12,medium,rock,2009,Jazz/Soul,72
 The Budos Band,12,medium,rock,2009,Jazz/Soul,73
 The Shins,12,medium,rock,2009,Indie/Alternative,74
@@ -102,7 +102,7 @@ Lynyrd Skynyrd,10,medium,rock,2009,Classic Rock,100
 Money Mark,10,medium,rock,2009,Hip Hop,101
 Mophono,10,medium,rock,2009,Electronic,102
 Neil Young,10,medium,rock,2009,Classic Rock,103
-Nirvana,10,medium,rock,2009,Metal,104
+Nirvana,10,medium,rock,2009,Indie/Alternative,104
 Smashing Pumpkins,10,medium,rock,2009,Metal,105
 The Clash,10,medium,rock,2009,Punk,106
 The Who,10,medium,rock,2009,Classic Rock,107
@@ -487,7 +487,7 @@ Miles Davis,4,low,country,2010,Jazz/Soul,485
 Mother Earth,4,low,country,2010,Jazz/Soul,486
 Motörhead,4,low,country,2010,Metal,487
 Mum,4,low,country,2010,Indie/Alternative,488
-Muse,4,low,country,2010,Metal,489
+Muse,4,low,country,2010,Indie/Alternative,489
 N.W.A,4,low,country,2010,Hip Hop,490
 Neil Diamond,4,low,country,2010,Classic Rock,491
 Norman Greenbaum,4,low,country,2010,Classic Rock,492
@@ -511,7 +511,7 @@ Sebastien Daurel,4,low,country,2010,Other,509
 Semisonic,4,low,country,2010,Indie/Alternative,510
 Sex Pistols,4,low,country,2010,Punk,511
 Sharon Jones & The Dap Kings,4,low,country,2010,Jazz/Soul,512
-Shitkickers,4,low,country,2010,Other,513
+Shitkickers,4,low,country,2010,Punk,513
 Sixtoo,4,low,country,2010,Electronic,514
 Smut Peddlers,4,low,country,2010,Punk,515
 Spindrift,4,low,country,2010,Indie/Alternative,516
@@ -566,4 +566,4 @@ Xzibit,4,low,country,2010,Hip Hop,564
 Young Jeezy,4,low,country,2010,Hip Hop,565
 Zigitros,4,low,country,2010,Other,566
 Zoeangel,4,low,country,2010,Other,567
-ZZ Top,4,low,country,2010,Metal,568
+ZZ Top,4,low,country,2010,Classic Rock,568
