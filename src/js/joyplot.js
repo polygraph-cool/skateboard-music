@@ -14,7 +14,7 @@ function testStoryCode(){
   var text = container.select('.scroll__text');
   var step = text.selectAll('.step');
 
-  var margin = { top: 0, right: 10, bottom: 50, left: 150 },
+  var margin = { top: 50, right: 10, bottom: 50, left: 150 },
       width = d3.select('div.chart').node().offsetWidth - margin.left - margin.right;
       console.log(width);
 
@@ -93,15 +93,25 @@ function testStoryCode(){
 
 function init() {
 
+  var container = d3.select(".joyplot");
+
   var windowHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
   windowHeight = Math.min(400,windowHeight);
 
-  var windowWidth = Math.min(d3.select('div.chart').node().offsetWidth,500);
+  var windowWidth = Math.min(container.node().offsetWidth,500);
+  if(viewportWidth < 950){
+    windowWidth = Math.min(container.node().offsetWidth,Math.round(viewportWidth*.9));
+    // console.log(container.node().offsetWidth,);
+    // console.log(windowWidth);
+  }
 
-  var margin = { top: 0, right: 10, bottom: 50, left: 150 },
-      width = windowWidth - margin.left - margin.right,
-      height = windowHeight - margin.top - margin.bottom;
+  var margin = { top: 40, right: 10, bottom: 50, left: 150 };
+  if(viewportWidth < 400){
+    margin.left = 100;
+  }
+  var width = windowWidth - margin.left - margin.right;
+  var height = windowHeight - margin.top - margin.bottom;
 
   var svg = d3.selectAll('.joyplot').append('svg')
     .attr('width', width + margin.left + margin.right)
@@ -303,7 +313,17 @@ function init() {
     // Remove years in x-axis for which no data actually exists
     d3.selectAll(".tick text")
         .each( function(d, i) {
-            if (i % 2 != 0) {
+            if(viewportWidth < 400){
+              if (i % 3 == 0 || i == 0) {
+                  d3.select(this)
+                      .attr('visibility', 'visible');
+              }
+              else{
+                d3.select(this)
+                    .attr('visibility', 'hidden');
+              }
+            }
+            else if (i % 2 != 0) {
                 d3.select(this)
                     .attr('visibility', 'hidden');
             }
@@ -311,7 +331,17 @@ function init() {
 
     d3.selectAll('.tick')
         .each( function(d, i) {
-          if (i % 2 != 0) {
+          if(viewportWidth < 400){
+            if (i % 3 == 0 || i == 0) {
+                d3.select(this)
+                    .attr('visibility', 'visible');
+            }
+            else{
+              d3.select(this)
+                  .attr('visibility', 'hidden');
+            }
+          }
+          else if (i % 2 != 0) {
               d3.select(this)
                   .attr('visibility', 'hidden');
           }

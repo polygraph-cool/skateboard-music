@@ -48,7 +48,6 @@
 #toolbar
 	display flex
 	justify-content center
-	margin-bottom 2rem
 	.button
 		font-family 'Atlas Grotesk Web'
 		background #ededed
@@ -80,7 +79,12 @@
 	font-size 14px
 	font-weight 500
 	border none
+	width 1px
+	flex-grow 1
+	max-width 150px
 	border-bottom 1px solid #aaa
+	@media (max-width: 500px)
+		margin-left 10px
 
 .prose
 	&__hed

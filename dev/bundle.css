@@ -363,8 +363,7 @@ svg {
 }
 
 .button {
-  min-width: 150px;
-  padding: 4px 5px;
+  padding: 4px 10px;
   cursor: pointer;
   text-align: center;
   font-size: 15px;
@@ -472,8 +471,11 @@ header a.logo svg {
 }
 
 .opening-text .body_text blockquote {
-  background: #3c3c3c;
-  color: #e0e0e0;
+  background: rgba(88,88,88,0.52);
+  color: #fff;
+  font-size: 1.2rem;
+  border-radius: 3px;
+  margin-bottom: 3rem;
 }
 
 .body_text {
@@ -494,11 +496,26 @@ header a.logo svg {
   font-family: 'Atlas Grotesk Web';
 }
 
+.body_text p.footer-prose {
+  font-size: 14px;
+}
+
 .body_text blockquote {
   font-size: 0.9rem;
   font-weight: 500;
+  color: #fff;
   background: #ececec;
   padding: 1rem 2rem;
+}
+
+.body_text blockquote a {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.body_text blockquote a:visited {
+  color: #fff;
+  border-bottom: 1px solid #fff;
 }
 
 .intro {
@@ -663,6 +680,11 @@ header a.logo svg {
   margin-bottom: 5rem;
 }
 
+.joy-intro .step a {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
 .joy-intro .step .step-highlight {
   background: rgba(255,165,0,0.38);
   padding: 0 0.2rem;
@@ -736,7 +758,7 @@ header a.logo svg {
 #scroll .scroll__graphic .chart svg .maskRect {
   fill: #000;
   stroke: #ffa500;
-  stroke-width: 6px;
+  stroke-width: 30px;
   stroke-opacity: 0.3;
   shape-rendering: crispEdges;
   visibility: hidden;
@@ -929,7 +951,6 @@ p.joy_text {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  margin-bottom: 2rem;
 }
 
 #toolbar .button {
@@ -974,6 +995,11 @@ p.joy_text {
   font-size: 14px;
   font-weight: 500;
   border: none;
+  width: 1px;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  max-width: 150px;
   border-bottom: 1px solid #aaa;
 }
 
@@ -1113,6 +1139,10 @@ p.joy_text {
   margin: 0px;
   text-align: center;
   margin-top: 4rem;
+  width: 90%;
+  margin: 0 auto;
+  line-height: 1.3;
+  margin-top: 4rem;
 }
 
 .legend {
@@ -1178,9 +1208,18 @@ p.joy_text {
     width: 100%;
   }
 
+  #scroll .scroll__graphic .chart svg .maskRect {
+    stroke-width: 15px;
+  }
+
+  #scroll .scroll__graphic .chart svg .activities .activity .percent-annotation {
+    font-size: 13px;
+  }
+
   #scroll .scroll__text {
     width: 100%;
     margin: 0 auto;
+    padding-top: 90vh;
   }
 
   #scroll .scroll__text .step {
@@ -1189,6 +1228,32 @@ p.joy_text {
     margin-bottom: 100vh;
     background: rgba(0,0,0,0.8);
     border-bottom: 1px solid #fff;
+  }
+}
+
+@media (max-width: 950px) and (max-width: 400px) {
+  #scroll .scroll__graphic .chart svg .activities .activity .percent-annotation {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .body_text {
+    width: 90%;
+  }
+}
+
+@media (max-width: 500px) {
+  #search {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  #scroll .scroll__graphic .chart svg .activities .activity text {
+    font-size: 11px;
+    letter-spacing: 0px;
+    text-transform: capitalize;
   }
 }
 

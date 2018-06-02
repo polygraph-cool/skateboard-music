@@ -10,12 +10,17 @@
 		p
 			color white
 		blockquote
-			background #3c3c3c
-			color #e0e0e0
+			background rgba(88, 88, 88, 0.52)
+			color #fff
+			font-size 1.2rem
+			border-radius 3px
+			margin-bottom 3rem
 
 .body_text
 	margin 0 auto
 	max-width $column-width
+	@media (max-width: 600px)
+		width 90%
 	.intro__dek
 		font-size 1.5rem
 		text-align left
@@ -25,11 +30,20 @@
 		margin 1.5rem 0rem
 		font-size 1rem
 		font-family 'Atlas Grotesk Web'
+	p.footer-prose
+		font-size 14px
 	blockquote
 		font-size .9rem
 		font-weight 500
+		color white
 		background #ececec
 		padding 1rem 2rem
+		a
+			color white
+			border-bottom 1px solid white
+			&:visited
+				color white
+				border-bottom 1px solid white
 
 
 
