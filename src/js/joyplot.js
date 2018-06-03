@@ -1,4 +1,7 @@
 var tracker;
+var trackerOne;
+var trackerTwo;
+var trackerRect;
 var xScale;
 
 var viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -38,13 +41,125 @@ function testStoryCode(){
       tracker.style("visibility",null).style("opacity",0);
     }
 
-    tracker
-      .transition()
-      .duration(0)
-      .transition()
-      .duration(250)
-      .attr("x1",xScale(conv_date)).attr("x2",xScale(conv_date))
-      ;
+    if(stepIndex == 1){
+      trackerOne
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(1989,0,1)))
+        .attr("x2",xScale(new Date(1989,0,1)))
+        ;
+
+      trackerTwo
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(1990,0,1)))
+        .attr("x2",xScale(new Date(1990,0,1)))
+        ;
+
+      trackerRect
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("width",function(d){
+          return xScale(new Date(1990,0,1)) - xScale(new Date(1989,0,1))
+        })
+        .attr("x",xScale(conv_date))
+        ;
+    }
+    else if(stepIndex == 2){
+      trackerOne
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(1990,0,1)))
+        .attr("x2",xScale(new Date(1990,0,1)))
+        ;
+
+      trackerTwo
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(1999,0,1)))
+        .attr("x2",xScale(new Date(1999,0,1)))
+        ;
+
+      trackerRect
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("width",function(d){
+          return xScale(new Date(1999,0,1)) - xScale(new Date(1990,0,1))
+        })
+        .attr("x",xScale(new Date(1990,0,1)))        ;
+    }
+    else if(stepIndex == 3){
+      trackerOne
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(2000,0,1)))
+        .attr("x2",xScale(new Date(2000,0,1)))
+        ;
+
+      trackerTwo
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(2003,0,1)))
+        .attr("x2",xScale(new Date(2003,0,1)))
+        ;
+
+      trackerRect
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("width",function(d){
+          return xScale(new Date(2003,0,1)) - xScale(new Date(2000,0,1))
+        })
+        .attr("x",xScale(new Date(2000,0,1)))
+    }
+    else if(stepIndex == 4){
+      trackerOne
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(2015,0,1)))
+        .attr("x2",xScale(new Date(2015,0,1)))
+        ;
+
+      trackerTwo
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("x1",xScale(new Date(2017,0,1)))
+        .attr("x2",xScale(new Date(2017,0,1)))
+        ;
+
+      trackerRect
+        .transition()
+        .duration(0)
+        .transition()
+        .duration(250)
+        .attr("width",function(d){
+          return xScale(new Date(2017,0,1)) - xScale(new Date(2015,0,1))
+        })
+        .attr("x",xScale(new Date(2015,0,1)))
+    }
+
+
 
     // d3.selectAll('rect#maskRect')
     //   .transition()
@@ -286,7 +401,11 @@ function init() {
         .attr('stroke', 'white')
         .style('opacity', 1);
 
-    tracker = svg.append('line')
+    tracker = svg.append("g")
+      .attr("class","markTracker")
+      ;
+
+    trackerOne = tracker.append('line')
       .attr("x1",function(d){
         return xScale(new Date(1989, 0, 1))
       })
@@ -295,7 +414,31 @@ function init() {
       })
       .attr("y1",-100)
       .attr("y2",height+20)
+      .attr('class',"maskLine")
+
+    trackerRect = tracker.append('rect')
+      .attr("x",function(d){
+        return xScale(new Date(1989, 0, 1))
+      })
+      .attr("y",-100)
+      .attr("width",function(d){
+        return xScale(new Date(1990, 0, 1)) - xScale(new Date(1989, 0, 1))
+      })
+      .attr("height",function(d){
+        return height+20+100;
+      })
       .attr('class',"maskRect")
+
+    trackerTwo = tracker.append('line')
+      .attr("x1",function(d){
+        return xScale(new Date(1990, 0, 1))
+      })
+      .attr("x2",function(d){
+        return xScale(new Date(1990, 0, 1))
+      })
+      .attr("y1",-100)
+      .attr("y2",height+20)
+      .attr('class',"maskLine")
 
     //     .attr('width', d3.select('div.joyplot').node().offsetWidth)
     //     .attr('height', d3.select('div.chart').node().offsetHeight) // was divided by 2.7 => bad

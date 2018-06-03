@@ -555,7 +555,7 @@ header a.logo svg {
 
 .intro .intro_video .sound-wrapper .track-name {
   position: absolute;
-  width: 200px;
+  width: 230px;
   color: #fff;
   font-family: 'Atlas Grotesk Web';
   font-weight: 600;
@@ -641,11 +641,23 @@ header a.logo svg {
   line-height: 1.2;
 }
 
+.intro .date-stamp {
+  color: #fff;
+  position: relative;
+  text-align: center;
+  color: #ffa500;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin: 0px;
+  padding-top: 0.5rem;
+}
+
 .intro__byline {
   max-width: 550px;
   margin: 0 auto;
   padding-top: 5rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
   text-align: center;
   font-size: 14px;
   line-height: 1.5;
@@ -755,13 +767,21 @@ header a.logo svg {
   position: relative;
 }
 
+#scroll .scroll__graphic .chart svg .maskTracker {
+  visibility: hidden;
+}
+
 #scroll .scroll__graphic .chart svg .maskRect {
+  fill: #ffa500;
+  fill-opacity: 0.3;
+}
+
+#scroll .scroll__graphic .chart svg .maskLine {
   fill: #000;
   stroke: #ffa500;
-  stroke-width: 30px;
-  stroke-opacity: 0.3;
+  stroke-width: 1px;
+  stroke-opacity: 0.5;
   shape-rendering: crispEdges;
-  visibility: hidden;
   opacity: 1;
   -webkit-transition: opacity 0.2s;
   -o-transition: opacity 0.2s;
@@ -1208,7 +1228,7 @@ p.joy_text {
     width: 100%;
   }
 
-  #scroll .scroll__graphic .chart svg .maskRect {
+  #scroll .scroll__graphic .chart svg .maskLine {
     stroke-width: 15px;
   }
 

@@ -76,13 +76,17 @@
           overflow visible
           display block
           position relative
+          .maskTracker
+            visibility hidden
           .maskRect
+            fill orange
+            fill-opacity .3
+          .maskLine
             fill black
             stroke orange
-            stroke-width 30px
-            stroke-opacity .3
+            stroke-width 1px
+            stroke-opacity .5
             shape-rendering crispEdges
-            visibility hidden
             opacity 1
             transition opacity .2s
             @media (max-width: 950px)
