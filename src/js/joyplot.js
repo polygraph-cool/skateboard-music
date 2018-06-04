@@ -115,8 +115,8 @@ function testStoryCode(){
         .duration(0)
         .transition()
         .duration(250)
-        .attr("x1",xScale(new Date(2003,0,1)))
-        .attr("x2",xScale(new Date(2003,0,1)))
+        .attr("x1",xScale(new Date(2009,0,1)))
+        .attr("x2",xScale(new Date(2009,0,1)))
         ;
 
       trackerRect
@@ -125,7 +125,7 @@ function testStoryCode(){
         .transition()
         .duration(250)
         .attr("width",function(d){
-          return xScale(new Date(2003,0,1)) - xScale(new Date(2000,0,1))
+          return xScale(new Date(2009,0,1)) - xScale(new Date(2000,0,1))
         })
         .attr("x",xScale(new Date(2000,0,1)))
     }
@@ -135,8 +135,8 @@ function testStoryCode(){
         .duration(0)
         .transition()
         .duration(250)
-        .attr("x1",xScale(new Date(2015,0,1)))
-        .attr("x2",xScale(new Date(2015,0,1)))
+        .attr("x1",xScale(new Date(2010,0,1)))
+        .attr("x2",xScale(new Date(2010,0,1)))
         ;
 
       trackerTwo
@@ -154,9 +154,9 @@ function testStoryCode(){
         .transition()
         .duration(250)
         .attr("width",function(d){
-          return xScale(new Date(2017,0,1)) - xScale(new Date(2015,0,1))
+          return xScale(new Date(2017,0,1)) - xScale(new Date(2010,0,1))
         })
-        .attr("x",xScale(new Date(2015,0,1)))
+        .attr("x",xScale(new Date(2010,0,1)))
     }
 
 

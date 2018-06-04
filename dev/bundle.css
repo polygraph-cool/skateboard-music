@@ -767,7 +767,7 @@ header a.logo svg {
   position: relative;
 }
 
-#scroll .scroll__graphic .chart svg .maskTracker {
+#scroll .scroll__graphic .chart svg .markTracker {
   visibility: hidden;
 }
 
