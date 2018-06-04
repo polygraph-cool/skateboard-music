@@ -148,6 +148,8 @@ var WaffleChart = function() {
     }
 
     var svg = d3v3.selectAll(_obj.selector)
+      .append("div")
+      .attr("class", "waffle-wrapper")
       .append("svg")
       .attr("class", "waffle")
       .attr("width", width)

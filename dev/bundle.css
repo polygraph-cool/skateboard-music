@@ -1114,6 +1114,13 @@ p.joy_text {
   margin-top: 1rem;
 }
 
+.waffle_new .waffle-wrapper {
+  display: block;
+  padding: 0 1.2rem;
+  border-radius: 30px;
+  border: 1px solid #ddd;
+}
+
 .waffle_new .waffle_row {
   margin-right: 10px;
   margin-bottom: 15px;
@@ -1149,8 +1156,7 @@ p.joy_text {
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 1px;
-  border-bottom: 1px dashed #aaa;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 
 .waffle_main_title {
